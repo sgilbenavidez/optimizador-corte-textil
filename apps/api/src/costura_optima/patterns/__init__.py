@@ -1,0 +1,2 @@
+"""Versioned engineering-pattern generation."""
+

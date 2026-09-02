@@ -1,0 +1,37 @@
+PROFILE_CODE = "TSHIRT-REGULAR-STRAIGHT-ADULT-PARAMETERS-v1"
+
+ENGINEERING_PROFILE = {
+    "schema_version": "pattern-parameter-profile-v1",
+    "measurement_unit": "cm",
+    "geometry_units_per_cm": 1000,
+    "curve_flatten_tolerance_cm": 0.02,
+    "compatibility_tolerance_cm": 0.25,
+    "body": {
+        "neck_width_to_shoulder_ratio": 0.40,
+        "neck_width_min_cm": 16.0,
+        "neck_width_max_cm": 21.0,
+        "front_neck_depth_base_cm": 8.0,
+        "front_neck_depth_grade_cm": 0.25,
+        "back_neck_depth_base_cm": 2.5,
+        "back_neck_depth_grade_cm": 0.10,
+        "shoulder_drop_base_cm": 2.2,
+        "shoulder_drop_grade_cm": 0.10,
+        "armhole_depth_chest_divisor": 6.0,
+        "armhole_depth_add_cm": 7.0,
+        "front_armhole_inset_ratio": 0.48,
+        "back_armhole_inset_ratio": 0.30,
+    },
+    "sleeve": {
+        "cap_width_biceps_ease_cm": 7.0,
+        "cap_ease_cm": 0.0,
+        "cap_height_min_cm": 3.0,
+        "cap_height_max_cm": 25.0,
+        "cap_solver_iterations": 80,
+        "front_control_ratio": 0.58,
+        "back_control_ratio": 0.48,
+    },
+    "neckband": {"neckline_ratio": 0.85, "finished_width_cm": 1.8},
+    "seam_allowances_cm": {"GENERAL": 1.0, "NECKBAND": 0.7, "HEM": 2.5},
+    "transforms": {"allowed_rotations_degrees": [0, 180], "mirror_allowed": False},
+    "assumption_notice": "Parámetros internos de ingeniería; requieren validación física de prototipo antes de producción.",
+}

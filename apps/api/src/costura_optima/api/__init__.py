@@ -1,0 +1,2 @@
+"""HTTP delivery adapters."""
+
