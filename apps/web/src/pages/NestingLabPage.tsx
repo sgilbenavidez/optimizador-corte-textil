@@ -1,44 +1,60 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { api } from "../api";
 import type { MarkerPreview } from "../types";
 
 const SIZES = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
-const COLORS: Record<string, string> = { FRONT: "#dcebe5", BACK: "#f4dfb9", SLEEVE: "#d9e1ef", NECKBAND: "#ead8e5" };
+export const SIZE_COLORS: Record<string, string> = { XS: "#c8e6df", S: "#f6d58e", M: "#9fc7e8", L: "#e8b0a5", XL: "#c9b7e8", XXL: "#9fd3a8", XXXL: "#efb6d2" };
 type Layers = { ids: boolean; bbox: boolean; grain: boolean; clearance: boolean; debug: boolean };
 
 function Metric({ label, value, unit = "" }: { label: string; value: string | number; unit?: string }) {
   return <div><span>{label}</span><strong>{value}{unit}</strong></div>;
 }
 
-export function MarkerCanvas({ marker, layers }: { marker: MarkerPreview; layers: Layers }) {
+export function MarkerCanvas({ marker, layers, controls = true, onIntegrityChange }: {
+  marker: MarkerPreview; layers: Layers; controls?: boolean; onIntegrityChange?: (complete: boolean, rendered: number) => void;
+}) {
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const drag = useRef<{ x: number; y: number; panX: number; panY: number } | null>(null);
-  const units = 1000;
+  const stage = useRef<HTMLDivElement>(null);
+  const svg = useRef<SVGSVGElement>(null);
+  const [renderedCount, setRenderedCount] = useState<number | null>(null);
+  const units = marker.geometry_units_per_cm ?? 1000;
   const length = (marker.marker_length_cm ?? marker.max_length_cm) * units;
   const width = marker.physical_width_cm * units;
   const points = (ring: Array<[number, number]>) => ring.map(([x, y]) => `${x},${width - y}`).join(" ");
-  return <div className="marker-stage">
-    <div className="zoom-tools" aria-label="Controles de zoom del marcador">
+  useLayoutEffect(() => {
+    const count = svg.current?.querySelectorAll("[data-marker-polygon]").length ?? 0;
+    setRenderedCount(count);
+    onIntegrityChange?.(count === marker.placements.length, count);
+  }, [marker.placements, onIntegrityChange]);
+  const complete = renderedCount === marker.placements.length;
+  return <div className="marker-stage" ref={stage}>
+    <div className={`marker-integrity ${renderedCount !== null && !complete ? "incomplete" : ""}`} role="status">
+      <strong>PIEZAS {renderedCount ?? "…"} / {marker.placements.length}</strong>
+      {renderedCount !== null && !complete && <span>MARKER VISUAL INCOMPLETO</span>}
+    </div>
+    {controls && <div className="zoom-tools" aria-label="Controles de zoom del marcador">
       <button onClick={() => setZoom((v) => Math.min(4, v + .2))}>+</button><span>{Math.round(zoom * 100)}%</span>
       <button onClick={() => setZoom((v) => Math.max(.45, v - .2))}>−</button>
-      <button onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }}>Centrar</button>
-    </div>
-    <svg role="img" aria-label="Marcador real validado geométricamente" viewBox={`0 0 ${length} ${width}`}
+      <button onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }}>Ajustar</button>
+      <button aria-label="Ver mapa completo" onClick={() => stage.current?.requestFullscreen?.()}>⛶</button>
+    </div>}
+    <svg ref={svg} role="img" tabIndex={0} aria-label="Marcador real validado geométricamente" viewBox={`0 0 ${length} ${width}`} preserveAspectRatio="xMidYMid meet"
       onPointerDown={(event) => { drag.current = { x: event.clientX, y: event.clientY, panX: pan.x, panY: pan.y }; event.currentTarget.setPointerCapture(event.pointerId); }}
       onPointerMove={(event) => { if (drag.current) setPan({ x: drag.current.panX + (event.clientX - drag.current.x) * 130, y: drag.current.panY + (event.clientY - drag.current.y) * 130 }); }}
       onPointerUp={() => { drag.current = null; }}>
       <defs><marker id="marker-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#176a70" /></marker></defs>
       <g transform={`translate(${pan.x} ${pan.y}) scale(${zoom})`}>
         <rect className="fabric-physical" x="0" y="0" width={length} height={width} />
-        <rect className="fabric-usable" x={marker.margins_cm.start * units} y={marker.margins_cm.right * units} width={length - (marker.margins_cm.start + marker.margins_cm.end) * units} height={marker.usable_width_cm * units} />
+        <rect className="fabric-usable" x={marker.margins_cm.start * units} y={marker.margins_cm.left * units} width={length - (marker.margins_cm.start + marker.margins_cm.end) * units} height={marker.usable_width_cm * units} />
         {marker.placements.map((piece) => {
           const [x0, y0, x1, y1] = piece.bbox.units;
           const grainY1 = width - piece.grainline.start[1]; const grainY2 = width - piece.grainline.end[1];
           return <g key={piece.piece_instance_id}>
             {layers.clearance && <polygon className="clearance-envelope" points={points(piece.transformed_polygon.coordinates[0])} />}
-            <polygon className="marker-piece" fill={COLORS[piece.piece_code] ?? "#dcebe5"} points={points(piece.transformed_polygon.coordinates[0])}>
+            <polygon data-marker-polygon className="marker-piece" fill={SIZE_COLORS[piece.size_code] ?? "#dcebe5"} points={points(piece.transformed_polygon.coordinates[0])}>
               <title>{piece.piece_instance_id} · {piece.piece_code} · talla {piece.size_code} · {piece.transform.rotation}°</title>
             </polygon>
             {layers.bbox && <rect className="marker-bbox" x={x0} y={width - y1} width={x1 - x0} height={y1 - y0} />}

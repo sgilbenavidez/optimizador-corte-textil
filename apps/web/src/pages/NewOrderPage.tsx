@@ -1,8 +1,23 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
 import { OrderForm } from "../components/OrderForm";
+
+export class OptimizationIntent {
+  private key: string | null = null;
+  private orderId: string | null = null;
+  private pendingOrder: Promise<string> | null = null;
+  idempotencyKey() { this.key ??= crypto.randomUUID(); return this.key; }
+  getOrderId(create: () => Promise<{ id: string }>) {
+    if (this.orderId) return Promise.resolve(this.orderId);
+    this.pendingOrder ??= create().then((order) => {
+      this.orderId = order.id;
+      return order.id;
+    }).finally(() => { this.pendingOrder = null; });
+    return this.pendingOrder;
+  }
+}
 
 export function NewOrderPage() {
   const navigate = useNavigate();
@@ -24,10 +39,11 @@ export function NewOrderPage() {
   const selectedVersion = versions.find((version) => version.id === versionId);
   const fabric = fabricsQuery.data?.[0];
   const table = tablesQuery.data?.[0];
+  const intentRef = useRef(new OptimizationIntent());
   const optimize = useMutation({
     mutationFn: async (payload: unknown) => {
-      const order = await api.createOrder(payload);
-      return api.createOptimizationRun(order.id, {}, crypto.randomUUID());
+      const orderId = await intentRef.current.getOrderId(() => api.createOrder(payload));
+      return api.createOptimizationRun(orderId, {}, intentRef.current.idempotencyKey());
     },
     onSuccess: (run) => navigate(`/optimization-runs/${run.id}`),
   });

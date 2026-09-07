@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Annotated
+from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, field_validator, model_validator
 
@@ -243,14 +243,24 @@ class OptimizationRunCreate(BaseModel):
     allow_overproduction: bool = True
     overproduction_rate: float = Field(default=0.03, ge=0, le=1)
     time_limit_seconds: int = Field(default=120, ge=5, le=600)
-    max_garments_per_marker: int = Field(default=3, ge=1, le=8)
-    max_distinct_sizes_per_marker: int = Field(default=3, ge=1, le=7)
-    max_candidate_compositions: int = Field(default=24, ge=1, le=200)
+    max_garments_per_marker: int = Field(default=15, ge=1, le=15)
+    max_distinct_sizes_per_marker: int = Field(default=5, ge=1, le=7)
+    max_candidate_compositions: int = Field(default=48, ge=1, le=200)
     max_rounds: int = Field(default=2, ge=1, le=5)
-    max_marker_candidates: int = Field(default=14, ge=1, le=100)
+    max_marker_candidates: int = Field(default=24, ge=1, le=100)
     geometry_evaluation_budget_per_candidate: int = Field(default=25_000, ge=100, le=500_000)
     global_geometry_budget_seconds: float = Field(default=75, ge=1, le=500)
     planner_time_limit_seconds: float = Field(default=30, ge=1, le=300)
+    fast_plan_budget_seconds: float = Field(default=5, ge=0.1, le=60)
+    candidate_generation_budget_seconds: float = Field(default=5, ge=0.1, le=120)
+    geometry_budget_seconds: float = Field(default=45, ge=1, le=500)
+    planning_budget_seconds: float = Field(default=25, ge=0.1, le=300)
+    total_budget_seconds: float = Field(default=120, ge=5, le=600)
+    geometry_top_k_initial: int = Field(default=20, ge=1, le=100)
+    geometry_top_k_per_round: int = Field(default=10, ge=1, le=100)
+    beam_width: int = Field(default=10, ge=1, le=100)
+    no_improvement_rounds: int = Field(default=1, ge=1, le=10)
+    planner_refinement_engine: Literal["heuristic", "cp_sat", "hybrid"] | None = None
     seed: int = 1
 
 
@@ -266,6 +276,16 @@ class OptimizationRunResponse(BaseModel):
     elapsed: dict
     solution_count: int
     error_detail: str | None
+    error_code: str | None = None
+    failure_phase: str | None = None
+    request_id: str | None = None
+    updated_at: datetime
+    elapsed_ms: float
+    round_current: int = 0
+    round_total_if_known: int | None = None
+    best_solution_available: bool = False
+    incumbent: dict | None = None
+    use_current_plan_requested: bool = False
     created_at: datetime
     started_at: datetime | None
     finished_at: datetime | None
@@ -282,6 +302,15 @@ class OptimizationSolutionSummaryResponse(BaseModel):
     metrics: dict
     validation: dict
     explanation: str
+    recommended: bool = False
+
+
+class PageResponse(BaseModel):
+    items: list[dict]
+    page: int
+    page_size: int
+    total: int
+    pages: int
 
 
 class OptimizationSolutionResponse(OptimizationSolutionSummaryResponse):
@@ -305,6 +334,10 @@ class SpreadResponse(BaseModel):
     marker_efficiency_percentage: float
     marker_search_status: str
     validation_status: str
+    useful_garments: int = 0
+    order_coverage_percentage: float = 0
+    remaining_demand_after: dict = Field(default_factory=dict)
+    is_primary: bool = False
 
 
 class MarkerArtifactResponse(BaseModel):

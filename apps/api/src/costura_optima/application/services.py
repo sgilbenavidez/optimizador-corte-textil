@@ -1,5 +1,7 @@
 import hashlib
 import json
+from html import escape
+from math import ceil
 from datetime import datetime, timezone
 from decimal import Decimal
 from uuid import uuid4
@@ -50,6 +52,8 @@ from costura_optima.infrastructure.db_models import (
 )
 from costura_optima.infrastructure.repositories import CatalogRepository, OrderRepository, PatternRepository
 from costura_optima.worker.queue import cancel_queued_job, enqueue_optimization_run
+from costura_optima.operational import metrics, request_id_context
+from costura_optima.settings import get_settings
 
 
 EXPERIMENTAL_WARNING = "Patrón experimental de ingeniería — no validado para producción."
@@ -181,6 +185,7 @@ class CatalogService:
 
 class OrderService:
     def __init__(self, session: Session):
+        self.session = session
         self.catalog = CatalogRepository(session)
         self.orders = OrderRepository(session)
         self.patterns = PatternRepository(session)
@@ -267,6 +272,26 @@ class OrderService:
 
     def list(self) -> list[ProductionOrderResponse]:
         return [self._to_response(order) for order in self.orders.list()]
+
+    def list_page(self, page: int, page_size: int) -> dict:
+        total = self.session.scalar(select(func.count(ProductionOrderORM.id))) or 0
+        orders = list(self.session.scalars(
+            select(ProductionOrderORM)
+            .options(selectinload(ProductionOrderORM.demands), selectinload(ProductionOrderORM.optimization_runs))
+            .order_by(ProductionOrderORM.created_at.desc())
+            .offset((page - 1) * page_size).limit(page_size)
+        ).unique())
+        items = []
+        for order in orders:
+            latest = max(order.optimization_runs, key=lambda run: run.created_at, default=None)
+            data = self._to_response(order).model_dump(mode="json")
+            data["latest_run"] = None if latest is None else {
+                "id": latest.id, "status": latest.status, "created_at": latest.created_at,
+                "result_available": latest.status in {"SUCCEEDED", "SUCCEEDED_EARLY", "TIMED_OUT"} and bool(latest.solutions),
+            }
+            items.append(data)
+        return {"items": items, "page": page, "page_size": page_size, "total": total,
+                "pages": ceil(total / page_size) if total else 0}
 
     @staticmethod
     def _to_response(order: ProductionOrderORM) -> ProductionOrderResponse:
@@ -518,6 +543,9 @@ class OptimizationRunService:
         )
         if order is None:
             raise NotFoundError("La orden no existe.")
+        refinement_engine = payload.planner_refinement_engine or get_settings().planner_refinement_engine
+        if refinement_engine not in {"heuristic", "cp_sat", "hybrid"}:
+            raise ValidationError("PLANNER_REFINEMENT_ENGINE debe ser heuristic, cp_sat o hybrid.")
         configuration = {
             "allow_overproduction": payload.allow_overproduction,
             "overproduction_rate": payload.overproduction_rate,
@@ -532,7 +560,18 @@ class OptimizationRunService:
             "geometry_evaluation_budget_per_candidate": payload.geometry_evaluation_budget_per_candidate,
             "global_geometry_budget_seconds": payload.global_geometry_budget_seconds,
             "planner_time_limit_seconds": payload.planner_time_limit_seconds,
-            "objective_profiles": ["MIN_FABRIC", "MIN_SPREADS", "BALANCED"],
+            "fast_plan_budget_seconds": payload.fast_plan_budget_seconds,
+            "candidate_generation_budget_seconds": payload.candidate_generation_budget_seconds,
+            "geometry_budget_seconds": payload.geometry_budget_seconds,
+            "planning_budget_seconds": payload.planning_budget_seconds,
+            "total_budget_seconds": payload.total_budget_seconds,
+            "geometry_top_k_initial": payload.geometry_top_k_initial,
+            "geometry_top_k_per_round": payload.geometry_top_k_per_round,
+            "beam_width": payload.beam_width,
+            "no_improvement_rounds": payload.no_improvement_rounds,
+            "planner_refinement_engine": refinement_engine,
+            "recommended_profile": "MAX_ORDER_PER_CUT",
+            "objective_profiles": ["MAX_ORDER_PER_CUT", "MIN_FABRIC", "MIN_SPREADS", "BALANCED", "CONSOLIDATED_PRODUCTION"],
             "length_scale": "geometry_units_1000_per_cm",
             "seed": payload.seed,
         }
@@ -560,12 +599,15 @@ class OptimizationRunService:
             config_hash=config_hash, input_hash=canonical_json_hash(input_payload), status="QUEUED", phase="GENERATING_CANDIDATES",
             cancel_requested=False, candidates_generated=0, candidates_evaluated=0, candidates_pending=0,
             candidates_feasible=0, candidates_infeasible=0, candidates_not_evaluated=0, best_feasible_found=False,
+            use_current_plan_requested=False,
             configuration=configuration, audit={"order_hash": order.snapshot_hash, "seed": payload.seed},
+            request_id=request_id_context.get(), round_current=0, round_total_if_known=payload.max_rounds,
             elapsed_candidate_generation_ms=0, elapsed_geometry_ms=0, elapsed_planner_ms=0, elapsed_total_ms=0,
         )
         self.session.add(run); self.session.commit()
+        metrics.inc("optimization_runs_total")
         try:
-            run.worker_job_id = self.enqueuer(run.id, payload.time_limit_seconds + 60)
+            run.worker_job_id = self.enqueuer(run.id, int(payload.total_budget_seconds) + 60)
             self.session.commit()
         except Exception as error:
             run.status = "FAILED"; run.error_detail = f"No fue posible encolar la corrida: {type(error).__name__}"
@@ -579,16 +621,80 @@ class OptimizationRunService:
             raise NotFoundError("La corrida de optimización no existe.")
         return self._run_response(run)
 
+    def list_for_order(self, order_id: str, page: int, page_size: int) -> dict:
+        if self.session.get(ProductionOrderORM, order_id) is None:
+            raise NotFoundError("La orden no existe.")
+        condition = OptimizationRunORM.production_order_id == order_id
+        total = self.session.scalar(select(func.count(OptimizationRunORM.id)).where(condition)) or 0
+        rows = list(self.session.scalars(
+            select(OptimizationRunORM).where(condition).order_by(OptimizationRunORM.created_at.desc())
+            .offset((page - 1) * page_size).limit(page_size)
+        ))
+        return {"items": [self._run_response(row).model_dump(mode="json") for row in rows],
+                "page": page, "page_size": page_size, "total": total,
+                "pages": ceil(total / page_size) if total else 0}
+
+    def retry(self, run_id: str) -> OptimizationRunResponse:
+        source = self.session.get(OptimizationRunORM, run_id)
+        if source is None:
+            raise NotFoundError("La corrida de optimización no existe.")
+        if source.status not in {"FAILED", "TIMED_OUT"}:
+            raise ValidationError("Sólo se pueden reintentar corridas FAILED o TIMED_OUT.")
+        config = source.configuration
+        candidate = config.get("candidate_generation", {})
+        payload = OptimizationRunCreate(
+            allow_overproduction=config.get("allow_overproduction", True),
+            overproduction_rate=config.get("overproduction_rate", .03),
+            time_limit_seconds=config.get("time_limit_seconds", 120),
+            max_garments_per_marker=candidate.get("max_garments_per_marker", 15),
+            max_distinct_sizes_per_marker=candidate.get("max_distinct_sizes_per_marker", 5),
+            max_candidate_compositions=candidate.get("max_candidate_compositions", 48),
+            max_rounds=candidate.get("max_rounds", 2),
+            max_marker_candidates=config.get("max_marker_candidates", 24),
+            geometry_evaluation_budget_per_candidate=config.get("geometry_evaluation_budget_per_candidate", 25_000),
+            global_geometry_budget_seconds=config.get("global_geometry_budget_seconds", 75),
+            planner_time_limit_seconds=config.get("planner_time_limit_seconds", 30),
+            fast_plan_budget_seconds=config.get("fast_plan_budget_seconds", 5),
+            candidate_generation_budget_seconds=config.get("candidate_generation_budget_seconds", 5),
+            geometry_budget_seconds=config.get("geometry_budget_seconds", 45),
+            planning_budget_seconds=config.get("planning_budget_seconds", 25),
+            total_budget_seconds=config.get("total_budget_seconds", config.get("time_limit_seconds", 120)),
+            geometry_top_k_initial=config.get("geometry_top_k_initial", 20),
+            geometry_top_k_per_round=config.get("geometry_top_k_per_round", 10),
+            beam_width=config.get("beam_width", 10),
+            no_improvement_rounds=config.get("no_improvement_rounds", 1),
+            planner_refinement_engine=config.get("planner_refinement_engine", "hybrid"),
+            seed=config.get("seed", 1),
+        )
+        return self.create(source.production_order_id, payload, f"retry-{source.id}-{uuid4()}")
+
     def cancel(self, run_id: str) -> OptimizationRunResponse:
         run = self.session.get(OptimizationRunORM, run_id)
         if run is None:
             raise NotFoundError("La corrida de optimización no existe.")
-        if run.status in {"SUCCEEDED", "FAILED", "CANCELLED", "TIMED_OUT"}:
+        if run.status in {"SUCCEEDED", "SUCCEEDED_EARLY", "FAILED", "CANCELLED", "TIMED_OUT", "INFEASIBLE"}:
             return self._run_response(run)
         run.cancel_requested = True
         if run.status == "QUEUED":
             cancel_queued_job(run.worker_job_id or run.id)
             run.status = "CANCELLED"; run.finished_at = datetime.now(timezone.utc)
+            run.error_code = "RUN_CANCELLED"
+            metrics.inc("optimization_runs_cancelled")
+        self.session.commit()
+        return self._run_response(run)
+
+    def use_current_plan(self, run_id: str) -> OptimizationRunResponse:
+        run = self.session.get(OptimizationRunORM, run_id)
+        if run is None:
+            raise NotFoundError("La corrida de optimización no existe.")
+        solution_count = self.session.scalar(select(func.count(OptimizationSolutionORM.id)).where(
+            OptimizationSolutionORM.optimization_run_id == run.id
+        )) or 0
+        if not solution_count:
+            raise ValidationError("Aún no existe un plan validado para utilizar.")
+        if run.status not in {"QUEUED", "RUNNING"}:
+            return self._run_response(run)
+        run.use_current_plan_requested = True
         self.session.commit()
         return self._run_response(run)
 
@@ -640,27 +746,105 @@ class OptimizationRunService:
             marker_search_status=row.marker_search_status, validation_status=row.validation_status, marker=row.marker_payload,
         )
 
+    def marker_svg(self, marker_hash: str) -> tuple[str, str]:
+        row = self.session.get(MarkerArtifactORM, marker_hash)
+        if row is None:
+            raise NotFoundError("El marker no existe.")
+        marker = row.marker_payload
+        if row.validation_status != "VALIDATED" or marker.get("status") != "VALIDATED_FEASIBLE":
+            raise ValidationError("El marker no posee un certificado geométrico válido.")
+        units = marker.get("geometry_units_per_cm", 1000)
+        length = round(marker["marker_length_cm"] * units)
+        width = round(marker["physical_width_cm"] * units)
+        body: list[str] = []
+        for piece in marker["placements"]:
+            ring = piece["transformed_polygon"]["coordinates"][0]
+            points = " ".join(f"{x},{width-y}" for x, y in ring)
+            title = escape(f"{piece['piece_code']} · {piece['size_code']} · {piece['transform']['rotation']}°")
+            body.append(f'<g><polygon points="{points}" fill="#dcebe5" stroke="#163b40"><title>{title}</title></polygon>')
+            grain = piece.get("grainline")
+            if grain:
+                body.append(f'<line x1="{grain["start"][0]}" y1="{width-grain["start"][1]}" x2="{grain["end"][0]}" y2="{width-grain["end"][1]}" stroke="#176a70"/>')
+            body.append("</g>")
+        svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {length} {width}" '
+               f'role="img" aria-label="Marker certificado {escape(marker_hash)}">'
+               f'<rect width="{length}" height="{width}" fill="#fffdf7" stroke="#163b40"/>{"".join(body)}</svg>')
+        composition = "_".join(f"{size}-{quantity}" for size, quantity in sorted(row.composition.items(), key=lambda item: SIZE_ORDER.get(item[0], 99)))
+        return svg, f"costura-optima_marker_{composition}.svg"
+
+    def export(self, run_id: str) -> dict:
+        run = self.session.scalar(
+            select(OptimizationRunORM).where(OptimizationRunORM.id == run_id).options(
+                selectinload(OptimizationRunORM.order).selectinload(ProductionOrderORM.demands),
+                selectinload(OptimizationRunORM.solutions).selectinload(OptimizationSolutionORM.spreads),
+                selectinload(OptimizationRunORM.solutions).selectinload(OptimizationSolutionORM.size_results),
+                selectinload(OptimizationRunORM.solutions).selectinload(OptimizationSolutionORM.profiles),
+            )
+        )
+        if run is None:
+            raise NotFoundError("La corrida de optimización no existe.")
+        solutions = sorted(run.solutions, key=lambda item: item.rank)
+        return {
+            "schema_version": "costura-optima-result-v1", "pattern_validation_status": "ENGINEERING",
+            "warning": EXPERIMENTAL_WARNING,
+            "order": {"id": run.order.id, "snapshot_hash": run.order.snapshot_hash,
+                      "created_at": run.order.created_at, "snapshot": run.order.catalog_snapshot,
+                      "demand": {item.size_code: item.quantity for item in run.order.demands}},
+            "run": self._run_response(run).model_dump(mode="json"),
+            "recommended_solution_id": solutions[0].id if solutions else None,
+            "solutions": [{**self._solution_summary(solution),
+                "spreads": [self._spread_dict(item) for item in sorted(solution.spreads, key=lambda item: item.sequence)],
+                "production": [{"size_code": item.size_code, "requested": item.requested,
+                                "produced": item.produced, "extra": item.overproduction}
+                               for item in solution.size_results],
+                "marker_references": [item.marker_hash for item in solution.spreads]}
+                for solution in solutions],
+            "audit": self.audit(run_id),
+        }
+
     def audit(self, run_id: str) -> dict:
         run = self.session.get(OptimizationRunORM, run_id)
         if run is None:
             raise NotFoundError("La corrida de optimización no existe.")
-        candidates = self.session.scalars(select(OptimizationCandidateORM).where(OptimizationCandidateORM.optimization_run_id == run_id))
+        candidates = list(self.session.scalars(select(OptimizationCandidateORM).where(OptimizationCandidateORM.optimization_run_id == run_id)))
+        solutions = list(self.session.scalars(
+            select(OptimizationSolutionORM).where(OptimizationSolutionORM.optimization_run_id == run_id)
+            .options(selectinload(OptimizationSolutionORM.profiles)).order_by(OptimizationSolutionORM.rank)
+        ).unique())
         return {
             "run_id": run.id, "input_hash": run.input_hash, "status": run.status, "phase": run.phase,
+            "best_solution_available": bool(solutions),
             "configuration": run.configuration, "audit": run.audit,
             "candidates": [{"hash": item.candidate_hash, "composition": item.composition, "status": item.status,
-                            "marker_hash": item.marker_hash, "cache_hit": item.cache_hit, "diagnostics": item.diagnostics}
+                            "marker_hash": item.marker_hash, "cache_hit": item.cache_hit, "diagnostics": item.diagnostics,
+                            "round_number": item.round_number, "origin": item.origin}
                            for item in candidates],
+            "solutions": [{"solution_id": row.id, "profiles": [
+                {"profile": profile.profile, "objective_stages": profile.objective_stages}
+                for profile in sorted(row.profiles, key=lambda item: item.profile)
+            ]} for row in solutions],
             "elapsed": self._elapsed(run),
         }
 
     @staticmethod
     def _elapsed(run):
+        performance = (run.audit or {}).get("performance", {})
         return {"candidate_generation_ms": run.elapsed_candidate_generation_ms, "geometry_ms": run.elapsed_geometry_ms,
-                "planner_ms": run.elapsed_planner_ms, "total_ms": run.elapsed_total_ms}
+                "planning_ms": run.elapsed_planner_ms, "planner_ms": run.elapsed_planner_ms,
+                "validation_ms": performance.get("validation_ms"), "serialization_ms": performance.get("serialization_ms"),
+                "database_ms": performance.get("database_ms"), "total_ms": run.elapsed_total_ms}
 
     def _run_response(self, run):
         solution_count = self.session.scalar(select(func.count(OptimizationSolutionORM.id)).where(OptimizationSolutionORM.optimization_run_id == run.id)) or 0
+        controlled_details = {"worker_interrupted", "worker_lease_expired", "worker_hard_timeout",
+                              "global_run_time_limit_exceeded", "global_run_time_limit_exceeded; validated_solution_preserved",
+                              "worker_execution_failed"}
+        public_detail = run.error_detail if run.error_detail in controlled_details else {
+            "FAILED": "No fue posible completar la optimización.",
+            "TIMED_OUT": "El tiempo máximo de cálculo terminó.",
+            "CANCELLED": "La optimización fue cancelada.",
+            "INFEASIBLE": "No se encontró un plan que cumpla las restricciones actuales.",
+        }.get(run.status)
         return OptimizationRunResponse(
             id=run.id, production_order_id=run.production_order_id, status=run.status, phase=run.phase,
             input_hash=run.input_hash, configuration=run.configuration, cancel_requested=run.cancel_requested,
@@ -668,16 +852,33 @@ class OptimizationRunService:
                       "candidates_pending": run.candidates_pending, "candidates_feasible": run.candidates_feasible,
                       "candidates_infeasible": run.candidates_infeasible, "candidates_not_evaluated": run.candidates_not_evaluated,
                       "best_feasible_found": run.best_feasible_found},
-            elapsed=self._elapsed(run), solution_count=solution_count, error_detail=run.error_detail,
+            elapsed=self._elapsed(run), elapsed_ms=run.elapsed_total_ms,
+            solution_count=solution_count, best_solution_available=solution_count > 0,
+            incumbent={
+                "first_solution_elapsed_ms": run.first_solution_elapsed_ms,
+                "first_solution_spreads": run.first_solution_spreads,
+                "first_solution_fabric_m": run.first_solution_fabric_units / 1000 / 100 if run.first_solution_fabric_units is not None else None,
+                "final_solution_elapsed_ms": run.final_solution_elapsed_ms,
+                "final_solution_spreads": run.final_solution_spreads,
+                "final_solution_fabric_m": run.final_solution_fabric_units / 1000 / 100 if run.final_solution_fabric_units is not None else None,
+            } if solution_count else None,
+            use_current_plan_requested=run.use_current_plan_requested,
+            error_detail=public_detail, error_code=run.error_code,
+            failure_phase=run.failure_phase, request_id=run.request_id,
+            round_current=run.round_current, round_total_if_known=run.round_total_if_known,
+            updated_at=run.updated_at or run.created_at,
             created_at=run.created_at, started_at=run.started_at, finished_at=run.finished_at,
         )
 
     @staticmethod
     def _solution_summary(row):
-        return {"id": row.id, "solution_hash": row.solution_hash, "profiles": sorted(item.profile for item in row.profiles),
+        profiles = {item.profile for item in row.profiles}
+        return {"id": row.id, "solution_hash": row.solution_hash,
+                "profiles": [name for name in ("MAX_ORDER_PER_CUT", "MIN_FABRIC", "MIN_SPREADS", "BALANCED", "CONSOLIDATED_PRODUCTION", "CONSOLIDATED_MARKERS", "MIN_MARKER_CHANGES") if name in profiles],
                 "rank": row.rank, "planning_status": row.planning_status, "planning_optimality": row.planning_optimality,
                 "solution_origin": row.solution_origin, "metrics": row.metrics, "validation": row.validation_certificate,
-                "explanation": row.explanation}
+                "explanation": row.explanation,
+                "recommended": "MAX_ORDER_PER_CUT" in profiles}
 
     @staticmethod
     def _spread_dict(row):
@@ -687,4 +888,8 @@ class OptimizationRunService:
                 "marker_length_cm": row.marker_length_units / 1000,
                 "fabric_consumption_m": row.fabric_consumption_units / 1000 / 100,
                 "marker_efficiency_percentage": row.marker_efficiency_percentage,
-                "marker_search_status": row.marker_search_status, "validation_status": row.validation_status}
+                "marker_search_status": row.marker_search_status, "validation_status": row.validation_status,
+                "useful_garments": row.useful_garments,
+                "order_coverage_percentage": row.order_coverage_percentage,
+                "remaining_demand_after": row.remaining_demand_after,
+                "is_primary": row.is_primary}

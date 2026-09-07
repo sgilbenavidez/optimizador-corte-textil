@@ -83,7 +83,10 @@ export type ProductionOrder = {
   optimization_policy: Record<string, unknown>;
   snapshot_hash: string;
   created_at: string;
+  latest_run?: { id: string; status: string; created_at: string; result_available: boolean } | null;
 };
+
+export type Page<T> = { items: T[]; page: number; page_size: number; total: number; pages: number };
 
 export type PatternPieceSummary = {
   id: string;
@@ -165,6 +168,7 @@ export type MarkerPreview = {
   status: string;
   search_status: string;
   warning: string;
+  geometry_units_per_cm?: number;
   marker_length_cm: number | null;
   usable_width_cm: number;
   physical_width_cm: number;
@@ -202,7 +206,7 @@ export type MarkerPreview = {
 export type OptimizationRun = {
   id: string;
   production_order_id: string;
-  status: "QUEUED" | "RUNNING" | "SUCCEEDED" | "FAILED" | "CANCELLED" | "TIMED_OUT";
+  status: "QUEUED" | "RUNNING" | "SUCCEEDED" | "SUCCEEDED_EARLY" | "FAILED" | "CANCELLED" | "TIMED_OUT" | "INFEASIBLE";
   phase: string;
   input_hash: string;
   configuration: Record<string, unknown>;
@@ -212,9 +216,21 @@ export type OptimizationRun = {
     candidates_feasible: number; candidates_infeasible: number; candidates_not_evaluated: number;
     best_feasible_found: boolean;
   };
-  elapsed: { candidate_generation_ms: number; geometry_ms: number; planner_ms: number; total_ms: number };
+  elapsed: { candidate_generation_ms: number; geometry_ms: number; planning_ms: number; planner_ms: number; validation_ms: number | null; serialization_ms: number | null; database_ms: number | null; total_ms: number };
   solution_count: number;
   error_detail: string | null;
+  error_code: string | null;
+  failure_phase: string | null;
+  request_id: string | null;
+  updated_at: string;
+  elapsed_ms: number;
+  round_current: number;
+  round_total_if_known: number | null;
+  best_solution_available: boolean;
+  incumbent: { first_solution_elapsed_ms: number | null; first_solution_spreads: number | null;
+    first_solution_fabric_m: number | null; final_solution_elapsed_ms: number | null;
+    final_solution_spreads: number | null; final_solution_fabric_m: number | null } | null;
+  use_current_plan_requested: boolean;
   created_at: string;
   started_at: string | null;
   finished_at: string | null;
@@ -224,6 +240,7 @@ export type OptimizationSolutionSummary = {
   id: string; solution_hash: string; profiles: string[]; rank: number; planning_status: string;
   planning_optimality: string; solution_origin: string; metrics: Record<string, number | Record<string, number>>;
   validation: { status: string; checks: Record<string, boolean>; errors: string[] }; explanation: string;
+  recommended: boolean;
 };
 
 export type Spread = {
@@ -231,6 +248,8 @@ export type Spread = {
   layers: number; repeats: number; composition: Record<string, number>; production_by_size: Record<string, number>;
   marker_length_cm: number; fabric_consumption_m: number; marker_efficiency_percentage: number;
   marker_search_status: string; validation_status: string;
+  useful_garments: number; order_coverage_percentage: number;
+  remaining_demand_after: Record<string, number>; is_primary: boolean;
 };
 
 export type OptimizationSolution = OptimizationSolutionSummary & {
