@@ -1,0 +1,20 @@
+{
+  "checkpoint_11_layout_hash": "ca29160e4bb167f388bd02765eac2e10c6f10e467e3cb66975847b2fb8be14de",
+  "placed_piece_count": 11,
+  "next_piece": "M_SLEEVE_004",
+  "current_marker_length": 235064,
+  "max_marker_length": 700000,
+  "replay_a": {
+    "ifp": "765db271f4dd1cfbb3375f409c66ea82d2dc1038b28504d882d87ddb8c26256b",
+    "forbidden": "62b915d0bde76c571f0231ffcf812b585bbbe1b66aaa08cc72b77115c99b1604",
+    "feasible": "f93b2709b395144c14c1e0b66934d5ff75b00fab9663710112dd236371b4fa8b",
+    "candidates": "2abfefc961c7cb3a25e9e816de966652ebb7a32df767a2c15ec5cd983837862d"
+  },
+  "replay_b": {
+    "ifp": "765db271f4dd1cfbb3375f409c66ea82d2dc1038b28504d882d87ddb8c26256b",
+    "forbidden": "62b915d0bde76c571f0231ffcf812b585bbbe1b66aaa08cc72b77115c99b1604",
+    "feasible": "f93b2709b395144c14c1e0b66934d5ff75b00fab9663710112dd236371b4fa8b",
+    "candidates": "2abfefc961c7cb3a25e9e816de966652ebb7a32df767a2c15ec5cd983837862d"
+  },
+  "status": "PASS"
+}

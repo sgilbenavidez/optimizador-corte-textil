@@ -1,0 +1,20 @@
+{
+  "stages_compared": [
+    "input_hash",
+    "raw_candidate_hash",
+    "dedup_candidate_hash",
+    "validated_set_hash",
+    "scored_set_hash",
+    "chosen_candidate_hash"
+  ],
+  "per_stage_equal": {
+    "input_hash": true,
+    "raw_candidate_hash": true,
+    "dedup_candidate_hash": true,
+    "validated_set_hash": true,
+    "scored_set_hash": true,
+    "chosen_candidate_hash": true
+  },
+  "first_nondeterministic_stage": "NONE",
+  "determinism_status": "PASS"
+}

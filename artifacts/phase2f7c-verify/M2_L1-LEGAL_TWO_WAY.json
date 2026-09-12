@@ -1,0 +1,38 @@
+{
+  "case": "M2_L1",
+  "mode": "LEGAL_TWO_WAY",
+  "composition": {
+    "M": 2,
+    "L": 1
+  },
+  "layers": 21,
+  "piece_count": 15,
+  "total_piece_area_cm2": 28490.234,
+  "area_lower_bound_length_cm": 165.877,
+  "geometry_lower_bound_cm": 165.877,
+  "target_length_100_cm": 161.8763,
+  "target_length_90_cm": 179.8626,
+  "target_length_95_cm": 170.3961,
+  "required_efficiency_at_max_length_percentage": 23.12519,
+  "actual_marker_length_cm": 229.5,
+  "efficiency_percentage": 70.534348,
+  "waste_percentage": 29.465652,
+  "geometry_status": "VALIDATED_FEASIBLE",
+  "search_status": "FEASIBLE_NOT_PROVEN_BEST",
+  "validation_status": "VALIDATED",
+  "elapsed_time_ms": 11602.757,
+  "wall_elapsed_ms": 11613.816,
+  "evaluation_count": 88680,
+  "orientation": {
+    "eligible_0": 15,
+    "eligible_180": 15,
+    "evaluated_0": 15,
+    "evaluated_180": 15,
+    "selected_0": 11,
+    "selected_180": 2
+  },
+  "nfp_status": "PARTIAL",
+  "stopping_reason": "deterministic_neighborhoods_completed",
+  "gap_to_90_cm": 49.6374,
+  "gap_to_95_cm": 59.1039
+}

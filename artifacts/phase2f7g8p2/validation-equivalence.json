@@ -1,0 +1,16 @@
+{
+  "frozen_candidate_count": 24445,
+  "frozen_candidate_set_hash": "877758c39e1f3d08af69e421f6d1e860c194b8205414348e318a5c15bb9c836d",
+  "reference_validated_count": 343,
+  "optimized_validated_count": 343,
+  "full_set_true_valid": 343,
+  "full_set_true_invalid": 24102,
+  "full_set_false_valid": 0,
+  "full_set_false_invalid": 0,
+  "mismatches_0_deg": 0,
+  "mismatches_180_deg": 0,
+  "reference_validated_set_hash": "39b93b15d94e1688fc2fb311429bcfcce0b0129083f43bed3138a159eab2eec0",
+  "optimized_validated_set_hash": "39b93b15d94e1688fc2fb311429bcfcce0b0129083f43bed3138a159eab2eec0",
+  "validated_set_equivalence": "PASS",
+  "candidate_set_equivalence": "PASS"
+}

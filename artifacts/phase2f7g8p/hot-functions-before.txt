@@ -1,0 +1,28 @@
+         524779766 function calls (524429466 primitive calls) in 163.387 seconds
+
+   Ordered by: cumulative time
+   List reduced from 1988 to 20 due to restriction <20>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001  163.450  163.450 E:\optimizacion corte\apps\api\scripts\run_phase2f7g8p_profile.py:75(run_once)
+        1    0.007    0.007  162.998  162.998 E:\optimizacion corte\apps\api\src\costura_optima\domain\completion_runner.py:185(_evaluate_piece)
+        1    0.075    0.075  157.927  157.927 E:\optimizacion corte\apps\api\src\costura_optima\domain\completion_runner.py:138(_build_pool)
+    26127    0.109    0.000  130.823    0.005 E:\optimizacion corte\apps\api\src\costura_optima\domain\candidate_space.py:272(real_contact_count)
+351315/63918    4.985    0.000  122.462    0.002 {built-in method builtins.sum}
+   313524    1.215    0.000  121.046    0.000 E:\optimizacion corte\apps\api\src\costura_optima\domain\candidate_space.py:278(<genexpr>)
+        2    0.039    0.019   80.191   40.095 E:\optimizacion corte\apps\api\src\costura_optima\domain\candidate_space.py:170(legacy_fallback_candidates)
+        2    0.033    0.017   76.703   38.351 E:\optimizacion corte\apps\api\src\costura_optima\domain\candidate_space.py:211(build)
+   320366    1.153    0.000   68.539    0.000 E:\optimizacion corte\apps\api\src\costura_optima\domain\integer_kernel.py:106(transform_piece)
+   320392    0.593    0.000   57.708    0.000 E:\optimizacion corte\apps\api\src\costura_optima\domain\integer_kernel.py:88(transform_and_normalize)
+   323839   21.602    0.000   53.151    0.000 E:\optimizacion corte\apps\api\src\costura_optima\domain\integer_kernel.py:27(canonical_path)
+   322047    0.330    0.000   44.689    0.000 E:\optimizacion corte\apps\api\.venv-audit\Lib\site-packages\shapely\geometry\polygon.py:227(__new__)
+   322047    8.763    0.000   41.863    0.000 E:\optimizacion corte\apps\api\.venv-audit\Lib\site-packages\shapely\geometry\polygon.py:61(__new__)
+   962196    1.269    0.000   24.747    0.000 E:\optimizacion corte\apps\api\.venv-audit\Lib\site-packages\shapely\decorators.py:73(wrapped)
+ 70470017   17.879    0.000   21.664    0.000 E:\optimizacion corte\apps\api\.venv-audit\Lib\site-packages\shapely\geometry\polygon.py:87(_coords)
+   313871    0.159    0.000   20.370    0.000 E:\optimizacion corte\apps\api\.venv-audit\Lib\site-packages\shapely\geometry\base.py:343(distance)
+   313871   19.512    0.000   19.512    0.000 E:\optimizacion corte\apps\api\.venv-audit\Lib\site-packages\shapely\measurement.py:53(distance)
+      132   13.664    0.104   13.891    0.105 E:\optimizacion corte\apps\api\src\costura_optima\domain\integer_kernel.py:63(boundary_intersections)
+   323942    0.456    0.000   12.707    0.000 E:\optimizacion corte\apps\api\src\costura_optima\domain\integer_kernel.py:22(signed_area2)
+       22   11.959    0.544   11.968    0.544 E:\optimizacion corte\apps\api\src\costura_optima\domain\integer_kernel.py:174(nfp)
+
+

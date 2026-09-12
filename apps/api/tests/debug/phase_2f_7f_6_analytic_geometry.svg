@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="390" viewBox="-30 -30 760 390">
+<style>text{font:12px sans-serif}.pt{stroke:#111;stroke-width:1}</style>
+<rect x="0" y="0" width="600" height="300" fill="white" stroke="black"/>
+<rect x="120.0" y="120.0" width="120.0" height="60.0" fill="#82cfff"/><text x="120.0" y="117.0">A</text>
+<rect x="0.0" y="30.0" width="540.0" height="270.0" fill="none"/><text x="0.0" y="27.0">IFP B</text>
+<rect x="57.0" y="117.0" width="186.0" height="96.0" fill="#ffb3b3"/><text x="57.0" y="114.0">NFP(A,B) bounds</text>
+<rect x="120.0" y="150.0" width="60.0" height="30.0" fill="none"/><text x="120.0" y="147.0">B P1</text>
+<circle class="pt" cx="120.0" cy="180.0" r="3" fill="#111"/><text x="124.0" y="176.0">P1 ref</text>
+<rect x="0.0" y="270.0" width="60.0" height="30.0" fill="none"/><text x="0.0" y="267.0">B P2</text>
+<circle class="pt" cx="0.0" cy="300.0" r="3" fill="#111"/><text x="4.0" y="296.0">P2 ref</text>
+<rect x="243.0" y="150.0" width="60.0" height="30.0" fill="none"/><text x="243.0" y="147.0">B P3</text>
+<circle class="pt" cx="243.0" cy="180.0" r="3" fill="#111"/><text x="247.0" y="176.0">P3 ref</text>
+<rect x="242.99400000000003" y="150.0" width="60.0" height="30.0" fill="none"/><text x="242.99400000000003" y="147.0">B P4</text>
+<circle class="pt" cx="242.99400000000003" cy="180.0" r="3" fill="#111"/><text x="246.99400000000003" y="176.0">P4 ref</text>
+</svg>

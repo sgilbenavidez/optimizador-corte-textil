@@ -1,16 +1,22 @@
 from dataclasses import replace
 
 import pytest
+from shapely.geometry import Point, Polygon
 
 from costura_optima.domain.integer_kernel import (
     GeometryOperationCache,
     IntegerGeometryKernel,
     canonical_path,
+    canonical_paths,
+    boundary_intersections,
     path_bbox,
+    PIECE_REFERENCE_POINT,
+    transform_piece,
     transform_and_normalize,
     translate_path,
 )
-from costura_optima.domain.marker_validator import IndependentMarkerValidator
+from costura_optima.domain.marker_validator import IncrementalCandidateValidator, IndependentMarkerValidator
+from costura_optima.domain.candidate_space import CandidateSpaceEngine, PlacedGeometry
 from costura_optima.domain.nesting_engine import DeterministicNestingEngine
 from costura_optima.domain.nesting_models import (
     MarkerMargins,
@@ -87,6 +93,22 @@ def placement(instance, translation=(0, 0), rotation=0, sequence=1):
     )
 
 
+def test_incremental_validator_matches_full_prefix_validator():
+    """The broad-phase shortcut cannot change the independent decision."""
+    first, moving = piece("A"), piece("B")
+    full_request = request((first, moving), clearance=500)
+    prefix = placement(first, (0, 0), 0, 1)
+    incremental = IncrementalCandidateValidator(full_request, (prefix,))
+    full = IndependentMarkerValidator()
+    # Inside/no-clearance, clearance boundary, and containment cases exercise
+    # both exact and broad-phase paths for both legal orientations.
+    for rotation, position in ((0, (10_500, 0)), (180, (10_500, 0)), (0, (10_499, 0)), (180, (90_001, 0))):
+        candidate = placement(moving, position, rotation, 2)
+        incremental_ok = incremental.validate(moving, candidate).accepted
+        full_ok = full.validate(full_request, (prefix, candidate), full_request.max_length).status == "VALIDATED"
+        assert incremental_ok is full_ok
+
+
 def test_contact_semantics_for_zero_and_positive_clearance():
     kernel = IntegerGeometryKernel(PRECISION, GeometryOperationCache())
     first = rectangle()
@@ -144,9 +166,9 @@ def test_independent_validator_accepts_valid_and_rejects_overlap_and_duplicates(
         (request(tuple()), "composition_has_no_piece_instances"),
     ],
 )
-def test_known_impossibilities_return_infeasible(marker_request, diagnostic):
+def test_known_impossibilities_are_proven_before_heuristic_search(marker_request, diagnostic):
     result = DeterministicNestingEngine().nest(marker_request)
-    assert result.status == "INFEASIBLE"
+    assert result.status == "PROVEN_INFEASIBLE"
     assert any(diagnostic in item for item in result.diagnostics)
 
 
@@ -159,13 +181,13 @@ def test_multiple_identical_pieces_are_deterministic_and_validated():
     assert first.placements == second.placements
 
 
-def test_excessive_clearance_and_total_capacity_return_infeasible():
+def test_excessive_clearance_is_not_misrepresented_as_a_proof():
     two = (piece(), piece("M_FRONT_002"))
     clearance_result = DeterministicNestingEngine().nest(request(two, clearance=50_000, width=25_000, length=25_000))
-    assert clearance_result.status == "INFEASIBLE"
+    assert clearance_result.status == "SEARCH_EXHAUSTED"
     crowded = tuple(piece(f"M_FRONT_{index:03d}", rectangle(20_000, 20_000)) for index in range(1, 8))
     capacity_result = DeterministicNestingEngine().nest(request(crowded, clearance=0, width=50_000, length=50_000))
-    assert capacity_result.status == "INFEASIBLE"
+    assert capacity_result.status == "PROVEN_INFEASIBLE"
     assert "total_piece_area_exceeds_marker_capacity" in capacity_result.diagnostics
 
 
@@ -180,3 +202,68 @@ def test_translation_and_wider_fabric_preserve_a_known_valid_layout():
     kernel = IntegerGeometryKernel(PRECISION, GeometryOperationCache())
     shifted = translate_path(first.piece.cut_polygon, 12_345, -6_789)
     assert kernel.area_units2(shifted) == kernel.area_units2(first.piece.cut_polygon)
+
+
+def test_integer_nfp_rectangle_contact_and_cache_are_canonical():
+    cache = GeometryOperationCache()
+    kernel = IntegerGeometryKernel(PRECISION, cache)
+    fixed, moving = rectangle(10_000, 10_000), rectangle(5_000, 5_000)
+    first = kernel.nfp(fixed, moving, "A", 0, "B", 0, 0)
+    second = kernel.nfp(fixed, moving, "A", 0, "B", 0, 0)
+    assert first == second
+    assert cache.hits >= 1
+    # B at origin overlaps A; a clearly remote reference point does not.
+    assert any(Polygon(path).covers(Point(0, 0)) for path in first)
+    assert not any(Polygon(path).covers(Point(30_000, 30_000)) for path in first)
+
+
+def test_integer_nfp_orientation_key_and_rectangular_ifp():
+    kernel = IntegerGeometryKernel(PRECISION, GeometryOperationCache())
+    fixed = canonical_path([(0, 0), (12_000, 0), (12_000, 6_000), (0, 6_000)])
+    moving = canonical_path([(0, 0), (4_000, 0), (2_000, 3_000)])
+    zero = kernel.nfp(fixed, moving, "A", 0, "B", 0, 500)
+    turned = kernel.nfp(fixed, transform_and_normalize(moving, 180), "A", 0, "B", 180, 500)
+    assert zero != turned
+    assert kernel.ifp_bounds(rectangle(10_000, 20_000), (1_000, 2_000, 50_000, 40_000)) == (1_000, 2_000, 40_000, 20_000)
+
+
+def test_piece_reference_contract_is_single_for_zero_and_180():
+    source = canonical_path([(5, 7), (25, 7), (20, 30), (5, 30)])
+    position = (100, 200)
+    assert PIECE_REFERENCE_POINT == (0, 0)
+    for rotation in (0, 180):
+        local = transform_and_normalize(source, rotation)
+        marker = transform_piece(source, rotation, position)
+        assert marker == translate_path(local, *position)
+        assert path_bbox(local)[:2] == PIECE_REFERENCE_POINT
+        assert path_bbox(marker)[:2] == position
+
+
+def test_integer_boundary_intersections_and_component_canonicalization():
+    horizontal = canonical_path([(0, 0), (10, 0), (10, 2), (0, 2)])
+    vertical = canonical_path([(4, -5), (6, -5), (6, 5), (4, 5)])
+    assert set(boundary_intersections(horizontal, vertical)) == {(4, 0), (6, 0), (4, 2), (6, 2)}
+    assert canonical_paths((vertical, horizontal)) == canonical_paths((horizontal, vertical))
+
+
+def test_candidate_space_uses_common_marker_space_and_deduplicates_sources():
+    kernel = IntegerGeometryKernel(PRECISION, GeometryOperationCache())
+    engine = CandidateSpaceEngine()
+    square = rectangle(10_000, 10_000)
+    result = engine.build(kernel, square, "B", 0, (0, 0, 40_000, 20_000), 500, (
+        PlacedGeometry(square, "A1", 0, (0, 0)),
+        PlacedGeometry(square, "A2", 0, (22_000, 0)),
+    ))
+    assert result.ifp_geometry == ((0, 0), (30_000, 0), (30_000, 10_000), (0, 10_000))
+    assert result.forbidden_union
+    assert result.feasible_space
+    assert len({row.position for row in result.candidates}) == len(result.candidates)
+    assert any("NFP_IFP_INTERSECTION" in row.sources for row in result.candidates)
+
+
+@pytest.mark.parametrize("mode", ("LEGACY", "NFP_VERTEX_ONLY", "CANDIDATE_SPACE"))
+def test_candidate_modes_remain_validator_gated(mode):
+    first, second = piece(), piece("M_FRONT_002")
+    result = DeterministicNestingEngine(candidate_mode=mode).nest(request((first, second), clearance=500))
+    assert result.status == "VALIDATED_FEASIBLE"
+    assert result.validation.status == "VALIDATED"

@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "compare",
+  "type": "architecture",
+  "comparatorVersion": 1,
+  "canonicalVersion": 1,
+  "completeness": "complete",
+  "proofLevel": "authored",
+  "base": {
+    "title": "COSTURA ÓPTIMA — mapa de arquitectura",
+    "rawSha256": "6efcd8e1ec1ff51854bb5f5f7272178dcae1560b949e517ae9dfd5a4deb26581",
+    "semanticSha256": "a4ea62cc4c1ad21a6a3379eaa1b15649a45faab06fc7d9a738e17ea2c5f34a25",
+    "bytes": 4592
+  },
+  "head": {
+    "title": "COSTURA ÓPTIMA — mapa de arquitectura",
+    "rawSha256": "c63cf7a361d28fe14b1e5666e331253cc48a1bb170505747b30313a72a1ded66",
+    "semanticSha256": "297749f443d4b82efe8810b8e4052b578b6f26117654f1bd7d7c6c637aeaa51a",
+    "bytes": 5106
+  },
+  "summary": {
+    "components": {
+      "added": 1,
+      "changed": 0,
+      "evidenceChanged": 0,
+      "removed": 0,
+      "moved": 0
+    },
+    "connections": {
+      "added": 2,
+      "changed": 0,
+      "removed": 0,
+      "rerouted": 0
+    },
+    "boundaries": {
+      "added": 0,
+      "changed": 1,
+      "removed": 0,
+      "geometryChanged": 0
+    },
+    "presentationChanged": false,
+    "provenanceChanged": false
+  },
+  "changes": {
+    "components": [
+      {
+        "id": "completion-runner",
+        "headLabel": "Completion Runner",
+        "status": "added",
+        "classifications": [
+          "semantic"
+        ],
+        "changedFields": []
+      }
+    ],
+    "connections": [
+      {
+        "id": "c-completion-validator",
+        "head": {
+          "from": "completion-runner",
+          "to": "validator",
+          "label": "valida / checkpoint"
+        },
+        "status": "added",
+        "classifications": [
+          "topology"
+        ],
+        "changedFields": []
+      },
+      {
+        "id": "c-pipeline-completion",
+        "head": {
+          "from": "pipeline",
+          "to": "completion-runner",
+          "label": "continÃºa"
+        },
+        "status": "added",
+        "classifications": [
+          "topology"
+        ],
+        "changedFields": []
+      }
+    ],
+    "boundaries": [
+      {
+        "key": "region:Optimization Domain",
+        "kind": "region",
+        "label": "Optimization Domain",
+        "status": "changed",
+        "classifications": [
+          "scope"
+        ],
+        "changedFields": [
+          "/wraps"
+        ]
+      }
+    ]
+  },
+  "identity": {
+    "components": "components[].id",
+    "connections": "connections[].id (required)",
+    "boundaries": "boundaries[].kind + boundaries[].label (derived)"
+  },
+  "view": {
+    "visualPreset": "classic"
+  },
+  "limitations": [
+    "Authored Architecture IR only; no runtime impact, causality, risk, or mergeability is inferred.",
+    "Boundary identity is conservatively derived from kind + label."
+  ],
+  "artifact": {
+    "sha256": "b9f6da54d63fa3b914fd51ca497b179cf6bf6200afece6efc438de72cdd8e22e",
+    "bytes": 2245130
+  },
+  "validation": {
+    "checksPassed": 28,
+    "checkCount": 28,
+    "baseComposition": "pass",
+    "headComposition": "pass"
+  }
+}

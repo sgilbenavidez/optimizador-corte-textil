@@ -11,12 +11,15 @@ from costura_optima.domain.production_models import (
     CandidateGenerationResult,
     Composition,
 )
+from costura_optima.domain.divisibility import DivisibilityRatioGenerator
 
 
 SIZE_ORDER = {code: index for index, code in enumerate(("XS", "S", "M", "L", "XL", "XXL", "XXXL"))}
 
 
 def candidate_category(origin: str, composition: Composition) -> str:
+    if origin == "ZERO_RESIDUE_RATIO":
+        return "ZERO_RESIDUE"
     if "DEMAND_RATIO" in origin:
         return "DEMAND_RATIO"
     if origin.startswith("PROPORTIONAL") or origin.startswith("AREA_DENSITY"):
@@ -102,6 +105,9 @@ class CandidateCompositionGenerator:
         residual_driven = residual is not None
         residual = residual or demand
         proposals: list[tuple[Composition, int, str]] = []
+        if not residual_driven:
+            exact = DivisibilityRatioGenerator().generate(demand, max_layers, self.config.max_garments_per_marker)
+            proposals.extend((item.composition, round_number, "ZERO_RESIDUE_RATIO") for item in exact)
         for size in positive:
             if not residual_driven:
                 proposals.append((((size, 1),), round_number, "SINGLE_SIZE_FALLBACK"))
@@ -185,6 +191,7 @@ class CandidateCompositionGenerator:
             ))
         candidates.sort(key=lambda item: (
             item.round_number,
+            0 if item.origin == "ZERO_RESIDUE_RATIO" else 1,
             1 if item.origin == "SINGLE_SIZE_REPEAT" else 0,
             -item.potential_useful_coverage,
             -len(item.composition),
@@ -196,7 +203,7 @@ class CandidateCompositionGenerator:
             pruned.extend({"composition": dict(item.composition), "reason": "candidate_composition_budget",
                            "category": candidate_category(item.origin, item.composition)} for item in outside)
             candidates = list(candidates)
-        distribution = {key: 0 for key in ("SINGLE_SIZE", "SINGLE_SIZE_REPEAT", "PAIR", "TRIPLE", "RESIDUAL_DRIVEN", "DEMAND_RATIO", "MULTI_SIZE")}
+        distribution = {key: 0 for key in ("ZERO_RESIDUE", "SINGLE_SIZE", "SINGLE_SIZE_REPEAT", "PAIR", "TRIPLE", "RESIDUAL_DRIVEN", "DEMAND_RATIO", "MULTI_SIZE")}
         for item in candidates:
             distribution[candidate_category(item.origin, item.composition)] += 1
         return CandidateGenerationResult(tuple(candidates), tuple(pruned), round((perf_counter() - started) * 1000, 3), distribution)

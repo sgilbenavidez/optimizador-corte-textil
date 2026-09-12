@@ -1,0 +1,36 @@
+{
+  "case": "XS6_XL7",
+  "mode": "ZERO_ONLY",
+  "composition": {
+    "XS": 6,
+    "XL": 7
+  },
+  "layers": 5,
+  "piece_count": 0,
+  "total_piece_area_cm2": 122185.875988,
+  "area_lower_bound_length_cm": 698.238,
+  "geometry_lower_bound_cm": 698.238,
+  "target_length_90_cm": 771.3755,
+  "target_length_95_cm": 730.7768,
+  "actual_marker_length_cm": null,
+  "efficiency_percentage": null,
+  "waste_percentage": null,
+  "geometry_status": "INFEASIBLE",
+  "search_status": "INFEASIBLE",
+  "validation_status": "NOT_RUN",
+  "elapsed_time_ms": 1926.785,
+  "wall_elapsed_ms": 1935.239,
+  "evaluation_count": 21681,
+  "orientation": {
+    "eligible_0": 0,
+    "eligible_180": 0,
+    "evaluated_0": 0,
+    "evaluated_180": 0,
+    "selected_0": 0,
+    "selected_180": 0
+  },
+  "nfp_status": "PARTIAL",
+  "stopping_reason": "infeasible",
+  "gap_to_90_cm": null,
+  "gap_to_95_cm": null
+}

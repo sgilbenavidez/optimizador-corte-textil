@@ -1,0 +1,532 @@
+{
+  "schema_version": "phase-2f7b-v1",
+  "demand": {
+    "XS": 30,
+    "S": 33,
+    "M": 42,
+    "L": 21,
+    "XL": 35,
+    "XXL": 55,
+    "XXXL": 0
+  },
+  "ratios": [
+    {
+      "case": "M2_L1",
+      "mode": "ZERO_ONLY",
+      "composition": {
+        "M": 2,
+        "L": 1
+      },
+      "layers": 21,
+      "piece_count": 15,
+      "total_piece_area_cm2": 28490.234,
+      "area_lower_bound_length_cm": 165.877,
+      "geometry_lower_bound_cm": 165.877,
+      "target_length_90_cm": 179.8626,
+      "target_length_95_cm": 170.3961,
+      "actual_marker_length_cm": 229.5,
+      "efficiency_percentage": 70.534348,
+      "waste_percentage": 29.465652,
+      "geometry_status": "VALIDATED_FEASIBLE",
+      "search_status": "FEASIBLE_NOT_PROVEN_BEST",
+      "validation_status": "VALIDATED",
+      "elapsed_time_ms": 4803.75,
+      "wall_elapsed_ms": 4810.888,
+      "evaluation_count": 51816,
+      "orientation": {
+        "eligible_0": 12,
+        "eligible_180": 0,
+        "evaluated_0": 12,
+        "evaluated_180": 0,
+        "selected_0": 11,
+        "selected_180": 0
+      },
+      "nfp_status": "PARTIAL",
+      "stopping_reason": "deterministic_neighborhoods_completed",
+      "gap_to_90_cm": 49.6374,
+      "gap_to_95_cm": 59.1039
+    },
+    {
+      "case": "M2_L1",
+      "mode": "LEGAL_TWO_WAY",
+      "composition": {
+        "M": 2,
+        "L": 1
+      },
+      "layers": 21,
+      "piece_count": 15,
+      "total_piece_area_cm2": 28490.234,
+      "area_lower_bound_length_cm": 165.877,
+      "geometry_lower_bound_cm": 165.877,
+      "target_length_90_cm": 179.8626,
+      "target_length_95_cm": 170.3961,
+      "actual_marker_length_cm": 229.5,
+      "efficiency_percentage": 70.534348,
+      "waste_percentage": 29.465652,
+      "geometry_status": "VALIDATED_FEASIBLE",
+      "search_status": "FEASIBLE_NOT_PROVEN_BEST",
+      "validation_status": "VALIDATED",
+      "elapsed_time_ms": 12571.451,
+      "wall_elapsed_ms": 12579.487,
+      "evaluation_count": 100000,
+      "orientation": {
+        "eligible_0": 12,
+        "eligible_180": 12,
+        "evaluated_0": 12,
+        "evaluated_180": 12,
+        "selected_0": 9,
+        "selected_180": 1
+      },
+      "nfp_status": "PARTIAL",
+      "stopping_reason": "evaluation_budget_exhausted_with_valid_layout",
+      "gap_to_90_cm": 49.6374,
+      "gap_to_95_cm": 59.1039
+    },
+    {
+      "case": "S3_XXL5",
+      "mode": "ZERO_ONLY",
+      "composition": {
+        "S": 3,
+        "XXL": 5
+      },
+      "layers": 11,
+      "piece_count": 40,
+      "total_piece_area_cm2": 84244.0253,
+      "area_lower_bound_length_cm": 482.66,
+      "geometry_lower_bound_cm": 482.66,
+      "target_length_90_cm": 531.8436,
+      "target_length_95_cm": 503.8518,
+      "actual_marker_length_cm": 664.63,
+      "efficiency_percentage": 72.018903,
+      "waste_percentage": 27.981097,
+      "geometry_status": "VALIDATED_FEASIBLE",
+      "search_status": "FEASIBLE_NOT_PROVEN_BEST",
+      "validation_status": "VALIDATED",
+      "elapsed_time_ms": 4353.374,
+      "wall_elapsed_ms": 4362.705,
+      "evaluation_count": 59104,
+      "orientation": {
+        "eligible_0": 21,
+        "eligible_180": 0,
+        "evaluated_0": 21,
+        "evaluated_180": 0,
+        "selected_0": 19,
+        "selected_180": 0
+      },
+      "nfp_status": "PARTIAL",
+      "stopping_reason": "deterministic_neighborhoods_completed",
+      "gap_to_90_cm": 132.7864,
+      "gap_to_95_cm": 160.7782
+    },
+    {
+      "case": "S3_XXL5",
+      "mode": "LEGAL_TWO_WAY",
+      "composition": {
+        "S": 3,
+        "XXL": 5
+      },
+      "layers": 11,
+      "piece_count": 40,
+      "total_piece_area_cm2": 84244.0253,
+      "area_lower_bound_length_cm": 482.66,
+      "geometry_lower_bound_cm": 482.66,
+      "target_length_90_cm": 531.8436,
+      "target_length_95_cm": 503.8518,
+      "actual_marker_length_cm": 664.63,
+      "efficiency_percentage": 72.018903,
+      "waste_percentage": 27.981097,
+      "geometry_status": "VALIDATED_FEASIBLE",
+      "search_status": "FEASIBLE_NOT_PROVEN_BEST",
+      "validation_status": "VALIDATED",
+      "elapsed_time_ms": 9728.987,
+      "wall_elapsed_ms": 9739.86,
+      "evaluation_count": 100000,
+      "orientation": {
+        "eligible_0": 21,
+        "eligible_180": 21,
+        "evaluated_0": 21,
+        "evaluated_180": 21,
+        "selected_0": 15,
+        "selected_180": 2
+      },
+      "nfp_status": "PARTIAL",
+      "stopping_reason": "evaluation_budget_exhausted_with_valid_layout",
+      "gap_to_90_cm": 132.7864,
+      "gap_to_95_cm": 160.7782
+    },
+    {
+      "case": "XS6_XL7",
+      "mode": "ZERO_ONLY",
+      "composition": {
+        "XS": 6,
+        "XL": 7
+      },
+      "layers": 5,
+      "piece_count": 0,
+      "total_piece_area_cm2": 122185.875988,
+      "area_lower_bound_length_cm": 698.238,
+      "geometry_lower_bound_cm": 698.238,
+      "target_length_90_cm": 771.3755,
+      "target_length_95_cm": 730.7768,
+      "actual_marker_length_cm": null,
+      "efficiency_percentage": null,
+      "waste_percentage": null,
+      "geometry_status": "INFEASIBLE",
+      "search_status": "INFEASIBLE",
+      "validation_status": "NOT_RUN",
+      "elapsed_time_ms": 1926.785,
+      "wall_elapsed_ms": 1935.239,
+      "evaluation_count": 21681,
+      "orientation": {
+        "eligible_0": 0,
+        "eligible_180": 0,
+        "evaluated_0": 0,
+        "evaluated_180": 0,
+        "selected_0": 0,
+        "selected_180": 0
+      },
+      "nfp_status": "PARTIAL",
+      "stopping_reason": "infeasible",
+      "gap_to_90_cm": null,
+      "gap_to_95_cm": null
+    },
+    {
+      "case": "XS6_XL7",
+      "mode": "LEGAL_TWO_WAY",
+      "composition": {
+        "XS": 6,
+        "XL": 7
+      },
+      "layers": 5,
+      "piece_count": 0,
+      "total_piece_area_cm2": 122185.875988,
+      "area_lower_bound_length_cm": 698.238,
+      "geometry_lower_bound_cm": 698.238,
+      "target_length_90_cm": 771.3755,
+      "target_length_95_cm": 730.7768,
+      "actual_marker_length_cm": null,
+      "efficiency_percentage": null,
+      "waste_percentage": null,
+      "geometry_status": "INFEASIBLE",
+      "search_status": "INFEASIBLE",
+      "validation_status": "NOT_RUN",
+      "elapsed_time_ms": 4814.637,
+      "wall_elapsed_ms": 4824.183,
+      "evaluation_count": 45282,
+      "orientation": {
+        "eligible_0": 0,
+        "eligible_180": 0,
+        "evaluated_0": 0,
+        "evaluated_180": 0,
+        "selected_0": 0,
+        "selected_180": 0
+      },
+      "nfp_status": "PARTIAL",
+      "stopping_reason": "infeasible",
+      "gap_to_90_cm": null,
+      "gap_to_95_cm": null
+    }
+  ],
+  "baseline_216": {
+    "run_id": "a9f3725d-fac9-4de1-9cf8-9a70e3f41425",
+    "elapsed_time_ms": 75978.262,
+    "solution": {
+      "id": "5920bf05-f76e-43d1-b451-064edabd8765",
+      "solution_hash": "6670391d98f86757170f351b89701c7b1cbefa8e247a86e0716053890848d0ab",
+      "profiles": [
+        "MAX_ORDER_PER_CUT"
+      ],
+      "rank": 1,
+      "planning_status": "OPTIMAL",
+      "planning_optimality": "SOLVER_FEASIBLE",
+      "solution_origin": "RESIDUAL_IMPROVED",
+      "metrics": {
+        "requested_by_size": {
+          "L": 21,
+          "M": 42,
+          "S": 33,
+          "XL": 35,
+          "XS": 30,
+          "XXL": 55
+        },
+        "produced_by_size": {
+          "L": 23,
+          "M": 44,
+          "S": 35,
+          "XL": 36,
+          "XS": 30,
+          "XXL": 57
+        },
+        "overproduction_by_size": {
+          "L": 2,
+          "M": 2,
+          "S": 2,
+          "XL": 1,
+          "XS": 0,
+          "XXL": 2
+        },
+        "total_overproduction": 9,
+        "max_overproduction": 2,
+        "total_fabric_units": 18184240,
+        "total_linear_consumption_cm": 18184.24,
+        "total_linear_consumption_m": 181.84240000000003,
+        "total_waste_units2": 974634106200,
+        "spread_count": 4,
+        "marker_design_count": 4,
+        "marker_change_count": 3,
+        "max_pieces_per_marker": 40,
+        "average_pieces_per_marker": 25.0,
+        "physical_spreads": 4,
+        "distinct_marker_designs": 4,
+        "marker_changeovers": 3,
+        "primary_spread_covered_garments": 112,
+        "primary_spread_coverage_percentage": 51.851852,
+        "global_efficiency_percentage": 69.546741,
+        "variable_count": 450,
+        "constraint_count": 937,
+        "solver_time_ms": 3100.029
+      },
+      "validation": {
+        "status": "VALIDATED_PLAN",
+        "checks": {
+          "demand_covered": true,
+          "overproduction_policy": true,
+          "markers_validated": true,
+          "layers_valid": true,
+          "hashes_match": true,
+          "metrics_match": true,
+          "marker_length_within_table": true,
+          "audit_complete": true,
+          "coverage_metrics_match": true,
+          "physical_spreads_match": true
+        },
+        "errors": [],
+        "recomputed": {
+          "produced_by_size": {
+            "L": 23,
+            "M": 44,
+            "S": 35,
+            "XL": 36,
+            "XS": 30,
+            "XXL": 57
+          },
+          "overproduction_by_size": {
+            "L": 2,
+            "M": 2,
+            "S": 2,
+            "XL": 1,
+            "XS": 0,
+            "XXL": 2
+          },
+          "fabric_units": 18184240,
+          "waste_units2": 974634106200,
+          "spread_count": 4,
+          "global_efficiency_percentage": 69.546741,
+          "primary_spread_covered_garments": 112,
+          "primary_spread_coverage_percentage": 51.851852,
+          "remaining_demand": {
+            "L": 0,
+            "M": 0,
+            "S": 0,
+            "XL": 0,
+            "XS": 0,
+            "XXL": 0
+          }
+        }
+      },
+      "explanation": "Utiliza 4 diseños de marker y 4 tendidos físicos; el primer corte cubre 51.9% del pedido, consume 181.84 m lineales y produce 9 prendas adicionales.",
+      "recommended": true,
+      "run_id": "a9f3725d-fac9-4de1-9cf8-9a70e3f41425",
+      "size_results": [
+        {
+          "size_code": "XS",
+          "requested": 30,
+          "produced": 30,
+          "overproduction": 0
+        },
+        {
+          "size_code": "S",
+          "requested": 33,
+          "produced": 35,
+          "overproduction": 2
+        },
+        {
+          "size_code": "M",
+          "requested": 42,
+          "produced": 44,
+          "overproduction": 2
+        },
+        {
+          "size_code": "L",
+          "requested": 21,
+          "produced": 23,
+          "overproduction": 2
+        },
+        {
+          "size_code": "XL",
+          "requested": 35,
+          "produced": 36,
+          "overproduction": 1
+        },
+        {
+          "size_code": "XXL",
+          "requested": 55,
+          "produced": 57,
+          "overproduction": 2
+        },
+        {
+          "size_code": "XXXL",
+          "requested": 0,
+          "produced": 0,
+          "overproduction": 0
+        }
+      ],
+      "spreads": [
+        {
+          "id": "8c69c38c-3522-46ee-92ab-f9db8809a063",
+          "solution_id": "5920bf05-f76e-43d1-b451-064edabd8765",
+          "marker_hash": "5a5ffb315c48432d95ecd80ce2b707922e019ded541176c0d206d74a1a426025",
+          "spread_hash": "11221bb5eab0565752efabb01f70b474f75e5a7eb34a411ad54059753c9af4bc",
+          "sequence": 1,
+          "layers": 14,
+          "repeats": 1,
+          "composition": {
+            "XS": 1,
+            "S": 1,
+            "M": 2,
+            "XL": 2,
+            "XXL": 2
+          },
+          "production_by_size": {
+            "XS": 14,
+            "S": 14,
+            "M": 28,
+            "XL": 28,
+            "XXL": 28
+          },
+          "marker_length_cm": 642.63,
+          "fabric_consumption_m": 89.9682,
+          "marker_efficiency_percentage": 70.654004,
+          "marker_search_status": "FEASIBLE_NOT_PROVEN_BEST",
+          "validation_status": "VALIDATED",
+          "useful_garments": 112,
+          "order_coverage_percentage": 51.851852,
+          "remaining_demand_after": {
+            "L": 21,
+            "M": 14,
+            "S": 19,
+            "XL": 7,
+            "XS": 16,
+            "XXL": 27
+          },
+          "is_primary": true
+        },
+        {
+          "id": "bd50f959-35a1-4c6e-9f2d-8195107aa959",
+          "solution_id": "5920bf05-f76e-43d1-b451-064edabd8765",
+          "marker_hash": "b9a2ffd408fa2abb01579f1517d164924c570dfc5c8e874c413230b57491868a",
+          "spread_hash": "560049d192f828508ea918842a4f96e0b6586946f88898f0adb68b857a089120",
+          "sequence": 2,
+          "layers": 8,
+          "repeats": 1,
+          "composition": {
+            "XS": 2,
+            "S": 1,
+            "M": 2,
+            "XL": 1,
+            "XXL": 2
+          },
+          "production_by_size": {
+            "XS": 16,
+            "S": 8,
+            "M": 16,
+            "XL": 8,
+            "XXL": 16
+          },
+          "marker_length_cm": 622.63,
+          "fabric_consumption_m": 49.8104,
+          "marker_efficiency_percentage": 69.928928,
+          "marker_search_status": "FEASIBLE_NOT_PROVEN_BEST",
+          "validation_status": "VALIDATED",
+          "useful_garments": 61,
+          "order_coverage_percentage": 58.653846,
+          "remaining_demand_after": {
+            "L": 21,
+            "M": 0,
+            "S": 11,
+            "XL": 0,
+            "XS": 0,
+            "XXL": 11
+          },
+          "is_primary": false
+        },
+        {
+          "id": "da2c9caf-c971-475d-9f50-1e54275c0114",
+          "solution_id": "5920bf05-f76e-43d1-b451-064edabd8765",
+          "marker_hash": "0e27e097f7e05e06c0f16b821e39884674d523ae9720d5113e0b2644622696ce",
+          "spread_hash": "d0534dc82dca9f573d64050b478b7e20386d8422cfba720370a13dfe2d4538eb",
+          "sequence": 3,
+          "layers": 13,
+          "repeats": 1,
+          "composition": {
+            "S": 1,
+            "L": 1,
+            "XXL": 1
+          },
+          "production_by_size": {
+            "S": 13,
+            "L": 13,
+            "XXL": 13
+          },
+          "marker_length_cm": 241.5,
+          "fabric_consumption_m": 31.395,
+          "marker_efficiency_percentage": 71.207949,
+          "marker_search_status": "FEASIBLE_NOT_PROVEN_BEST",
+          "validation_status": "VALIDATED",
+          "useful_garments": 35,
+          "order_coverage_percentage": 81.395349,
+          "remaining_demand_after": {
+            "L": 8,
+            "M": 0,
+            "S": 0,
+            "XL": 0,
+            "XS": 0,
+            "XXL": 0
+          },
+          "is_primary": false
+        },
+        {
+          "id": "5fa88cbe-e971-4b9a-a467-c2d2537b73fd",
+          "solution_id": "5920bf05-f76e-43d1-b451-064edabd8765",
+          "marker_hash": "e451c8a0b32bc866847ebe4a8afeabc6648747d100bf5cd095271d3548ab1919",
+          "spread_hash": "7ccd587642eddb5e5c2e69e59effa174b9482cee7b52576c56f617a42d02b00c",
+          "sequence": 4,
+          "layers": 10,
+          "repeats": 1,
+          "composition": {
+            "L": 1
+          },
+          "production_by_size": {
+            "L": 10
+          },
+          "marker_length_cm": 106.688,
+          "fabric_consumption_m": 10.668800000000001,
+          "marker_efficiency_percentage": 53.536597,
+          "marker_search_status": "FEASIBLE_NOT_PROVEN_BEST",
+          "validation_status": "VALIDATED",
+          "useful_garments": 8,
+          "order_coverage_percentage": 100.0,
+          "remaining_demand_after": {
+            "L": 0,
+            "M": 0,
+            "S": 0,
+            "XL": 0,
+            "XS": 0,
+            "XXL": 0
+          },
+          "is_primary": false
+        }
+      ]
+    }
+  }
+}

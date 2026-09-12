@@ -1,0 +1,663 @@
+{
+  "10": {
+    "A": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 3,
+        "candidates_feasible": 3,
+        "candidates_generated": 3,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 0,
+        "candidates_pending": 0
+      },
+      "fabric_m": 2.095,
+      "improvement_vs_10_fabric_m": 0.0,
+      "input_hash": "265aed15b7a9edeae440c3d58b65f0bc9ea1bbfc7960a99740f884b22f13104d",
+      "marker_hashes": [
+        "45dbdd1c9dd7bec41d9aa0d6f8e5e3b02ec2fb75515cb6d20648ecfa2ef8ba6a",
+        "7d35b867e70e8e7b9598ef742ba7b940cd28f8d916e74952e277610c3e2eabbe",
+        "e7ba571456eefb47c3f960e09d812810b598062d698f5d5338a094f9682fe4b4"
+      ],
+      "multi_size_evaluated": 0,
+      "planning_status": "OPTIMAL",
+      "solution_hashes": [
+        "cbd6071062a6df9e1aa9145b49a1f68882c9cacb031696e539a867edd906cc82"
+      ],
+      "spreads": 1,
+      "status": "SUCCEEDED",
+      "time_ms": 95.724
+    },
+    "B": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 10,
+        "candidates_feasible": 10,
+        "candidates_generated": 39,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 17,
+        "candidates_pending": 0
+      },
+      "fabric_m": 65.365,
+      "improvement_vs_10_fabric_m": 0.0,
+      "input_hash": "f6f219ff199ece18d059d572a2159a0300536bf287f7ae388fa8797eb1c9d0ce",
+      "marker_hashes": [
+        "2eaa1fab0d9024b20423ee6184c74a98bacc827d7c84bde3ea8773764a80587b",
+        "7782b7d6e4ea8c6b3d647a0570ab4d7fe1bee714acd5b1022db09a77a2f23c6a",
+        "9779edc9df42252c941b70f481ac75cc2a455e6265c7e9076009d1420dffdf84",
+        "b323aad428634256e3ead5f40a34790bce0536cf9bccca2c7aa99a2e70266fdd",
+        "b6f7415ff03e87dea46d7c4e1c9fadaa0de8294c33124ddfa0bba38daba61eba",
+        "b81a3ddf64ff4f6fe59418766233e3e6a4b072d62c08274f15df2e507431efbd",
+        "da2d726d19aa3ed700981fdc553f820c5b20eb4905202715528bf83727fe2d79",
+        "e0b668e75e00dfaca711f93ccca94b48af5ac5c90af3894c4e8b0c45d868b85e",
+        "e7ba571456eefb47c3f960e09d812810b598062d698f5d5338a094f9682fe4b4",
+        "ff4821c6ebf03055309531315c3d8b92e6822bc6e726c6faa273b436ac248453"
+      ],
+      "multi_size_evaluated": 5,
+      "planning_status": "FEASIBLE",
+      "solution_hashes": [
+        "a81b119b1ab0a97fc4f05c596b0840f32de3c7b15da11984ad3a302a47340098",
+        "dde26039d2f1d9159b1f73c0976d647acb404f7bf893f9b625297154bfc18b5e"
+      ],
+      "spreads": 11,
+      "status": "SUCCEEDED",
+      "time_ms": 3037.244
+    },
+    "C": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 10,
+        "candidates_feasible": 10,
+        "candidates_generated": 67,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 21,
+        "candidates_pending": 0
+      },
+      "fabric_m": 6.815,
+      "improvement_vs_10_fabric_m": 0.0,
+      "input_hash": "e5896946bd3a0c9b298c1f1d6181a22b86b48e4ff09a529f196f04766dc57fca",
+      "marker_hashes": [
+        "2f38dbafe52a93a8830e30abe00d5d84b7f7e41649e05c51bf83334d12d31603",
+        "7782b7d6e4ea8c6b3d647a0570ab4d7fe1bee714acd5b1022db09a77a2f23c6a",
+        "81e87c39e89630a8189ae70ffbbadff2b20074014454cbb39a8b5dfe4cbceee3",
+        "956f8c8476faba87d703ceeafbc6ad61344a6a541f2ee9006be87d01b4dd4599",
+        "b323aad428634256e3ead5f40a34790bce0536cf9bccca2c7aa99a2e70266fdd",
+        "b81a3ddf64ff4f6fe59418766233e3e6a4b072d62c08274f15df2e507431efbd",
+        "da2d726d19aa3ed700981fdc553f820c5b20eb4905202715528bf83727fe2d79",
+        "e4f442b2e5bff62f1421d05a9570878b25a9a6c0b5ca311bfc5edb4228d46473",
+        "e7ba571456eefb47c3f960e09d812810b598062d698f5d5338a094f9682fe4b4",
+        "ff4821c6ebf03055309531315c3d8b92e6822bc6e726c6faa273b436ac248453"
+      ],
+      "multi_size_evaluated": 3,
+      "planning_status": "OPTIMAL",
+      "solution_hashes": [
+        "860e9674d28cd63f493348565bfb87afd7621c4b86b72b29f6c138b33ed59495"
+      ],
+      "spreads": 5,
+      "status": "SUCCEEDED",
+      "time_ms": 412.229
+    },
+    "D": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 3,
+        "candidates_feasible": 3,
+        "candidates_generated": 3,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 0,
+        "candidates_pending": 0
+      },
+      "fabric_m": 74.8,
+      "improvement_vs_10_fabric_m": 0.0,
+      "input_hash": "49180065a9d832868e906a90fec7e39f13642c31d3174c91e11e8623e83c83d0",
+      "marker_hashes": [
+        "b323aad428634256e3ead5f40a34790bce0536cf9bccca2c7aa99a2e70266fdd",
+        "b81fe5ad8732b59117a0fa52487f930c187619031fd0971922b5f1094b270ea2",
+        "d63416a42f5c307c526aa30b05c87fc5dd5a0b577712d5de7fe1266bd6f04165"
+      ],
+      "multi_size_evaluated": 0,
+      "planning_status": "OPTIMAL",
+      "solution_hashes": [
+        "d32c364bd8cabd269422703530e0491131d939eade709e5a96f59cab5ab7c935",
+        "d2fbccdea58183ed1e861c23a27ce62ac2174cc6a24b2e85af391fd56153e926"
+      ],
+      "spreads": 3,
+      "status": "SUCCEEDED",
+      "time_ms": 230.546
+    },
+    "E": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 3,
+        "candidates_feasible": 3,
+        "candidates_generated": 3,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 0,
+        "candidates_pending": 0
+      },
+      "fabric_m": 31.78852,
+      "improvement_vs_10_fabric_m": 0.0,
+      "input_hash": "10f1f03d1ac114746eb9cc7a950ad900d3ca511081719df95c15f80ad058beeb",
+      "marker_hashes": [
+        "4c1c25dc91a76fbdce96506a85d6233f88ad7eab9f49d8db4ce5e8c7badfb74b",
+        "956f8c8476faba87d703ceeafbc6ad61344a6a541f2ee9006be87d01b4dd4599",
+        "b08f9eea9ff10c069aeb16898377b1aca817cea5fc4a6327eff9ed69b2d31336"
+      ],
+      "multi_size_evaluated": 0,
+      "planning_status": "OPTIMAL",
+      "solution_hashes": [
+        "d3d397db971efd0daf4db59f277cca545f3aefffe5df5b09e2ad79fd1c90f2a0"
+      ],
+      "spreads": 2,
+      "status": "SUCCEEDED",
+      "time_ms": 294.113
+    }
+  },
+  "14": {
+    "A": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 3,
+        "candidates_feasible": 3,
+        "candidates_generated": 3,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 0,
+        "candidates_pending": 0
+      },
+      "fabric_m": 2.095,
+      "improvement_vs_10_fabric_m": 0.0,
+      "input_hash": "cba4562aadfbf3486ecd60f0853a4e532ba88fb069befe89d59e1daf30e689c6",
+      "marker_hashes": [
+        "45dbdd1c9dd7bec41d9aa0d6f8e5e3b02ec2fb75515cb6d20648ecfa2ef8ba6a",
+        "7d35b867e70e8e7b9598ef742ba7b940cd28f8d916e74952e277610c3e2eabbe",
+        "e7ba571456eefb47c3f960e09d812810b598062d698f5d5338a094f9682fe4b4"
+      ],
+      "multi_size_evaluated": 0,
+      "planning_status": "OPTIMAL",
+      "solution_hashes": [
+        "cbd6071062a6df9e1aa9145b49a1f68882c9cacb031696e539a867edd906cc82"
+      ],
+      "spreads": 1,
+      "status": "SUCCEEDED",
+      "time_ms": 168.283
+    },
+    "B": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 14,
+        "candidates_feasible": 14,
+        "candidates_generated": 39,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 13,
+        "candidates_pending": 0
+      },
+      "fabric_m": 68.915,
+      "improvement_vs_10_fabric_m": -3.55,
+      "input_hash": "11e3e5117f173280b45c829fa4f66efdbddb2cb33e7985da0f449456b73c81e3",
+      "marker_hashes": [
+        "2eaa1fab0d9024b20423ee6184c74a98bacc827d7c84bde3ea8773764a80587b",
+        "38e17665c4e773cdaaccbd0deb198b9887f48646837744d17c16784bbd3c23c7",
+        "43de1bf5512066f4a3c4f4a4b63162dbd4f71052ea69887b56f0ad04e4e4712c",
+        "7782b7d6e4ea8c6b3d647a0570ab4d7fe1bee714acd5b1022db09a77a2f23c6a",
+        "78d5b8397f9156839f721330caad6e01fd9b59c68b547e88c9865bd23eb1e3d3",
+        "a4b410f8ec89a557ca83d3a1c2684f3055480c48984e2f7b46cb63512dcffc61",
+        "ad34d1a8615cc7900b9827040b1b87cfcbdfcd8fafd95f3e641a59dc0501ec5e",
+        "b323aad428634256e3ead5f40a34790bce0536cf9bccca2c7aa99a2e70266fdd",
+        "b6f7415ff03e87dea46d7c4e1c9fadaa0de8294c33124ddfa0bba38daba61eba",
+        "b81a3ddf64ff4f6fe59418766233e3e6a4b072d62c08274f15df2e507431efbd",
+        "da2d726d19aa3ed700981fdc553f820c5b20eb4905202715528bf83727fe2d79",
+        "e0b668e75e00dfaca711f93ccca94b48af5ac5c90af3894c4e8b0c45d868b85e",
+        "e7ba571456eefb47c3f960e09d812810b598062d698f5d5338a094f9682fe4b4",
+        "ff4821c6ebf03055309531315c3d8b92e6822bc6e726c6faa273b436ac248453"
+      ],
+      "multi_size_evaluated": 9,
+      "planning_status": "FEASIBLE",
+      "solution_hashes": [
+        "e216a2d848059acdc33f1d2c0673a320a1cf52874f5172f94480a94c7f748173",
+        "e45bc27d2593848ed6ea1d7f46604839f59e9961333653bd38ec438c5a1358a7"
+      ],
+      "spreads": 9,
+      "status": "SUCCEEDED",
+      "time_ms": 3048.579
+    },
+    "C": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 14,
+        "candidates_feasible": 14,
+        "candidates_generated": 67,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 18,
+        "candidates_pending": 0
+      },
+      "fabric_m": 5.935,
+      "improvement_vs_10_fabric_m": 0.88,
+      "input_hash": "adbf8a37e990daec40e89fe5de73f83740784d87b6d3efccef614d9d2c54bac1",
+      "marker_hashes": [
+        "2f38dbafe52a93a8830e30abe00d5d84b7f7e41649e05c51bf83334d12d31603",
+        "50ed6039cbb42d7a665aa857e3d1db438b43f1f047666505a33882e16d70b717",
+        "5cd3d82333e23ece0edd1f5d7453de04c22f013f4f0e08eaa3dd318d68623a13",
+        "7782b7d6e4ea8c6b3d647a0570ab4d7fe1bee714acd5b1022db09a77a2f23c6a",
+        "81e87c39e89630a8189ae70ffbbadff2b20074014454cbb39a8b5dfe4cbceee3",
+        "956f8c8476faba87d703ceeafbc6ad61344a6a541f2ee9006be87d01b4dd4599",
+        "b323aad428634256e3ead5f40a34790bce0536cf9bccca2c7aa99a2e70266fdd",
+        "b81a3ddf64ff4f6fe59418766233e3e6a4b072d62c08274f15df2e507431efbd",
+        "da2d726d19aa3ed700981fdc553f820c5b20eb4905202715528bf83727fe2d79",
+        "dd8aba50281170f5f8eb5c28d191f1cab66df0db2fe26cb70c47235cb942ec89",
+        "e4f442b2e5bff62f1421d05a9570878b25a9a6c0b5ca311bfc5edb4228d46473",
+        "e7ba571456eefb47c3f960e09d812810b598062d698f5d5338a094f9682fe4b4",
+        "ec09371a09d102dfc863555a64713de5f9a9b25a064f500ab9bed9b847e8816b",
+        "ff4821c6ebf03055309531315c3d8b92e6822bc6e726c6faa273b436ac248453"
+      ],
+      "multi_size_evaluated": 7,
+      "planning_status": "OPTIMAL",
+      "solution_hashes": [
+        "8651a3777718febbe3ed29542198d734af02fd2d80f9534d20b848973366be9f"
+      ],
+      "spreads": 3,
+      "status": "SUCCEEDED",
+      "time_ms": 522.045
+    },
+    "D": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 3,
+        "candidates_feasible": 3,
+        "candidates_generated": 3,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 0,
+        "candidates_pending": 0
+      },
+      "fabric_m": 74.8,
+      "improvement_vs_10_fabric_m": 0.0,
+      "input_hash": "51f5aab1b909dc190731173cf122f1bc5ea2dfcca111fc64016e9ad6ac102a82",
+      "marker_hashes": [
+        "b323aad428634256e3ead5f40a34790bce0536cf9bccca2c7aa99a2e70266fdd",
+        "b81fe5ad8732b59117a0fa52487f930c187619031fd0971922b5f1094b270ea2",
+        "d63416a42f5c307c526aa30b05c87fc5dd5a0b577712d5de7fe1266bd6f04165"
+      ],
+      "multi_size_evaluated": 0,
+      "planning_status": "OPTIMAL",
+      "solution_hashes": [
+        "d32c364bd8cabd269422703530e0491131d939eade709e5a96f59cab5ab7c935",
+        "d2fbccdea58183ed1e861c23a27ce62ac2174cc6a24b2e85af391fd56153e926"
+      ],
+      "spreads": 3,
+      "status": "SUCCEEDED",
+      "time_ms": 233.133
+    },
+    "E": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 3,
+        "candidates_feasible": 3,
+        "candidates_generated": 3,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 0,
+        "candidates_pending": 0
+      },
+      "fabric_m": 31.78852,
+      "improvement_vs_10_fabric_m": 0.0,
+      "input_hash": "7f03f740f11eeb5355479cf52aa84a9cd022e0a7e40d9f6ed2f01b9cc24521e7",
+      "marker_hashes": [
+        "4c1c25dc91a76fbdce96506a85d6233f88ad7eab9f49d8db4ce5e8c7badfb74b",
+        "956f8c8476faba87d703ceeafbc6ad61344a6a541f2ee9006be87d01b4dd4599",
+        "b08f9eea9ff10c069aeb16898377b1aca817cea5fc4a6327eff9ed69b2d31336"
+      ],
+      "multi_size_evaluated": 0,
+      "planning_status": "OPTIMAL",
+      "solution_hashes": [
+        "d3d397db971efd0daf4db59f277cca545f3aefffe5df5b09e2ad79fd1c90f2a0"
+      ],
+      "spreads": 2,
+      "status": "SUCCEEDED",
+      "time_ms": 369.736
+    }
+  },
+  "18": {
+    "A": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 3,
+        "candidates_feasible": 3,
+        "candidates_generated": 3,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 0,
+        "candidates_pending": 0
+      },
+      "fabric_m": 2.095,
+      "improvement_vs_10_fabric_m": 0.0,
+      "input_hash": "e3843b284e469e5691c328612ed941cb7a8b84ce7c975f340908c87df7dd5aed",
+      "marker_hashes": [
+        "45dbdd1c9dd7bec41d9aa0d6f8e5e3b02ec2fb75515cb6d20648ecfa2ef8ba6a",
+        "7d35b867e70e8e7b9598ef742ba7b940cd28f8d916e74952e277610c3e2eabbe",
+        "e7ba571456eefb47c3f960e09d812810b598062d698f5d5338a094f9682fe4b4"
+      ],
+      "multi_size_evaluated": 0,
+      "planning_status": "OPTIMAL",
+      "solution_hashes": [
+        "cbd6071062a6df9e1aa9145b49a1f68882c9cacb031696e539a867edd906cc82"
+      ],
+      "spreads": 1,
+      "status": "SUCCEEDED",
+      "time_ms": 92.083
+    },
+    "B": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 17,
+        "candidates_feasible": 17,
+        "candidates_generated": 39,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 10,
+        "candidates_pending": 0
+      },
+      "fabric_m": 71.91954,
+      "improvement_vs_10_fabric_m": -6.55454,
+      "input_hash": "0d8234d81accea428e41331c16fa9bb3e84c51f8304d0f0d2f28e960a3cb8153",
+      "marker_hashes": [
+        "2eaa1fab0d9024b20423ee6184c74a98bacc827d7c84bde3ea8773764a80587b",
+        "33f71c07e234e308d7812b5e52819557e8ed79cfe5150e3634b73d16ba162ddc",
+        "38e17665c4e773cdaaccbd0deb198b9887f48646837744d17c16784bbd3c23c7",
+        "43de1bf5512066f4a3c4f4a4b63162dbd4f71052ea69887b56f0ad04e4e4712c",
+        "6d0cd7acd78c72f1e455c29f5fafa00645cae14bd2d5afb8932d3f329fbb041c",
+        "7782b7d6e4ea8c6b3d647a0570ab4d7fe1bee714acd5b1022db09a77a2f23c6a",
+        "78d5b8397f9156839f721330caad6e01fd9b59c68b547e88c9865bd23eb1e3d3",
+        "7f00024bd6b0ed838250055421d79124e0bf5edcec5af4db987e964642de8908",
+        "80109212a3559639d307524bc21454d0420b1222fab34e12596379267cf4be9c",
+        "a7d91c0630ff2a3e18021f588a693cc43b90fcf31a8e163554171a4d895a2454",
+        "b323aad428634256e3ead5f40a34790bce0536cf9bccca2c7aa99a2e70266fdd",
+        "b81a3ddf64ff4f6fe59418766233e3e6a4b072d62c08274f15df2e507431efbd",
+        "cd8ba58e088d4c9ef2df2b466f8b9224b27f80bd29b13de5258c67c167ef1bf0",
+        "da2d726d19aa3ed700981fdc553f820c5b20eb4905202715528bf83727fe2d79",
+        "e0b668e75e00dfaca711f93ccca94b48af5ac5c90af3894c4e8b0c45d868b85e",
+        "e7ba571456eefb47c3f960e09d812810b598062d698f5d5338a094f9682fe4b4",
+        "ff4821c6ebf03055309531315c3d8b92e6822bc6e726c6faa273b436ac248453"
+      ],
+      "multi_size_evaluated": 12,
+      "planning_status": "FEASIBLE",
+      "solution_hashes": [
+        "e725b30921d538529c4bfba77ab2ec0b71388a0f559e722efc3123c80a26e22a",
+        "52f55bf4c9e808928048b2415c787880dc59e1b56557322630b6b290c21df83f"
+      ],
+      "spreads": 9,
+      "status": "SUCCEEDED",
+      "time_ms": 3095.92
+    },
+    "C": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 18,
+        "candidates_feasible": 18,
+        "candidates_generated": 67,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 14,
+        "candidates_pending": 0
+      },
+      "fabric_m": 5.935,
+      "improvement_vs_10_fabric_m": 0.88,
+      "input_hash": "513852c6c10b22c52a2289fa8481250b1ecd5e23aeba5c43030808727cd271ba",
+      "marker_hashes": [
+        "2eaa1fab0d9024b20423ee6184c74a98bacc827d7c84bde3ea8773764a80587b",
+        "2f38dbafe52a93a8830e30abe00d5d84b7f7e41649e05c51bf83334d12d31603",
+        "50ed6039cbb42d7a665aa857e3d1db438b43f1f047666505a33882e16d70b717",
+        "578154bf39a34239d5a56a7b4573201356ad801b3f1475ab71af7944d4140a0f",
+        "5cd3d82333e23ece0edd1f5d7453de04c22f013f4f0e08eaa3dd318d68623a13",
+        "7782b7d6e4ea8c6b3d647a0570ab4d7fe1bee714acd5b1022db09a77a2f23c6a",
+        "78d5b8397f9156839f721330caad6e01fd9b59c68b547e88c9865bd23eb1e3d3",
+        "81e87c39e89630a8189ae70ffbbadff2b20074014454cbb39a8b5dfe4cbceee3",
+        "956f8c8476faba87d703ceeafbc6ad61344a6a541f2ee9006be87d01b4dd4599",
+        "a5c929ad3e8abaf328e507d2707fcfaaf51566682294c088c5ca92de2d6ba8e7",
+        "b323aad428634256e3ead5f40a34790bce0536cf9bccca2c7aa99a2e70266fdd",
+        "b81a3ddf64ff4f6fe59418766233e3e6a4b072d62c08274f15df2e507431efbd",
+        "da2d726d19aa3ed700981fdc553f820c5b20eb4905202715528bf83727fe2d79",
+        "dd8aba50281170f5f8eb5c28d191f1cab66df0db2fe26cb70c47235cb942ec89",
+        "e4f442b2e5bff62f1421d05a9570878b25a9a6c0b5ca311bfc5edb4228d46473",
+        "e7ba571456eefb47c3f960e09d812810b598062d698f5d5338a094f9682fe4b4",
+        "ec09371a09d102dfc863555a64713de5f9a9b25a064f500ab9bed9b847e8816b",
+        "ff4821c6ebf03055309531315c3d8b92e6822bc6e726c6faa273b436ac248453"
+      ],
+      "multi_size_evaluated": 11,
+      "planning_status": "OPTIMAL",
+      "solution_hashes": [
+        "8651a3777718febbe3ed29542198d734af02fd2d80f9534d20b848973366be9f"
+      ],
+      "spreads": 3,
+      "status": "SUCCEEDED",
+      "time_ms": 725.521
+    },
+    "D": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 3,
+        "candidates_feasible": 3,
+        "candidates_generated": 3,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 0,
+        "candidates_pending": 0
+      },
+      "fabric_m": 74.8,
+      "improvement_vs_10_fabric_m": 0.0,
+      "input_hash": "8050a14e32ae4fd2c94415b97b9ebd91811ab92697468ad2b0117ab3f0a295ff",
+      "marker_hashes": [
+        "b323aad428634256e3ead5f40a34790bce0536cf9bccca2c7aa99a2e70266fdd",
+        "b81fe5ad8732b59117a0fa52487f930c187619031fd0971922b5f1094b270ea2",
+        "d63416a42f5c307c526aa30b05c87fc5dd5a0b577712d5de7fe1266bd6f04165"
+      ],
+      "multi_size_evaluated": 0,
+      "planning_status": "OPTIMAL",
+      "solution_hashes": [
+        "d32c364bd8cabd269422703530e0491131d939eade709e5a96f59cab5ab7c935",
+        "d2fbccdea58183ed1e861c23a27ce62ac2174cc6a24b2e85af391fd56153e926"
+      ],
+      "spreads": 3,
+      "status": "SUCCEEDED",
+      "time_ms": 231.924
+    },
+    "E": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 3,
+        "candidates_feasible": 3,
+        "candidates_generated": 3,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 0,
+        "candidates_pending": 0
+      },
+      "fabric_m": 31.78852,
+      "improvement_vs_10_fabric_m": 0.0,
+      "input_hash": "423b7752e0742bbeb869a17d48c1ea7680e7164a46ef7c9b51f24b5753d1a724",
+      "marker_hashes": [
+        "4c1c25dc91a76fbdce96506a85d6233f88ad7eab9f49d8db4ce5e8c7badfb74b",
+        "956f8c8476faba87d703ceeafbc6ad61344a6a541f2ee9006be87d01b4dd4599",
+        "b08f9eea9ff10c069aeb16898377b1aca817cea5fc4a6327eff9ed69b2d31336"
+      ],
+      "multi_size_evaluated": 0,
+      "planning_status": "OPTIMAL",
+      "solution_hashes": [
+        "d3d397db971efd0daf4db59f277cca545f3aefffe5df5b09e2ad79fd1c90f2a0"
+      ],
+      "spreads": 2,
+      "status": "SUCCEEDED",
+      "time_ms": 303.291
+    }
+  },
+  "24": {
+    "A": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 3,
+        "candidates_feasible": 3,
+        "candidates_generated": 3,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 0,
+        "candidates_pending": 0
+      },
+      "fabric_m": 2.095,
+      "improvement_vs_10_fabric_m": 0.0,
+      "input_hash": "dc872889e0cac5cf4d4162fd9087301e3140752f40b26097890a4d3cc8ea8fc3",
+      "marker_hashes": [
+        "45dbdd1c9dd7bec41d9aa0d6f8e5e3b02ec2fb75515cb6d20648ecfa2ef8ba6a",
+        "7d35b867e70e8e7b9598ef742ba7b940cd28f8d916e74952e277610c3e2eabbe",
+        "e7ba571456eefb47c3f960e09d812810b598062d698f5d5338a094f9682fe4b4"
+      ],
+      "multi_size_evaluated": 0,
+      "planning_status": "OPTIMAL",
+      "solution_hashes": [
+        "cbd6071062a6df9e1aa9145b49a1f68882c9cacb031696e539a867edd906cc82"
+      ],
+      "spreads": 1,
+      "status": "SUCCEEDED",
+      "time_ms": 168.029
+    },
+    "B": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 22,
+        "candidates_feasible": 22,
+        "candidates_generated": 39,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 4,
+        "candidates_pending": 0
+      },
+      "fabric_m": 64.305,
+      "improvement_vs_10_fabric_m": 1.06,
+      "input_hash": "8ce38e6424b9f6e23b9a047a829b42907a9287dcb6598b112e67e6a51e4e063d",
+      "marker_hashes": [
+        "2eaa1fab0d9024b20423ee6184c74a98bacc827d7c84bde3ea8773764a80587b",
+        "33f71c07e234e308d7812b5e52819557e8ed79cfe5150e3634b73d16ba162ddc",
+        "38e17665c4e773cdaaccbd0deb198b9887f48646837744d17c16784bbd3c23c7",
+        "43de1bf5512066f4a3c4f4a4b63162dbd4f71052ea69887b56f0ad04e4e4712c",
+        "4bc4a7204429fd2192b370dc920ad18c2532fd317c1e1f9fdc10571cb5379f1d",
+        "50ed6039cbb42d7a665aa857e3d1db438b43f1f047666505a33882e16d70b717",
+        "53b18166731824906a0a6a0402a7491f4e97459fc22209aa4b877d418f0e808e",
+        "7782b7d6e4ea8c6b3d647a0570ab4d7fe1bee714acd5b1022db09a77a2f23c6a",
+        "78d5b8397f9156839f721330caad6e01fd9b59c68b547e88c9865bd23eb1e3d3",
+        "7d35b867e70e8e7b9598ef742ba7b940cd28f8d916e74952e277610c3e2eabbe",
+        "80109212a3559639d307524bc21454d0420b1222fab34e12596379267cf4be9c",
+        "939feb141558b09c8eaa912a5275cbf58b36938bee2069e05abcf94885f4121f",
+        "9779edc9df42252c941b70f481ac75cc2a455e6265c7e9076009d1420dffdf84",
+        "9c2cac2158c429e585388abc09f179caae3d99dd1cead4a6db8fa7a84f6c75f0",
+        "a7d91c0630ff2a3e18021f588a693cc43b90fcf31a8e163554171a4d895a2454",
+        "b323aad428634256e3ead5f40a34790bce0536cf9bccca2c7aa99a2e70266fdd",
+        "b81a3ddf64ff4f6fe59418766233e3e6a4b072d62c08274f15df2e507431efbd",
+        "d63416a42f5c307c526aa30b05c87fc5dd5a0b577712d5de7fe1266bd6f04165",
+        "da2d726d19aa3ed700981fdc553f820c5b20eb4905202715528bf83727fe2d79",
+        "e0b668e75e00dfaca711f93ccca94b48af5ac5c90af3894c4e8b0c45d868b85e",
+        "e7ba571456eefb47c3f960e09d812810b598062d698f5d5338a094f9682fe4b4",
+        "ff4821c6ebf03055309531315c3d8b92e6822bc6e726c6faa273b436ac248453"
+      ],
+      "multi_size_evaluated": 13,
+      "planning_status": "FEASIBLE",
+      "solution_hashes": [
+        "9e61f85be4e9df324d311f6bd732b8e9080ce1663501672bd374feb04db88017",
+        "7a5758886641ea583950cb4b809a6acb04871eb4a14331f7acf66d634284d743"
+      ],
+      "spreads": 8,
+      "status": "SUCCEEDED",
+      "time_ms": 3073.807
+    },
+    "C": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 24,
+        "candidates_feasible": 24,
+        "candidates_generated": 67,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 8,
+        "candidates_pending": 0
+      },
+      "fabric_m": 5.935,
+      "improvement_vs_10_fabric_m": 0.88,
+      "input_hash": "26b206a8cdbb269131e4cde51cfc61ed4b5b50aa6b1df85e0dff2d7741db080c",
+      "marker_hashes": [
+        "2eaa1fab0d9024b20423ee6184c74a98bacc827d7c84bde3ea8773764a80587b",
+        "2f38dbafe52a93a8830e30abe00d5d84b7f7e41649e05c51bf83334d12d31603",
+        "33f71c07e234e308d7812b5e52819557e8ed79cfe5150e3634b73d16ba162ddc",
+        "35fa8a671f44014f92c91150735cdd3fe9563610f04cf1e2a279d45d33b2f2af",
+        "38e17665c4e773cdaaccbd0deb198b9887f48646837744d17c16784bbd3c23c7",
+        "43de1bf5512066f4a3c4f4a4b63162dbd4f71052ea69887b56f0ad04e4e4712c",
+        "50ed6039cbb42d7a665aa857e3d1db438b43f1f047666505a33882e16d70b717",
+        "578154bf39a34239d5a56a7b4573201356ad801b3f1475ab71af7944d4140a0f",
+        "5cd3d82333e23ece0edd1f5d7453de04c22f013f4f0e08eaa3dd318d68623a13",
+        "7782b7d6e4ea8c6b3d647a0570ab4d7fe1bee714acd5b1022db09a77a2f23c6a",
+        "78d5b8397f9156839f721330caad6e01fd9b59c68b547e88c9865bd23eb1e3d3",
+        "81e87c39e89630a8189ae70ffbbadff2b20074014454cbb39a8b5dfe4cbceee3",
+        "956f8c8476faba87d703ceeafbc6ad61344a6a541f2ee9006be87d01b4dd4599",
+        "a4d1150ceb0260fbc48693e39ab4f4247212df95409453d19a8abb70559f9fc1",
+        "a5c929ad3e8abaf328e507d2707fcfaaf51566682294c088c5ca92de2d6ba8e7",
+        "a7d91c0630ff2a3e18021f588a693cc43b90fcf31a8e163554171a4d895a2454",
+        "b323aad428634256e3ead5f40a34790bce0536cf9bccca2c7aa99a2e70266fdd",
+        "b81a3ddf64ff4f6fe59418766233e3e6a4b072d62c08274f15df2e507431efbd",
+        "da2d726d19aa3ed700981fdc553f820c5b20eb4905202715528bf83727fe2d79",
+        "dd8aba50281170f5f8eb5c28d191f1cab66df0db2fe26cb70c47235cb942ec89",
+        "e4f442b2e5bff62f1421d05a9570878b25a9a6c0b5ca311bfc5edb4228d46473",
+        "e7ba571456eefb47c3f960e09d812810b598062d698f5d5338a094f9682fe4b4",
+        "ec09371a09d102dfc863555a64713de5f9a9b25a064f500ab9bed9b847e8816b",
+        "ff4821c6ebf03055309531315c3d8b92e6822bc6e726c6faa273b436ac248453"
+      ],
+      "multi_size_evaluated": 17,
+      "planning_status": "OPTIMAL",
+      "solution_hashes": [
+        "8651a3777718febbe3ed29542198d734af02fd2d80f9534d20b848973366be9f"
+      ],
+      "spreads": 3,
+      "status": "SUCCEEDED",
+      "time_ms": 1121.925
+    },
+    "D": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 3,
+        "candidates_feasible": 3,
+        "candidates_generated": 3,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 0,
+        "candidates_pending": 0
+      },
+      "fabric_m": 74.8,
+      "improvement_vs_10_fabric_m": 0.0,
+      "input_hash": "0a3f9dac35f3570d609023951cc7cab1077b19bef0150e8711553b13d78129c0",
+      "marker_hashes": [
+        "b323aad428634256e3ead5f40a34790bce0536cf9bccca2c7aa99a2e70266fdd",
+        "b81fe5ad8732b59117a0fa52487f930c187619031fd0971922b5f1094b270ea2",
+        "d63416a42f5c307c526aa30b05c87fc5dd5a0b577712d5de7fe1266bd6f04165"
+      ],
+      "multi_size_evaluated": 0,
+      "planning_status": "OPTIMAL",
+      "solution_hashes": [
+        "d32c364bd8cabd269422703530e0491131d939eade709e5a96f59cab5ab7c935",
+        "d2fbccdea58183ed1e861c23a27ce62ac2174cc6a24b2e85af391fd56153e926"
+      ],
+      "spreads": 3,
+      "status": "SUCCEEDED",
+      "time_ms": 242.719
+    },
+    "E": {
+      "candidates": {
+        "best_feasible_found": true,
+        "candidates_evaluated": 3,
+        "candidates_feasible": 3,
+        "candidates_generated": 3,
+        "candidates_infeasible": 0,
+        "candidates_not_evaluated": 0,
+        "candidates_pending": 0
+      },
+      "fabric_m": 31.78852,
+      "improvement_vs_10_fabric_m": 0.0,
+      "input_hash": "fef5608de3b7f0ecfefe03df5647f1226cf39b5a720a0b956d1b3662f3071209",
+      "marker_hashes": [
+        "4c1c25dc91a76fbdce96506a85d6233f88ad7eab9f49d8db4ce5e8c7badfb74b",
+        "956f8c8476faba87d703ceeafbc6ad61344a6a541f2ee9006be87d01b4dd4599",
+        "b08f9eea9ff10c069aeb16898377b1aca817cea5fc4a6327eff9ed69b2d31336"
+      ],
+      "multi_size_evaluated": 0,
+      "planning_status": "OPTIMAL",
+      "solution_hashes": [
+        "d3d397db971efd0daf4db59f277cca545f3aefffe5df5b09e2ad79fd1c90f2a0"
+      ],
+      "spreads": 2,
+      "status": "SUCCEEDED",
+      "time_ms": 311.256
+    }
+  }
+}

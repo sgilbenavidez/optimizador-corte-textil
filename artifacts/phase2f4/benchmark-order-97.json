@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-09-05T12:58:59Z",
+  "source": "docker end-to-end API run",
+  "run_id": "99bc6ade-3a1b-4519-9c91-166ba07b45a2",
+  "recommended_profile": "MAX_ORDER_PER_CUT",
+  "demand": {"XS": 20, "S": 10, "M": 30, "L": 20, "XL": 14, "XXL": 3, "XXXL": 0},
+  "before_single_size": {
+    "physical_spreads": 6, "distinct_markers": 6, "changeovers": 5,
+    "fabric_m": 89.7915, "efficiency_percentage": 57.112651,
+    "primary_spread_coverage_percentage": 30.927835, "largest_marker_piece_count": 5
+  },
+  "after_max_order_per_cut": {
+    "physical_spreads": 4, "distinct_markers": 4, "changeovers": 3,
+    "fabric_m": 77.0225, "efficiency_percentage": 66.580942,
+    "primary_spread_coverage_percentage": 82.474227, "primary_spread_covered_garments": 80,
+    "largest_marker_piece_count": 40, "calculation_time_ms": 106701.399, "solver_time_ms": 6138.738
+  },
+  "primary_spread": {
+    "composition": {"XS": 2, "S": 1, "M": 2, "L": 2, "XL": 1},
+    "layers": 10, "pieces": 40,
+    "production": {"XS": 20, "S": 10, "M": 20, "L": 20, "XL": 10},
+    "remaining_demand_after": {"XS": 0, "S": 0, "M": 10, "L": 0, "XL": 4, "XXL": 3},
+    "marker_length_cm": 603.409, "usable_width_cm": 176,
+    "validation_status": "VALIDATED_FEASIBLE"
+  },
+  "rounds": [
+    {"round": 1, "evaluated": 12, "feasible": 11, "best_physical_spreads": 5, "primary_covered": 60},
+    {"round": 2, "evaluated": 8, "feasible": 5, "best_physical_spreads": 4, "primary_covered": 80}
+  ],
+  "pattern_validation_status": "ENGINEERING", "production_ready": false,
+  "stop_gate": "ACTIVE", "phase_2g_authorized": false
+}

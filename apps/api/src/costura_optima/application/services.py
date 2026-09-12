@@ -37,6 +37,7 @@ from costura_optima.domain.order_rules import DemandLine, normalize_demand
 from costura_optima.domain.integer_kernel import canonical_json_hash, canonical_path, close_path
 from costura_optima.domain.nesting_engine import DeterministicNestingEngine
 from costura_optima.domain.nesting_models import MarkerMargins, MarkerRequest, NestingPiece, PieceInstance, PrecisionConfiguration
+from costura_optima.domain.transform_policy import STRAIGHT_GRAIN_TWO_WAY
 from costura_optima.infrastructure.db_models import (
     CuttingTableConfigurationORM,
     FabricConfigurationORM,
@@ -127,6 +128,9 @@ def serialize_fabric(config: FabricConfigurationORM) -> dict:
         "fabric_family": config.fabric_family,
         "directional": config.directional,
         "lay_mode": config.lay_mode,
+        "lay_face_mode": config.lay_face_mode,
+        "marker_direction_policy": config.marker_direction_policy,
+        "fabric_directionality": config.fabric_directionality,
         "piece_clearance_cm": _decimal(config.piece_clearance_cm),
         "left_margin_cm": _decimal(config.left_margin_cm),
         "right_margin_cm": _decimal(config.right_margin_cm),
@@ -430,11 +434,14 @@ class MarkerPreviewService:
                     allowed_rotations=tuple(piece.allowed_rotations_degrees),
                     mirror_allowed=piece.mirror_allowed,
                     geometry_hash=piece.geometry_hash,
+                    grainline_policy=STRAIGHT_GRAIN_TWO_WAY,
                 )
                 for index in range(1, count + 1):
                     instances.append(PieceInstance(f"{piece.size_code}_{piece.piece_code}_{index:03d}", nesting_piece))
 
-        effective_transforms = (0,) if fabric.directional else (0, 180)
+        # Face mode and direction are independent: FACE_ONE_WAY does not ban 180°.
+        fabric_directionality = fabric.fabric_directionality
+        marker_direction_policy = fabric.marker_direction_policy
         signature = {
             "pattern": pattern_set.content_hash,
             "composition": [line.model_dump() for line in payload.composition],
@@ -455,7 +462,11 @@ class MarkerPreviewService:
                 start=round(float(fabric.start_margin_cm) * units),
                 end=round(float(fabric.end_margin_cm) * units),
             ),
-            allowed_transforms=effective_transforms,
+            allowed_transforms=(0, 90, 180, 270) if payload.transform_lab_mode else (0, 180),
+            fabric_directionality=fabric_directionality,
+            marker_direction_policy=marker_direction_policy,
+            lay_face_mode=fabric.lay_face_mode,
+            transform_lab_mode=payload.transform_lab_mode,
             deterministic=payload.deterministic,
             seed=payload.seed,
             evaluation_budget=payload.evaluation_budget,

@@ -1,0 +1,155 @@
+﻿{
+    "marker_hash":  "296e262e17c2a80d65a1c3756a64429767d9693d8bb5e57066bae9d0a002a9a1",
+    "marker_length_cm":  83.466,
+    "usable_width_cm":  176.0,
+    "physical_width_cm":  180.0,
+    "length_to_usable_width_ratio":  0.4742386363636363636363636364,
+    "placements_length":  5,
+    "piece_counts":  {
+                         "piece_code":  "",
+                         "count":  5
+                     },
+    "placements":  [
+                       {
+                           "piece_instance_id":  "M_BACK_001",
+                           "piece_code":  "BACK",
+                           "size_code":  "M",
+                           "rotation":  0,
+                           "translation":  {
+                                               "x_units":  2000,
+                                               "y_units":  2000,
+                                               "x_cm":  2.0,
+                                               "y_cm":  2.0
+                                           },
+                           "polygon_vertex_count":  223,
+                           "bbox":  {
+                                        "units":  [
+                                                      2000,
+                                                      2000,
+                                                      61000,
+                                                      73500
+                                                  ],
+                                        "cm":  [
+                                                   2.0,
+                                                   2.0,
+                                                   61.0,
+                                                   73.5
+                                               ]
+                                    }
+                       },
+                       {
+                           "piece_instance_id":  "M_FRONT_001",
+                           "piece_code":  "FRONT",
+                           "size_code":  "M",
+                           "rotation":  0,
+                           "translation":  {
+                                               "x_units":  2000,
+                                               "y_units":  74000,
+                                               "x_cm":  2.0,
+                                               "y_cm":  74.0
+                                           },
+                           "polygon_vertex_count":  203,
+                           "bbox":  {
+                                        "units":  [
+                                                      2000,
+                                                      74000,
+                                                      61000,
+                                                      145500
+                                                  ],
+                                        "cm":  [
+                                                   2.0,
+                                                   74.0,
+                                                   61.0,
+                                                   145.5
+                                               ]
+                                    }
+                       },
+                       {
+                           "piece_instance_id":  "M_NECKBAND_001",
+                           "piece_code":  "NECKBAND",
+                           "size_code":  "M",
+                           "rotation":  0,
+                           "translation":  {
+                                               "x_units":  2000,
+                                               "y_units":  146000,
+                                               "x_cm":  2.0,
+                                               "y_cm":  146.0
+                                           },
+                           "polygon_vertex_count":  5,
+                           "bbox":  {
+                                        "units":  [
+                                                      2000,
+                                                      146000,
+                                                      39966,
+                                                      151000
+                                                  ],
+                                        "cm":  [
+                                                   2.0,
+                                                   146.0,
+                                                   39.966,
+                                                   151.0
+                                               ]
+                                    }
+                       },
+                       {
+                           "piece_instance_id":  "M_SLEEVE_001",
+                           "piece_code":  "SLEEVE",
+                           "size_code":  "M",
+                           "rotation":  0,
+                           "translation":  {
+                                               "x_units":  2000,
+                                               "y_units":  151500,
+                                               "x_cm":  2.0,
+                                               "y_cm":  151.5
+                                           },
+                           "polygon_vertex_count":  221,
+                           "bbox":  {
+                                        "units":  [
+                                                      2000,
+                                                      151500,
+                                                      43000,
+                                                      175999
+                                                  ],
+                                        "cm":  [
+                                                   2.0,
+                                                   151.5,
+                                                   43.0,
+                                                   175.999
+                                               ]
+                                    }
+                       },
+                       {
+                           "piece_instance_id":  "M_SLEEVE_002",
+                           "piece_code":  "SLEEVE",
+                           "size_code":  "M",
+                           "rotation":  180,
+                           "translation":  {
+                                               "x_units":  40466,
+                                               "y_units":  151500,
+                                               "x_cm":  40.466,
+                                               "y_cm":  151.5
+                                           },
+                           "polygon_vertex_count":  221,
+                           "bbox":  {
+                                        "units":  [
+                                                      40466,
+                                                      151500,
+                                                      81466,
+                                                      175999
+                                                  ],
+                                        "cm":  [
+                                                   40.466,
+                                                   151.5,
+                                                   81.466,
+                                                   175.999
+                                               ]
+                                    }
+                       }
+                   ],
+    "classification":  {
+                           "artifact_data":  "PASS",
+                           "backend_svg":  "PASS",
+                           "frontend_renderer":  "FAIL",
+                           "frontend_root_cause":  "CSS non-scaling stroke widths of 520/900 user units render as hundreds of CSS pixels and obscure geometry; no rendered-count guard."
+                       }
+}

@@ -1,0 +1,1297 @@
+{
+  "fixture": "golden-hole-v1",
+  "container": [
+    0,
+    0,
+    50000,
+    50000
+  ],
+  "clearance_units": 500,
+  "a1": {
+    "position": [
+      21500,
+      10000
+    ],
+    "geometry": [
+      [
+        0,
+        0
+      ],
+      [
+        10000,
+        0
+      ],
+      [
+        10000,
+        10000
+      ],
+      [
+        0,
+        10000
+      ]
+    ]
+  },
+  "a2": {
+    "position": [
+      10000,
+      21500
+    ],
+    "geometry": [
+      [
+        0,
+        0
+      ],
+      [
+        10000,
+        0
+      ],
+      [
+        10000,
+        10000
+      ],
+      [
+        0,
+        10000
+      ]
+    ]
+  },
+  "b": [
+    [
+      0,
+      0
+    ],
+    [
+      10000,
+      0
+    ],
+    [
+      10000,
+      10000
+    ],
+    [
+      0,
+      10000
+    ]
+  ],
+  "ifp": [
+    [
+      0,
+      0
+    ],
+    [
+      40000,
+      0
+    ],
+    [
+      40000,
+      40000
+    ],
+    [
+      0,
+      40000
+    ]
+  ],
+  "nfp_a1": [
+    [
+      [
+        11000,
+        0
+      ],
+      [
+        11020,
+        -140
+      ],
+      [
+        11078,
+        -268
+      ],
+      [
+        11170,
+        -375
+      ],
+      [
+        11288,
+        -453
+      ],
+      [
+        11423,
+        -494
+      ],
+      [
+        11500,
+        -500
+      ],
+      [
+        31500,
+        -500
+      ],
+      [
+        31640,
+        -480
+      ],
+      [
+        31768,
+        -422
+      ],
+      [
+        31875,
+        -330
+      ],
+      [
+        31953,
+        -212
+      ],
+      [
+        31994,
+        -77
+      ],
+      [
+        32000,
+        0
+      ],
+      [
+        32000,
+        20000
+      ],
+      [
+        31980,
+        20140
+      ],
+      [
+        31922,
+        20268
+      ],
+      [
+        31830,
+        20375
+      ],
+      [
+        31712,
+        20453
+      ],
+      [
+        31577,
+        20494
+      ],
+      [
+        31500,
+        20500
+      ],
+      [
+        11500,
+        20500
+      ],
+      [
+        11360,
+        20480
+      ],
+      [
+        11232,
+        20422
+      ],
+      [
+        11125,
+        20330
+      ],
+      [
+        11047,
+        20212
+      ],
+      [
+        11006,
+        20077
+      ],
+      [
+        11000,
+        20000
+      ]
+    ]
+  ],
+  "nfp_a2": [
+    [
+      [
+        -500,
+        11500
+      ],
+      [
+        -480,
+        11360
+      ],
+      [
+        -422,
+        11232
+      ],
+      [
+        -330,
+        11125
+      ],
+      [
+        -212,
+        11047
+      ],
+      [
+        -77,
+        11006
+      ],
+      [
+        0,
+        11000
+      ],
+      [
+        20000,
+        11000
+      ],
+      [
+        20140,
+        11020
+      ],
+      [
+        20268,
+        11078
+      ],
+      [
+        20375,
+        11170
+      ],
+      [
+        20453,
+        11288
+      ],
+      [
+        20494,
+        11423
+      ],
+      [
+        20500,
+        11500
+      ],
+      [
+        20500,
+        31500
+      ],
+      [
+        20480,
+        31640
+      ],
+      [
+        20422,
+        31768
+      ],
+      [
+        20330,
+        31875
+      ],
+      [
+        20212,
+        31953
+      ],
+      [
+        20077,
+        31994
+      ],
+      [
+        20000,
+        32000
+      ],
+      [
+        0,
+        32000
+      ],
+      [
+        -140,
+        31980
+      ],
+      [
+        -268,
+        31922
+      ],
+      [
+        -375,
+        31830
+      ],
+      [
+        -453,
+        31712
+      ],
+      [
+        -494,
+        31577
+      ],
+      [
+        -500,
+        31500
+      ]
+    ]
+  ],
+  "forbidden": [
+    [
+      [
+        -500,
+        11500
+      ],
+      [
+        -480,
+        11360
+      ],
+      [
+        -422,
+        11232
+      ],
+      [
+        -330,
+        11125
+      ],
+      [
+        -212,
+        11047
+      ],
+      [
+        -77,
+        11006
+      ],
+      [
+        0,
+        11000
+      ],
+      [
+        11000,
+        11000
+      ],
+      [
+        11000,
+        0
+      ],
+      [
+        11020,
+        -140
+      ],
+      [
+        11078,
+        -268
+      ],
+      [
+        11170,
+        -375
+      ],
+      [
+        11288,
+        -453
+      ],
+      [
+        11423,
+        -494
+      ],
+      [
+        11500,
+        -500
+      ],
+      [
+        31500,
+        -500
+      ],
+      [
+        31640,
+        -480
+      ],
+      [
+        31768,
+        -422
+      ],
+      [
+        31875,
+        -330
+      ],
+      [
+        31953,
+        -212
+      ],
+      [
+        31994,
+        -77
+      ],
+      [
+        32000,
+        0
+      ],
+      [
+        32000,
+        20000
+      ],
+      [
+        31980,
+        20140
+      ],
+      [
+        31922,
+        20268
+      ],
+      [
+        31830,
+        20375
+      ],
+      [
+        31712,
+        20453
+      ],
+      [
+        31577,
+        20494
+      ],
+      [
+        31500,
+        20500
+      ],
+      [
+        20500,
+        20500
+      ],
+      [
+        20500,
+        31500
+      ],
+      [
+        20480,
+        31640
+      ],
+      [
+        20422,
+        31768
+      ],
+      [
+        20330,
+        31875
+      ],
+      [
+        20212,
+        31953
+      ],
+      [
+        20077,
+        31994
+      ],
+      [
+        20000,
+        32000
+      ],
+      [
+        0,
+        32000
+      ],
+      [
+        -140,
+        31980
+      ],
+      [
+        -268,
+        31922
+      ],
+      [
+        -375,
+        31830
+      ],
+      [
+        -453,
+        31712
+      ],
+      [
+        -494,
+        31577
+      ],
+      [
+        -500,
+        31500
+      ]
+    ],
+    [
+      [
+        11000,
+        11000
+      ],
+      [
+        20000,
+        11000
+      ],
+      [
+        20140,
+        11020
+      ],
+      [
+        20268,
+        11078
+      ],
+      [
+        20375,
+        11170
+      ],
+      [
+        20453,
+        11288
+      ],
+      [
+        20494,
+        11423
+      ],
+      [
+        20500,
+        11500
+      ],
+      [
+        20500,
+        20500
+      ],
+      [
+        11500,
+        20500
+      ],
+      [
+        11360,
+        20480
+      ],
+      [
+        11232,
+        20422
+      ],
+      [
+        11125,
+        20330
+      ],
+      [
+        11047,
+        20212
+      ],
+      [
+        11006,
+        20077
+      ],
+      [
+        11000,
+        20000
+      ]
+    ]
+  ],
+  "feasible": [
+    [
+      [
+        0,
+        32000
+      ],
+      [
+        20000,
+        32000
+      ],
+      [
+        20077,
+        31994
+      ],
+      [
+        20212,
+        31953
+      ],
+      [
+        20330,
+        31875
+      ],
+      [
+        20422,
+        31768
+      ],
+      [
+        20480,
+        31640
+      ],
+      [
+        20500,
+        31500
+      ],
+      [
+        20500,
+        20500
+      ],
+      [
+        31500,
+        20500
+      ],
+      [
+        31577,
+        20494
+      ],
+      [
+        31712,
+        20453
+      ],
+      [
+        31830,
+        20375
+      ],
+      [
+        31922,
+        20268
+      ],
+      [
+        31980,
+        20140
+      ],
+      [
+        32000,
+        20000
+      ],
+      [
+        32000,
+        0
+      ],
+      [
+        40000,
+        0
+      ],
+      [
+        40000,
+        40000
+      ],
+      [
+        0,
+        40000
+      ]
+    ],
+    [
+      [
+        0,
+        0
+      ],
+      [
+        11000,
+        0
+      ],
+      [
+        11000,
+        11000
+      ],
+      [
+        0,
+        11000
+      ]
+    ],
+    [
+      [
+        11000,
+        11000
+      ],
+      [
+        20000,
+        11000
+      ],
+      [
+        20140,
+        11020
+      ],
+      [
+        20268,
+        11078
+      ],
+      [
+        20375,
+        11170
+      ],
+      [
+        20453,
+        11288
+      ],
+      [
+        20494,
+        11423
+      ],
+      [
+        20500,
+        11500
+      ],
+      [
+        20500,
+        20500
+      ],
+      [
+        11500,
+        20500
+      ],
+      [
+        11360,
+        20480
+      ],
+      [
+        11232,
+        20422
+      ],
+      [
+        11125,
+        20330
+      ],
+      [
+        11047,
+        20212
+      ],
+      [
+        11006,
+        20077
+      ],
+      [
+        11000,
+        20000
+      ]
+    ]
+  ],
+  "nfp_nfp_intersections": [
+    {
+      "position": [
+        11000,
+        11000
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_NFP_INTERSECTION"
+      ],
+      "contact_count": 2
+    },
+    {
+      "position": [
+        20500,
+        20500
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_NFP_INTERSECTION"
+      ],
+      "contact_count": 2
+    }
+  ],
+  "legacy_candidates": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      10000
+    ],
+    [
+      0,
+      11000
+    ],
+    [
+      0,
+      20500
+    ],
+    [
+      0,
+      21500
+    ],
+    [
+      0,
+      32000
+    ],
+    [
+      0,
+      40000
+    ],
+    [
+      10000,
+      0
+    ],
+    [
+      10000,
+      11000
+    ],
+    [
+      10000,
+      21500
+    ],
+    [
+      10000,
+      32000
+    ],
+    [
+      11000,
+      0
+    ],
+    [
+      11000,
+      10000
+    ],
+    [
+      11000,
+      20500
+    ],
+    [
+      20500,
+      0
+    ],
+    [
+      20500,
+      11000
+    ],
+    [
+      20500,
+      21500
+    ],
+    [
+      20500,
+      32000
+    ],
+    [
+      21500,
+      0
+    ],
+    [
+      21500,
+      10000
+    ],
+    [
+      21500,
+      20500
+    ],
+    [
+      32000,
+      0
+    ],
+    [
+      32000,
+      10000
+    ],
+    [
+      32000,
+      20500
+    ]
+  ],
+  "candidate_space_candidates": [
+    {
+      "position": [
+        11000,
+        11000
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_NFP_INTERSECTION"
+      ],
+      "contact_count": 2
+    },
+    {
+      "position": [
+        20500,
+        20500
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_NFP_INTERSECTION"
+      ],
+      "contact_count": 2
+    },
+    {
+      "position": [
+        0,
+        11000
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_IFP_INTERSECTION",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        0,
+        32000
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_IFP_INTERSECTION",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        11000,
+        0
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_IFP_INTERSECTION",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        32000,
+        0
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_IFP_INTERSECTION",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        0,
+        0
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "IFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        0,
+        40000
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "IFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        11000,
+        20000
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        11006,
+        20077
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        11047,
+        20212
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        11125,
+        20330
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        11232,
+        20422
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        11360,
+        20480
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        11500,
+        20500
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        20000,
+        11000
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        20000,
+        32000
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        20077,
+        31994
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        20140,
+        11020
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        20212,
+        31953
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        20268,
+        11078
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        20330,
+        31875
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        20375,
+        11170
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        20422,
+        31768
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        20453,
+        11288
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        20480,
+        31640
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        20494,
+        11423
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        20500,
+        11500
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        20500,
+        31500
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        31500,
+        20500
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        31577,
+        20494
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        31712,
+        20453
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        31830,
+        20375
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        31922,
+        20268
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        31980,
+        20140
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        32000,
+        20000
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        40000,
+        0
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "IFP_VERTEX"
+      ],
+      "contact_count": 1
+    },
+    {
+      "position": [
+        40000,
+        40000
+      ],
+      "sources": [
+        "FEASIBLE_BOUNDARY",
+        "IFP_VERTEX"
+      ],
+      "contact_count": 1
+    }
+  ],
+  "winner": {
+    "position": [
+      11000,
+      11000
+    ],
+    "sources": [
+      "FEASIBLE_BOUNDARY",
+      "NFP_NFP_INTERSECTION"
+    ],
+    "contact_count": 2
+  }
+}

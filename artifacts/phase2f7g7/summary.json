@@ -1,0 +1,242 @@
+{
+  "phase_status": "PARTIAL",
+  "candidate_truncation_fix_status": "PASS",
+  "initial_candidate_budget": 1800,
+  "min_completing_budget": 5000,
+  "result_stable_budget": 5000,
+  "adaptive_budget_status": "PASS",
+  "max_chosen_candidate_global_rank": 3809,
+  "m_sleeve_004_chosen_candidate_global_rank": 3809,
+  "zero": {
+    "outcome": "MARKER_COMPLETE",
+    "completion_runner_status": "PASS",
+    "run_timeout": false,
+    "last_completed_piece": "M_NECKBAND_002",
+    "active_blocking_piece": null,
+    "historical_blocking_pieces": [
+      "M_SLEEVE_002"
+    ],
+    "pieces_expected": 15,
+    "pieces_placed": 15,
+    "pieces_remaining": 0,
+    "candidate_space_only_completes_marker": true,
+    "legacy_fallback_used": false,
+    "validator_status": "VALIDATED",
+    "marker_new_candidates_generated": 11538,
+    "marker_new_candidates_validator_accepted": 271,
+    "marker_new_candidates_scored": 271,
+    "marker_new_candidates_chosen": 4,
+    "interior_recovery_candidates_generated": 260,
+    "interior_recovery_candidates_chosen": 0,
+    "piece_metrics": [
+      {
+        "piece": "M_SLEEVE_004",
+        "piece_index": 12,
+        "raw_candidates": 4153,
+        "candidate_set_total": 4218,
+        "validated_candidates": 140,
+        "scored_candidates": 140,
+        "interior_recovery_candidates": 65,
+        "repair_attempts": 0,
+        "piece_candidate_budget": 1800,
+        "piece_recovery_budget": 65,
+        "piece_time_budget_ms": 60000,
+        "candidate_budget_initial": 1800,
+        "candidate_budget_final": 4153,
+        "candidate_set_exhausted": true,
+        "budget_expansions": 2,
+        "candidate_generation_ms": 23671.506,
+        "exact_precheck_ms": 2874.287,
+        "interior_recovery_ms": 0.0,
+        "validator_ms": 1258.093,
+        "scoring_ms": 0.271,
+        "total_piece_ms": 26586.446,
+        "candidate_set_hash": "83154dc56c1232e84b307b37a386cda618140789222ab05e3a4c103405176598",
+        "pipeline_stage": "commit",
+        "run_timeout": false,
+        "chosen_source": [
+          "FEASIBLE_BOUNDARY",
+          "NFP_VERTEX"
+        ],
+        "chosen_position": [
+          197852,
+          74148
+        ],
+        "chosen_candidate_global_rank": 3809,
+        "marker_length_after_placement": 238852,
+        "placed_piece_count_after": 12,
+        "remaining_piece_count_after": 3
+      },
+      {
+        "piece": "L_NECKBAND_001",
+        "piece_index": 13,
+        "raw_candidates": 2385,
+        "candidate_set_total": 2450,
+        "validated_candidates": 39,
+        "scored_candidates": 39,
+        "interior_recovery_candidates": 65,
+        "repair_attempts": 0,
+        "piece_candidate_budget": 1800,
+        "piece_recovery_budget": 65,
+        "piece_time_budget_ms": 60000,
+        "candidate_budget_initial": 1800,
+        "candidate_budget_final": 1800,
+        "candidate_set_exhausted": false,
+        "budget_expansions": 0,
+        "candidate_generation_ms": 8004.12,
+        "exact_precheck_ms": 469.036,
+        "interior_recovery_ms": 0.0,
+        "validator_ms": 373.615,
+        "scoring_ms": 0.092,
+        "total_piece_ms": 8481.514,
+        "candidate_set_hash": "338f8130ee4ce8e4bee20fab1ae56e3bd9a688900ef0998fa0c5c934022aa628",
+        "pipeline_stage": "commit",
+        "run_timeout": false,
+        "chosen_source": [
+          "FEASIBLE_BOUNDARY",
+          "NFP_NFP_INTERSECTION"
+        ],
+        "chosen_position": [
+          105367,
+          40167
+        ],
+        "chosen_candidate_global_rank": 16,
+        "marker_length_after_placement": 238852,
+        "placed_piece_count_after": 13,
+        "remaining_piece_count_after": 2
+      },
+      {
+        "piece": "M_NECKBAND_001",
+        "piece_index": 14,
+        "raw_candidates": 2360,
+        "candidate_set_total": 2425,
+        "validated_candidates": 56,
+        "scored_candidates": 56,
+        "interior_recovery_candidates": 65,
+        "repair_attempts": 0,
+        "piece_candidate_budget": 1800,
+        "piece_recovery_budget": 65,
+        "piece_time_budget_ms": 60000,
+        "candidate_budget_initial": 1800,
+        "candidate_budget_final": 1800,
+        "candidate_set_exhausted": false,
+        "budget_expansions": 0,
+        "candidate_generation_ms": 8296.772,
+        "exact_precheck_ms": 648.584,
+        "interior_recovery_ms": 0.0,
+        "validator_ms": 539.557,
+        "scoring_ms": 0.137,
+        "total_piece_ms": 8953.8,
+        "candidate_set_hash": "d72e28aed04e85c4f2835447e26977a4b7611f52f9a95ce31684171599ff9692",
+        "pipeline_stage": "commit",
+        "run_timeout": false,
+        "chosen_source": [
+          "FEASIBLE_BOUNDARY",
+          "NFP_NFP_INTERSECTION"
+        ],
+        "chosen_position": [
+          106589,
+          34667
+        ],
+        "chosen_candidate_global_rank": 18,
+        "marker_length_after_placement": 238852,
+        "placed_piece_count_after": 14,
+        "remaining_piece_count_after": 1
+      },
+      {
+        "piece": "M_NECKBAND_002",
+        "piece_index": 15,
+        "raw_candidates": 2380,
+        "candidate_set_total": 2445,
+        "validated_candidates": 36,
+        "scored_candidates": 36,
+        "interior_recovery_candidates": 65,
+        "repair_attempts": 0,
+        "piece_candidate_budget": 1800,
+        "piece_recovery_budget": 65,
+        "piece_time_budget_ms": 60000,
+        "candidate_budget_initial": 1800,
+        "candidate_budget_final": 1800,
+        "candidate_set_exhausted": false,
+        "budget_expansions": 0,
+        "candidate_generation_ms": 8321.025,
+        "exact_precheck_ms": 407.225,
+        "interior_recovery_ms": 0.0,
+        "validator_ms": 336.094,
+        "scoring_ms": 0.076,
+        "total_piece_ms": 8736.759,
+        "candidate_set_hash": "8d2f2d0ba90212ea58347d94ec1470d1d5d7445219f4622cf0c5fbc1cf6de228",
+        "pipeline_stage": "commit",
+        "run_timeout": false,
+        "chosen_source": [
+          "FEASIBLE_BOUNDARY",
+          "IFP_VERTEX"
+        ],
+        "chosen_position": [
+          2000,
+          173000
+        ],
+        "chosen_candidate_global_rank": 34,
+        "marker_length_after_placement": 238852,
+        "placed_piece_count_after": 15,
+        "remaining_piece_count_after": 0
+      }
+    ],
+    "layout_hash": "3c1ffa63c69b55f8cb7604a8bc37554d99ecc976744d82d59c6358fa6181d4f8",
+    "final_validation": {
+      "status": "VALIDATED",
+      "checks": {
+        "all_instances_present": true,
+        "no_duplicate_instances": true,
+        "inside_valid_region": true,
+        "no_polygon_overlap": true,
+        "clearance_satisfied": true,
+        "transforms_allowed": true,
+        "grainline_valid": true,
+        "max_length_respected": true,
+        "quantities_correct": true,
+        "placement_geometry_matches_source": true
+      },
+      "errors": [],
+      "pair_checks": 105
+    },
+    "marker_length_cm": 238.852,
+    "efficiency_percentage": 67.77265,
+    "policy": "completion adaptive: expand only after no valid candidate"
+  },
+  "budget_comparison": [
+    {
+      "budget": 1800,
+      "fixed_completion": false,
+      "reason": "M_SLEEVE_004 needs rank 3809"
+    },
+    {
+      "budget": 2500,
+      "fixed_completion": false,
+      "reason": "no valid candidate before adaptive expansion"
+    },
+    {
+      "budget": 3500,
+      "fixed_completion": false,
+      "reason": "no valid candidate before adaptive expansion"
+    },
+    {
+      "budget": 5000,
+      "fixed_completion": true,
+      "marker_length_cm": 238.852,
+      "efficiency_percentage": 67.77265
+    },
+    {
+      "budget": 7500,
+      "fixed_completion": true,
+      "marker_length_cm": 238.852,
+      "efficiency_percentage": 67.77265
+    }
+  ],
+  "rotation_180_status": "NOT_RUN",
+  "two_way_status": "NOT_RUN",
+  "determinism_status": "PASS",
+  "docker_execution_status": "UNAVAILABLE",
+  "cross_platform_status": "NOT_RUN",
+  "validator_status": "PASS"
+}

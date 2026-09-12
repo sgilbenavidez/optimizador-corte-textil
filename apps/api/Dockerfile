@@ -10,5 +10,6 @@ COPY alembic ./alembic
 COPY src ./src
 COPY tests ./tests
 RUN pip install --no-cache-dir ".[test]"
+COPY scripts ./scripts
 
 EXPOSE 8000

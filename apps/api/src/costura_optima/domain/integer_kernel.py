@@ -53,6 +53,38 @@ def translate_path(path: IntPath, x: int, y: int) -> IntPath:
     return tuple((px + x, py + y) for px, py in path)
 
 
+def canonical_paths(paths: Iterable[Iterable[Iterable[int]]]) -> tuple[IntPath, ...]:
+    """Stable component serialization independent of Pyclipper return order."""
+    return tuple(sorted((canonical_path(path) for path in paths if len(path) >= 3), key=lambda path: (
+        -abs(signed_area2(path)), path_bbox(path), path,
+    )))
+
+
+def boundary_intersections(first: IntPath, second: IntPath) -> tuple[IntPoint, ...]:
+    """Exact integer segment contacts; non-integral crossings are not rounded."""
+    found: set[IntPoint] = set()
+    for a, b in zip(first, first[1:] + first[:1]):
+        for c, d in zip(second, second[1:] + second[:1]):
+            rx, ry = b[0] - a[0], b[1] - a[1]
+            sx, sy = d[0] - c[0], d[1] - c[1]
+            den = rx * sy - ry * sx
+            qx, qy = c[0] - a[0], c[1] - a[1]
+            if den == 0:
+                for point in (a, b, c, d):
+                    if min(a[0], b[0]) <= point[0] <= max(a[0], b[0]) and min(a[1], b[1]) <= point[1] <= max(a[1], b[1]) and min(c[0], d[0]) <= point[0] <= max(c[0], d[0]) and min(c[1], d[1]) <= point[1] <= max(c[1], d[1]):
+                        found.add(point)
+                continue
+            t_num, u_num = qx * sy - qy * sx, qx * ry - qy * rx
+            if not (0 <= t_num <= den if den > 0 else den <= t_num <= 0):
+                continue
+            if not (0 <= u_num <= den if den > 0 else den <= u_num <= 0):
+                continue
+            x_num, y_num = a[0] * den + t_num * rx, a[1] * den + t_num * ry
+            if x_num % den == 0 and y_num % den == 0:
+                found.add((x_num // den, y_num // den))
+    return tuple(sorted(found))
+
+
 def transform_and_normalize(path: IntPath, rotation: int) -> IntPath:
     if rotation == 0:
         transformed = path
@@ -62,6 +94,18 @@ def transform_and_normalize(path: IntPath, rotation: int) -> IntPath:
         raise ValueError(f"Unsupported rotation: {rotation}")
     min_x, min_y, _, _ = path_bbox(transformed)
     return canonical_path((x - min_x, y - min_y) for x, y in transformed)
+
+
+# Coordinate contract: local piece space is canonicalized then normalized so its
+# sole reference point is (0, 0).  Marker and container spaces share integer
+# axes (X=marker length, Y=fabric width).  A placement translation is therefore
+# exactly the marker-space coordinate of that reference point.
+PIECE_REFERENCE_POINT: IntPoint = (0, 0)
+
+
+def transform_piece(path: IntPath, rotation: int, marker_position: IntPoint) -> IntPath:
+    """The only local-piece -> marker-space transform contract."""
+    return translate_path(transform_and_normalize(path, rotation), *marker_position)
 
 
 def rotate_and_translate_point(point: IntPoint, rotation: int, source_path: IntPath, translation: IntPoint) -> IntPoint:
@@ -79,11 +123,11 @@ def rotate_and_translate_point(point: IntPoint, rotation: int, source_path: IntP
 class GeometryOperationCache:
     def __init__(self, max_entries: int = 1024):
         self.max_entries = max_entries
-        self._values: OrderedDict[tuple, IntPath] = OrderedDict()
+        self._values: OrderedDict[tuple, Any] = OrderedDict()
         self.hits = 0
         self.misses = 0
 
-    def get(self, key: tuple) -> IntPath | None:
+    def get(self, key: tuple) -> Any | None:
         value = self._values.get(key)
         if value is None:
             self.misses += 1
@@ -92,7 +136,7 @@ class GeometryOperationCache:
         self.hits += 1
         return value
 
-    def put(self, key: tuple, value: IntPath) -> None:
+    def put(self, key: tuple, value: Any) -> None:
         self._values[key] = value
         self._values.move_to_end(key)
         while len(self._values) > self.max_entries:
@@ -126,6 +170,47 @@ class IntegerGeometryKernel:
         result = canonical_path(max(solutions, key=lambda item: abs(pyclipper.Area(item))))
         self.cache.put(key, result)
         return result
+
+    def nfp(self, fixed: IntPath, moving: IntPath, fixed_hash: str, fixed_rotation: int,
+            moving_hash: str, moving_rotation: int, clearance: int) -> tuple[IntPath, ...]:
+        """Integer Minkowski NFP for the reference point of ``moving``.
+
+        The fixed polygon is expanded by clearance before the Minkowski sum with
+        the reflected moving polygon.  Pyclipper is local/offline and keeps the
+        construction in integer coordinates.  Returned contours are canonical;
+        callers still use the independent predicate for final acceptance.
+        """
+        key = ("nfp-v1", fixed_hash, fixed_rotation, moving_hash, moving_rotation,
+               clearance, self.precision.kernel_version)
+        cached = self.cache.get(key)
+        if cached is not None:
+            return cached
+        base = fixed
+        if clearance:
+            # The expanded obstacle makes a boundary contact satisfy clearance.
+            offsetter = pyclipper.PyclipperOffset(miter_limit=2.0, arc_tolerance=max(1.0, clearance / 100))
+            offsetter.AddPath(list(fixed), pyclipper.JT_ROUND, pyclipper.ET_CLOSEDPOLYGON)
+            expanded = offsetter.Execute(clearance)
+            if not expanded:
+                raise ValueError("NFP fixed-polygon offset produced no contour")
+            base = canonical_path(max(expanded, key=lambda item: abs(pyclipper.Area(item))))
+        reflected = [(-x, -y) for x, y in moving]
+        paths = pyclipper.MinkowskiSum(list(base), reflected, True)
+        canonical = tuple(sorted(
+            (canonical_path(path) for path in paths if len(path) >= 3),
+            key=lambda path: (path_bbox(path), path),
+        ))
+        if not canonical:
+            raise ValueError("NFP Minkowski produced no contour")
+        self.cache.put(key, canonical)
+        return canonical
+
+    @staticmethod
+    def ifp_bounds(moving: IntPath, region: tuple[int, int, int, int]) -> tuple[int, int, int, int]:
+        """Rectangular IFP for a normalized piece reference point, in integers."""
+        min_x, min_y, max_x, max_y = path_bbox(moving)
+        x0, y0, x1, y1 = region
+        return x0 - min_x, y0 - min_y, x1 - max_x, y1 - max_y
 
     def inside_rectangle(self, path: IntPath, bounds: tuple[int, int, int, int]) -> bool:
         min_x, min_y, max_x, max_y = path_bbox(path)

@@ -59,6 +59,9 @@ class FabricConfigurationResponse(BaseModel):
     fabric_family: str
     directional: bool
     lay_mode: str
+    lay_face_mode: str
+    marker_direction_policy: str
+    fabric_directionality: str
     piece_clearance_cm: float
     left_margin_cm: float
     right_margin_cm: float
@@ -190,6 +193,7 @@ class MarkerPreviewRequest(BaseModel):
     seed: int = 1
     evaluation_budget: Annotated[StrictInt, Field(ge=100, le=500_000)] = 100_000
     debug: bool = False
+    transform_lab_mode: bool = False
 
     @model_validator(mode="after")
     def unique_marker_sizes(self) -> "MarkerPreviewRequest":
