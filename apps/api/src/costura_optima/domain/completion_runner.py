@@ -301,10 +301,17 @@ class DeterministicCompletionRunner:
 
         evaluate(raw, self.candidate_budget)
         budget_expansions = 0
-        while not accepted and evaluated < len(raw_all):
+        while not accepted and evaluated < len(raw_all) and (perf_counter() - started) * 1000 <= self.piece_time_budget_ms:
+            before_expansion = evaluated
             next_budget = min(len(raw_all), max(self.candidate_budget, evaluated * 2))
             evaluate(raw_all[evaluated:next_budget], next_budget)
             budget_expansions += 1
+            # A time-budget-exhausted evaluate() call makes no progress
+            # (candidate.orientation dict aside); without this guard the loop
+            # would spin forever re-issuing the same no-op slice once the
+            # piece time budget is gone but no candidate has validated yet.
+            if evaluated == before_expansion:
+                break
         exact_ms = (perf_counter() - exact_started) * 1000
         recovery_started = perf_counter()
         if not accepted:

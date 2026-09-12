@@ -1,0 +1,8 @@
+{
+  "cross_platform_status": "PASS",
+  "host_layout_hash": "e71dc4d9fb68b179a3b05438d1823e519057ad2b69bb5afc267bdbec9bc9ceca",
+  "docker_layout_hash": "e71dc4d9fb68b179a3b05438d1823e519057ad2b69bb5afc267bdbec9bc9ceca",
+  "host_length_units": 235064,
+  "docker_length_units": 235064,
+  "note_m_sleeve_004_isolated_raw_candidate_count_diff": "host=24445 docker=24441 (pyclipper 1.4.0 identical on both; likely platform floating-point variance in Minkowski/boolean ops at precision boundaries) -- did NOT affect chosen candidate, validated set size (6/6), or full-marker layout_hash, which are all byte-identical."
+}

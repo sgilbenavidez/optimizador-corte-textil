@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "detail": {
+    "best_length_cm": {
+      "run": 233.296,
+      "repeat": 233.296,
+      "equal": true
+    },
+    "best_efficiency_pct": {
+      "run": 69.386672,
+      "repeat": 69.386672,
+      "equal": true
+    },
+    "accepted_states": {
+      "run": 14,
+      "repeat": 14,
+      "equal": true
+    },
+    "incumbent_improvements": {
+      "run": 1,
+      "repeat": 1,
+      "equal": true
+    },
+    "best_layout_hash": {
+      "run": "40838f983d083def3bf1ee7588baed481ce2fd3ab8bb51be9b75722f408ddbd3",
+      "repeat": "40838f983d083def3bf1ee7588baed481ce2fd3ab8bb51be9b75722f408ddbd3",
+      "equal": true
+    },
+    "final_validation_status": {
+      "run": "VALIDATED",
+      "repeat": "VALIDATED",
+      "equal": true
+    },
+    "orientation_counts": {
+      "run": {
+        "0": 12,
+        "180": 3
+      },
+      "repeat": {
+        "0": 12,
+        "180": 3
+      },
+      "equal": true
+    },
+    "unique_valid_layouts_visited": {
+      "run": 11,
+      "repeat": 12,
+      "equal": false
+    }
+  },
+  "note": "unique_valid_layouts_visited differed by 1 (11 vs 12) across two identical-seed/config runs; every decision-affecting field (accepted_states, incumbent_improvements, best_layout_hash, best_length_cm, orientation distribution) matched exactly."
+}
