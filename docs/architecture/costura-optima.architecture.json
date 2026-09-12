@@ -3,7 +3,11 @@
   "diagram_type": "architecture",
   "meta": {
     "title": "COSTURA ÓPTIMA — mapa de arquitectura",
-    "quality_profile": "showcase"
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/sgilbenavidez/optimizador-corte-textil",
+      "revision": "5f6965bc9aae8c398b66cc66208ba202e523c82a"
+    }
   },
   "layout": { "mode": "grid", "cols": 3, "origin": [40, 60], "gapX": 72, "gapY": 72, "cellW": 180, "cellH": 88 },
   "components": [
@@ -13,10 +17,13 @@
     { "id": "order-run", "type": "backend", "label": "Order + Run", "sublabel": "order / optimization run", "col": 0, "row": 1 },
     { "id": "queue", "type": "messagebus", "label": "Redis / RQ", "sublabel": "efímero; no source of truth", "col": 1, "row": 1 },
     { "id": "worker", "type": "backend", "label": "Optimization Worker", "sublabel": "consume OptimizationRun", "col": 2, "row": 1 },
-    { "id": "completion-runner", "type": "backend", "label": "Completion Runner", "sublabel": "checkpoint / resume", "col": 1, "row": 2 },
-    { "id": "pipeline", "type": "backend", "label": "Candidates", "sublabel": "topology + exact recovery", "col": 2, "row": 3 },
+    { "id": "completion-runner", "type": "backend", "label": "Completion Runner", "sublabel": "checkpoint / resume", "col": 1, "row": 2,
+      "sources": [{ "path": "apps/api/src/costura_optima/domain/completion_runner.py", "label": "DeterministicCompletionRunner" }] },
+    { "id": "pipeline", "type": "backend", "label": "Candidates", "sublabel": "topology + exact recovery", "col": 2, "row": 3,
+      "sources": [{ "path": "apps/api/src/costura_optima/domain/candidate_space.py", "label": "CandidateSpaceEngine" }] },
     { "id": "solvers", "type": "backend", "label": "Production Solvers", "sublabel": "heurístico + CP-SAT opcional", "col": 1, "row": 3 },
-    { "id": "validator", "type": "backend", "label": "Plan Validator", "sublabel": "independiente", "col": 0, "row": 3 },
+    { "id": "validator", "type": "backend", "label": "Plan Validator", "sublabel": "independiente", "col": 0, "row": 3,
+      "sources": [{ "path": "apps/api/src/costura_optima/domain/marker_validator.py", "label": "Independent + incremental validators" }] },
     { "id": "patterns", "type": "backend", "label": "Pattern Engineering", "sublabel": "ENGINEERING · UNVALIDATED", "col": 1, "row": 4 },
     { "id": "postgres", "type": "database", "label": "PostgreSQL", "sublabel": "source of truth", "col": 0, "row": 4 },
     { "id": "observability", "type": "backend", "label": "Observability", "sublabel": "health + metrics", "col": 2, "row": 4 }
