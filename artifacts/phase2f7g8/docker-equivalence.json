@@ -1,0 +1,5 @@
+{
+  "execution_status": "DAEMON_REACHABLE_NOT_EXERCISED",
+  "note": "docker info succeeded on this host during this pass, unlike prior phases (2F.7G-6/7: UNAVAILABLE); a full cross-platform run of this specific benchmark inside the container was not attempted in this pass (out of the requested A-G scope) and remains a follow-up.",
+  "cross_platform_status": "NOT_RUN"
+}

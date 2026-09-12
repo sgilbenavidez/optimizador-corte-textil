@@ -1,0 +1,55 @@
+{
+  "two_way_eligible_pieces": 15,
+  "orientation_totals": {
+    "0": {
+      "generated": 28006,
+      "evaluated": 20000,
+      "validator_accepted": 830,
+      "chosen": 4
+    },
+    "180": {
+      "generated": 28332,
+      "evaluated": 0,
+      "validator_accepted": 0,
+      "chosen": 0
+    }
+  },
+  "by_piece": [
+    {
+      "piece": "M_SLEEVE_004",
+      "rotations_evaluated": [
+        0,
+        180
+      ],
+      "rotation_180_candidates_generated": 12401,
+      "chosen_orientation": 0
+    },
+    {
+      "piece": "L_NECKBAND_001",
+      "rotations_evaluated": [
+        0,
+        180
+      ],
+      "rotation_180_candidates_generated": 5268,
+      "chosen_orientation": 0
+    },
+    {
+      "piece": "M_NECKBAND_001",
+      "rotations_evaluated": [
+        0,
+        180
+      ],
+      "rotation_180_candidates_generated": 5302,
+      "chosen_orientation": 0
+    },
+    {
+      "piece": "M_NECKBAND_002",
+      "rotations_evaluated": [
+        0,
+        180
+      ],
+      "rotation_180_candidates_generated": 5361,
+      "chosen_orientation": 0
+    }
+  ]
+}

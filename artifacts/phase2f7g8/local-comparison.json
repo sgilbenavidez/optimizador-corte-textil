@@ -1,0 +1,101 @@
+[
+  {
+    "piece": "M_SLEEVE_004",
+    "legacy_candidate_count": 0,
+    "nonlegacy_candidate_count": 140,
+    "improvement": false,
+    "tie": false,
+    "near_tie": false,
+    "best_legacy_position": null,
+    "best_legacy_orientation": null,
+    "best_legacy_length": null,
+    "best_nonlegacy_position": [
+      197852,
+      74148
+    ],
+    "best_nonlegacy_orientation": 0,
+    "best_nonlegacy_length": 238852,
+    "best_nonlegacy_source": [
+      "FEASIBLE_BOUNDARY",
+      "NFP_VERTEX"
+    ],
+    "best_nonlegacy_contact_count": 1
+  },
+  {
+    "piece": "L_NECKBAND_001",
+    "legacy_candidate_count": 28,
+    "nonlegacy_candidate_count": 200,
+    "improvement": false,
+    "tie": true,
+    "near_tie": true,
+    "best_legacy_position": [
+      2000,
+      168665
+    ],
+    "best_legacy_orientation": 0,
+    "best_legacy_length": 238852,
+    "best_nonlegacy_position": [
+      105367,
+      40167
+    ],
+    "best_nonlegacy_orientation": 0,
+    "best_nonlegacy_length": 238852,
+    "best_nonlegacy_source": [
+      "FEASIBLE_BOUNDARY",
+      "NFP_NFP_INTERSECTION"
+    ],
+    "best_nonlegacy_contact_count": 2
+  },
+  {
+    "piece": "M_NECKBAND_001",
+    "legacy_candidate_count": 30,
+    "nonlegacy_candidate_count": 212,
+    "improvement": false,
+    "tie": true,
+    "near_tie": true,
+    "best_legacy_position": [
+      2000,
+      168665
+    ],
+    "best_legacy_orientation": 0,
+    "best_legacy_length": 238852,
+    "best_nonlegacy_position": [
+      106589,
+      34667
+    ],
+    "best_nonlegacy_orientation": 0,
+    "best_nonlegacy_length": 238852,
+    "best_nonlegacy_source": [
+      "FEASIBLE_BOUNDARY",
+      "LEGACY_FALLBACK",
+      "NFP_NFP_INTERSECTION"
+    ],
+    "best_nonlegacy_contact_count": 2
+  },
+  {
+    "piece": "M_NECKBAND_002",
+    "legacy_candidate_count": 27,
+    "nonlegacy_candidate_count": 193,
+    "improvement": false,
+    "tie": true,
+    "near_tie": true,
+    "best_legacy_position": [
+      2000,
+      168665
+    ],
+    "best_legacy_orientation": 0,
+    "best_legacy_length": 238852,
+    "best_nonlegacy_position": [
+      2000,
+      173000
+    ],
+    "best_nonlegacy_orientation": 0,
+    "best_nonlegacy_length": 238852,
+    "best_nonlegacy_source": [
+      "FEASIBLE_BOUNDARY",
+      "IFP_VERTEX",
+      "LEGACY_FALLBACK"
+    ],
+    "best_nonlegacy_contact_count": 1
+  }
+]

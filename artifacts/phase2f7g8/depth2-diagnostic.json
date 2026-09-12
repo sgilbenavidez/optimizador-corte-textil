@@ -1,0 +1,22 @@
+[
+  {
+    "piece": "L_NECKBAND_001",
+    "piece_index": 13,
+    "choice_a": "LEGACY",
+    "choice_a_two_piece_length": 238852,
+    "choice_b": "NONLEGACY",
+    "choice_b_two_piece_length": 238852,
+    "improvement": false,
+    "gain_units": 0
+  },
+  {
+    "piece": "M_NECKBAND_001",
+    "piece_index": 14,
+    "choice_a": "LEGACY",
+    "choice_a_two_piece_length": 238852,
+    "choice_b": "NONLEGACY",
+    "choice_b_two_piece_length": 238852,
+    "improvement": false,
+    "gain_units": 0
+  }
+]
