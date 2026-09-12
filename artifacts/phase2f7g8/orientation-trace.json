@@ -2,16 +2,16 @@
   "two_way_eligible_pieces": 15,
   "orientation_totals": {
     "0": {
-      "generated": 28006,
-      "evaluated": 20000,
-      "validator_accepted": 830,
-      "chosen": 4
+      "generated": 26708,
+      "evaluated": 10000,
+      "validator_accepted": 445,
+      "chosen": 3
     },
     "180": {
-      "generated": 28332,
-      "evaluated": 0,
-      "validator_accepted": 0,
-      "chosen": 0
+      "generated": 27034,
+      "evaluated": 10000,
+      "validator_accepted": 451,
+      "chosen": 1
     }
   },
   "by_piece": [
@@ -22,7 +22,7 @@
         180
       ],
       "rotation_180_candidates_generated": 12401,
-      "chosen_orientation": 0
+      "chosen_orientation": 180
     },
     {
       "piece": "L_NECKBAND_001",
@@ -30,7 +30,7 @@
         0,
         180
       ],
-      "rotation_180_candidates_generated": 5268,
+      "rotation_180_candidates_generated": 4832,
       "chosen_orientation": 0
     },
     {
@@ -39,7 +39,7 @@
         0,
         180
       ],
-      "rotation_180_candidates_generated": 5302,
+      "rotation_180_candidates_generated": 4871,
       "chosen_orientation": 0
     },
     {
@@ -48,7 +48,7 @@
         0,
         180
       ],
-      "rotation_180_candidates_generated": 5361,
+      "rotation_180_candidates_generated": 4930,
       "chosen_orientation": 0
     }
   ]

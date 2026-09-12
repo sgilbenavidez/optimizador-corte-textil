@@ -23,6 +23,34 @@ from costura_optima.domain.transform_policy import EffectiveTransformResolver
 CANDIDATE_MODES = ("CANDIDATE_SPACE_ONLY", "UNIFIED_LEGACY_PLUS_CANDIDATE_SPACE")
 ORIENTATION_POLICIES = ("ZERO_ONLY", "TWO_WAY")
 NEAR_TIE_MARGIN_UNITS = 1000  # 1 cm at 1000 units/cm; diagnostic only, never productive.
+ORIENTATION_SCHEDULER = "STRATIFIED"
+DEFAULT_ORIENTATION_TRANCHE_SIZE = 500
+
+
+def _stratified_interleave(per_rotation: dict, tranche_size: int) -> list:
+    """Round-robin tranches across orientations (Phase 2F.7G-8.1, Section 7).
+
+    Deterministic, no randomness: rotations are visited in sorted order each
+    round, taking up to ``tranche_size`` still-unconsumed items per rotation,
+    until every rotation's list is exhausted. This guarantees any orientation
+    with candidates gets representation within any budget prefix >= one
+    tranche, instead of one orientation's full block silently exhausting the
+    whole budget before a second orientation is ever reached.
+    """
+    cursors = {rotation: 0 for rotation in per_rotation}
+    result = []
+    progressed = True
+    while progressed:
+        progressed = False
+        for rotation in sorted(per_rotation):
+            items = per_rotation[rotation]
+            start = cursors[rotation]
+            end = min(start + tranche_size, len(items))
+            if start < end:
+                result.extend(items[start:end])
+                cursors[rotation] = end
+                progressed = True
+    return result
 
 
 def _placement(instance, position, rotation, sequence):
@@ -38,7 +66,8 @@ class DeterministicCompletionRunner:
     def __init__(self, request: MarkerRequest, frozen_prefix: tuple[Placement, ...], output_dir: Path,
                  *, piece_order: tuple[str, ...] | None = None, candidate_budget: int = 5000, recovery_budget: int = 65,
                  piece_time_budget_ms: int = 60_000, candidate_mode: str = "CANDIDATE_SPACE_ONLY",
-                 orientation_policy: str = "ZERO_ONLY", depth2_diagnostics: bool = False, heartbeat=None):
+                 orientation_policy: str = "ZERO_ONLY", depth2_diagnostics: bool = False, heartbeat=None,
+                 orientation_tranche_size: int = DEFAULT_ORIENTATION_TRANCHE_SIZE):
         if candidate_mode not in CANDIDATE_MODES:
             raise ValueError(f"Unsupported candidate_mode: {candidate_mode}")
         if orientation_policy not in ORIENTATION_POLICIES:
@@ -47,6 +76,7 @@ class DeterministicCompletionRunner:
         self.candidate_budget, self.recovery_budget, self.piece_time_budget_ms = candidate_budget, recovery_budget, piece_time_budget_ms
         self.candidate_mode, self.orientation_policy, self.depth2_diagnostics = candidate_mode, orientation_policy, depth2_diagnostics
         self.heartbeat = heartbeat
+        self.orientation_tranche_size = orientation_tranche_size
         self.kernel = IntegerGeometryKernel(request.precision, GeometryOperationCache())
         self.validator = IndependentMarkerValidator()
         self._oriented_geometry: dict[tuple[str, int], tuple] = {}
@@ -155,18 +185,22 @@ class DeterministicCompletionRunner:
     def _build_pool(self, instance, placed_geo, region, rotations):
         """Unified candidate pool for one piece across every legal orientation.
 
-        Deduplicates by (x, y, orientation) per Section 6 of the phase spec,
-        merging provenance rather than keeping duplicate rows.  CandidateSpace
-        rows are always included; LEGACY_FALLBACK rows are added only in
-        UNIFIED_LEGACY_PLUS_CANDIDATE_SPACE mode.  Orientations are iterated in
-        sorted order so the resulting global rank is deterministic.
+        Deduplicates by (x, y, orientation) per Section 6 of the original phase
+        spec, merging provenance rather than keeping duplicate rows (dedup keys
+        always carry orientation, so (x,y,0) and (x,y,180) never collide -- see
+        Phase 2F.7G-8.1 Section 4). CandidateSpace rows are always included;
+        LEGACY_FALLBACK rows are added only in UNIFIED_LEGACY_PLUS_CANDIDATE_SPACE
+        mode. Orientation-fair scheduling (Phase 2F.7G-8.1): the budget must
+        never be able to be exhausted by a single orientation's block before a
+        second legal orientation is ever reached, so the per-orientation
+        (already deduped, already priority-ordered) lists are stratified into
+        round-robin tranches before ``_evaluate_piece`` slices by budget. This
+        changes candidate ORDER only, never the candidate SET.
         """
-        merged_sources: dict[tuple[int, int, int], set[str]] = {}
-        merged_contacts: dict[tuple[int, int, int], int] = {}
-        ordered_keys: list[tuple[int, int, int]] = []
         recovery: list[CandidatePosition] = []
         generation_ms = 0.0
         orientation_generated: dict[int, int] = {}
+        per_rotation_candidates: dict[int, list[CandidatePosition]] = {}
         for rotation in sorted(rotations):
             generated_at = perf_counter()
             space = CandidateSpaceEngine().build(
@@ -185,19 +219,25 @@ class DeterministicCompletionRunner:
             level1 = [row for row in boundary if row not in level0]
             rotation_rows = level0 + level1 + list(legacy_rows)
             orientation_generated[rotation] = len(rotation_rows)
+            # Dedup is scoped to this rotation: the key always includes
+            # orientation, so a (x, y, 0) row can never collide with (x, y, 180).
+            merged_sources: dict[tuple[int, int], set[str]] = {}
+            merged_contacts: dict[tuple[int, int], int] = {}
+            ordered_keys: list[tuple[int, int]] = []
             for row in rotation_rows:
-                key = (row.position[0], row.position[1], row.orientation)
+                key = row.position
                 if key not in merged_sources:
                     merged_sources[key] = set()
                     merged_contacts[key] = row.contact_count
                     ordered_keys.append(key)
                 merged_sources[key].update(row.sources)
                 merged_contacts[key] = max(merged_contacts[key], row.contact_count)
+            per_rotation_candidates[rotation] = [
+                CandidatePosition(key, rotation, tuple(sorted(merged_sources[key])), merged_contacts[key])
+                for key in ordered_keys
+            ]
             recovery.extend(CandidateSpaceEngine.interior_candidates(space, rotation)[:self.recovery_budget])
-        raw_all = [
-            CandidatePosition((key[0], key[1]), key[2], tuple(sorted(merged_sources[key])), merged_contacts[key])
-            for key in ordered_keys
-        ]
+        raw_all = _stratified_interleave(per_rotation_candidates, self.orientation_tranche_size)
         return raw_all, tuple(recovery), generation_ms, orientation_generated
 
     def _evaluate_piece(self, instance, placements, sequence, rotations):
@@ -217,6 +257,7 @@ class DeterministicCompletionRunner:
         evaluated = 0
         validator_elapsed = 0.0
         evaluated_by_orientation: dict[int, int] = {}
+        validated_by_orientation: dict[int, int] = {}
         incremental_validator = IncrementalCandidateValidator(self.request, tuple(placements))
         validation_counts = {"bbox_rejected": 0, "exact_overlap_rejected": 0, "clearance_rejected": 0,
                              "containment_rejected": 0, "exact_precheck_accepted": 0,
@@ -239,6 +280,7 @@ class DeterministicCompletionRunner:
                 validation_counts["containment_rejected"] += validation.containment_rejected
                 if placement:
                     validation_counts["exact_precheck_accepted"] += 1
+                    validated_by_orientation[candidate.orientation] = validated_by_orientation.get(candidate.orientation, 0) + 1
                     accepted.append((placement, candidate))
                 else:
                     reasons[reason] = reasons.get(reason, 0) + 1
@@ -308,7 +350,7 @@ class DeterministicCompletionRunner:
             "evaluated": evaluated, "generation_ms": generation_ms, "exact_ms": exact_ms,
             "recovery_ms": recovery_ms, "budget_expansions": budget_expansions, "repairs": repairs,
             "candidate_hash": candidate_hash, "orientation_generated": orientation_generated,
-            "evaluated_by_orientation": evaluated_by_orientation,
+            "evaluated_by_orientation": evaluated_by_orientation, "validated_by_orientation": validated_by_orientation,
             "validator_elapsed": validator_elapsed, "validation_counts": validation_counts,
             "total_ms": (perf_counter() - started) * 1000,
         }

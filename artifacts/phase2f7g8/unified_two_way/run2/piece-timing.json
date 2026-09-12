@@ -4,8 +4,8 @@
     "piece_index": 12,
     "raw_candidates": 24445,
     "candidate_set_total": 24575,
-    "validated_candidates": 140,
-    "scored_candidates": 140,
+    "validated_candidates": 6,
+    "scored_candidates": 6,
     "interior_recovery_candidates": 130,
     "repair_attempts": 0,
     "piece_candidate_budget": 5000,
@@ -15,13 +15,13 @@
     "candidate_budget_final": 5000,
     "candidate_set_exhausted": false,
     "budget_expansions": 0,
-    "candidate_generation_ms": 26535.341,
-    "exact_precheck_ms": 879.324,
+    "candidate_generation_ms": 26258.934,
+    "exact_precheck_ms": 1045.609,
     "interior_recovery_ms": 0.0,
-    "validator_ms": 724.381,
-    "scoring_ms": 0.183,
-    "total_piece_ms": 27868.364,
-    "candidate_set_hash": "043975c6dc85a0259149b79071b8010c36fd6acf4a5dc1f9a2656790928f7df0",
+    "validator_ms": 905.454,
+    "scoring_ms": 0.016,
+    "total_piece_ms": 27405.738,
+    "candidate_set_hash": "3a07396f70ce25f5d6f2a47123b4260030a44c0af6ad36fb7880b35974312ed7",
     "pipeline_stage": "commit",
     "run_timeout": false,
     "candidate_mode": "UNIFIED_LEGACY_PLUS_CANDIDATE_SPACE",
@@ -34,7 +34,7 @@
     "local_comparison": {
       "piece": "M_SLEEVE_004",
       "legacy_candidate_count": 0,
-      "nonlegacy_candidate_count": 140,
+      "nonlegacy_candidate_count": 6,
       "improvement": false,
       "tie": false,
       "near_tie": false,
@@ -42,38 +42,36 @@
       "best_legacy_orientation": null,
       "best_legacy_length": null,
       "best_nonlegacy_position": [
-        197852,
-        74148
+        2000,
+        152802
       ],
-      "best_nonlegacy_orientation": 0,
-      "best_nonlegacy_length": 238852,
+      "best_nonlegacy_orientation": 180,
+      "best_nonlegacy_length": 235064,
       "best_nonlegacy_source": [
-        "FEASIBLE_BOUNDARY",
-        "NFP_VERTEX"
+        "FEASIBLE_BOUNDARY"
       ],
       "best_nonlegacy_contact_count": 1
     },
     "chosen_source": [
-      "FEASIBLE_BOUNDARY",
-      "NFP_VERTEX"
+      "FEASIBLE_BOUNDARY"
     ],
     "chosen_position": [
-      197852,
-      74148
+      2000,
+      152802
     ],
-    "chosen_orientation": 0,
-    "chosen_candidate_global_rank": 3809,
-    "marker_length_after_placement": 238852,
+    "chosen_orientation": 180,
+    "chosen_candidate_global_rank": 554,
+    "marker_length_after_placement": 235064,
     "placed_piece_count_after": 12,
     "remaining_piece_count_after": 3
   },
   {
     "piece": "L_NECKBAND_001",
     "piece_index": 13,
-    "raw_candidates": 10478,
-    "candidate_set_total": 10608,
-    "validated_candidates": 228,
-    "scored_candidates": 228,
+    "raw_candidates": 9610,
+    "candidate_set_total": 9740,
+    "validated_candidates": 292,
+    "scored_candidates": 292,
     "interior_recovery_candidates": 130,
     "repair_attempts": 0,
     "piece_candidate_budget": 5000,
@@ -83,13 +81,13 @@
     "candidate_budget_final": 5000,
     "candidate_set_exhausted": false,
     "budget_expansions": 0,
-    "candidate_generation_ms": 3352.126,
-    "exact_precheck_ms": 184.937,
+    "candidate_generation_ms": 3318.623,
+    "exact_precheck_ms": 171.263,
     "interior_recovery_ms": 0.0,
-    "validator_ms": 162.555,
-    "scoring_ms": 0.392,
-    "total_piece_ms": 4050.548,
-    "candidate_set_hash": "94f911e5a39d4073b0f53cde7e96320c1eac3ae0693047a34923e15b4cd012cc",
+    "validator_ms": 150.874,
+    "scoring_ms": 0.377,
+    "total_piece_ms": 4123.724,
+    "candidate_set_hash": "ded1e72af3622213c5b77cee27657d7f7dff4dc530c5181935202e0d4e25a602",
     "pipeline_stage": "commit",
     "run_timeout": false,
     "candidate_mode": "UNIFIED_LEGACY_PLUS_CANDIDATE_SPACE",
@@ -98,26 +96,23 @@
       0,
       180
     ],
-    "rotation_180_candidates_generated": 5268,
+    "rotation_180_candidates_generated": 4832,
     "local_comparison": {
       "piece": "L_NECKBAND_001",
-      "legacy_candidate_count": 28,
-      "nonlegacy_candidate_count": 200,
+      "legacy_candidate_count": 0,
+      "nonlegacy_candidate_count": 292,
       "improvement": false,
-      "tie": true,
-      "near_tie": true,
-      "best_legacy_position": [
-        2000,
-        168665
-      ],
-      "best_legacy_orientation": 0,
-      "best_legacy_length": 238852,
+      "tie": false,
+      "near_tie": false,
+      "best_legacy_position": null,
+      "best_legacy_orientation": null,
+      "best_legacy_length": null,
       "best_nonlegacy_position": [
         105367,
         40167
       ],
       "best_nonlegacy_orientation": 0,
-      "best_nonlegacy_length": 238852,
+      "best_nonlegacy_length": 235064,
       "best_nonlegacy_source": [
         "FEASIBLE_BOUNDARY",
         "NFP_NFP_INTERSECTION"
@@ -133,18 +128,18 @@
       40167
     ],
     "chosen_orientation": 0,
-    "chosen_candidate_global_rank": 16,
-    "marker_length_after_placement": 238852,
+    "chosen_candidate_global_rank": 15,
+    "marker_length_after_placement": 235064,
     "placed_piece_count_after": 13,
     "remaining_piece_count_after": 2
   },
   {
     "piece": "M_NECKBAND_001",
     "piece_index": 14,
-    "raw_candidates": 10524,
-    "candidate_set_total": 10654,
-    "validated_candidates": 242,
-    "scored_candidates": 242,
+    "raw_candidates": 9666,
+    "candidate_set_total": 9796,
+    "validated_candidates": 318,
+    "scored_candidates": 318,
     "interior_recovery_candidates": 130,
     "repair_attempts": 0,
     "piece_candidate_budget": 5000,
@@ -154,13 +149,13 @@
     "candidate_budget_final": 5000,
     "candidate_set_exhausted": false,
     "budget_expansions": 0,
-    "candidate_generation_ms": 3382.175,
-    "exact_precheck_ms": 177.52,
+    "candidate_generation_ms": 3359.976,
+    "exact_precheck_ms": 173.116,
     "interior_recovery_ms": 0.0,
-    "validator_ms": 156.224,
-    "scoring_ms": 0.413,
-    "total_piece_ms": 4120.044,
-    "candidate_set_hash": "5ad140227d8947ae8ce070d7b7866134e128be0083088f9d7da6a6805e5dc773",
+    "validator_ms": 152.601,
+    "scoring_ms": 0.489,
+    "total_piece_ms": 4209.357,
+    "candidate_set_hash": "7dc896dec17f960cf1a9a190b4dfa5d850f51e34dec44373fbd9ae2e06e2b80a",
     "pipeline_stage": "commit",
     "run_timeout": false,
     "candidate_mode": "UNIFIED_LEGACY_PLUS_CANDIDATE_SPACE",
@@ -169,26 +164,23 @@
       0,
       180
     ],
-    "rotation_180_candidates_generated": 5302,
+    "rotation_180_candidates_generated": 4871,
     "local_comparison": {
       "piece": "M_NECKBAND_001",
-      "legacy_candidate_count": 30,
-      "nonlegacy_candidate_count": 212,
+      "legacy_candidate_count": 0,
+      "nonlegacy_candidate_count": 318,
       "improvement": false,
-      "tie": true,
-      "near_tie": true,
-      "best_legacy_position": [
-        2000,
-        168665
-      ],
-      "best_legacy_orientation": 0,
-      "best_legacy_length": 238852,
+      "tie": false,
+      "near_tie": false,
+      "best_legacy_position": null,
+      "best_legacy_orientation": null,
+      "best_legacy_length": null,
       "best_nonlegacy_position": [
         106589,
         34667
       ],
       "best_nonlegacy_orientation": 0,
-      "best_nonlegacy_length": 238852,
+      "best_nonlegacy_length": 235064,
       "best_nonlegacy_source": [
         "FEASIBLE_BOUNDARY",
         "LEGACY_FALLBACK",
@@ -206,18 +198,18 @@
       34667
     ],
     "chosen_orientation": 0,
-    "chosen_candidate_global_rank": 18,
-    "marker_length_after_placement": 238852,
+    "chosen_candidate_global_rank": 17,
+    "marker_length_after_placement": 235064,
     "placed_piece_count_after": 14,
     "remaining_piece_count_after": 1
   },
   {
     "piece": "M_NECKBAND_002",
     "piece_index": 15,
-    "raw_candidates": 10630,
-    "candidate_set_total": 10760,
-    "validated_candidates": 220,
-    "scored_candidates": 220,
+    "raw_candidates": 9772,
+    "candidate_set_total": 9902,
+    "validated_candidates": 280,
+    "scored_candidates": 280,
     "interior_recovery_candidates": 130,
     "repair_attempts": 0,
     "piece_candidate_budget": 5000,
@@ -227,13 +219,13 @@
     "candidate_budget_final": 5000,
     "candidate_set_exhausted": false,
     "budget_expansions": 0,
-    "candidate_generation_ms": 3391.514,
-    "exact_precheck_ms": 181.187,
+    "candidate_generation_ms": 3296.79,
+    "exact_precheck_ms": 174.48,
     "interior_recovery_ms": 0.0,
-    "validator_ms": 159.278,
-    "scoring_ms": 0.33,
-    "total_piece_ms": 4102.972,
-    "candidate_set_hash": "a165b1c5b068eadc2cd1a72f92646a9efe273757e6ca2d057e3c6b1df0ea6ce8",
+    "validator_ms": 153.815,
+    "scoring_ms": 0.408,
+    "total_piece_ms": 4092.998,
+    "candidate_set_hash": "3cde02c8057e997718dd74801946b8d5153be646d01551289d8fca3cdf371a9f",
     "pipeline_stage": "commit",
     "run_timeout": false,
     "candidate_mode": "UNIFIED_LEGACY_PLUS_CANDIDATE_SPACE",
@@ -242,45 +234,40 @@
       0,
       180
     ],
-    "rotation_180_candidates_generated": 5361,
+    "rotation_180_candidates_generated": 4930,
     "local_comparison": {
       "piece": "M_NECKBAND_002",
-      "legacy_candidate_count": 27,
-      "nonlegacy_candidate_count": 193,
+      "legacy_candidate_count": 0,
+      "nonlegacy_candidate_count": 280,
       "improvement": false,
-      "tie": true,
-      "near_tie": true,
-      "best_legacy_position": [
-        2000,
-        168665
-      ],
-      "best_legacy_orientation": 0,
-      "best_legacy_length": 238852,
+      "tie": false,
+      "near_tie": false,
+      "best_legacy_position": null,
+      "best_legacy_orientation": null,
+      "best_legacy_length": null,
       "best_nonlegacy_position": [
-        2000,
-        173000
+        66157,
+        172035
       ],
       "best_nonlegacy_orientation": 0,
-      "best_nonlegacy_length": 238852,
+      "best_nonlegacy_length": 235064,
       "best_nonlegacy_source": [
         "FEASIBLE_BOUNDARY",
-        "IFP_VERTEX",
-        "LEGACY_FALLBACK"
+        "NFP_VERTEX"
       ],
       "best_nonlegacy_contact_count": 1
     },
     "chosen_source": [
       "FEASIBLE_BOUNDARY",
-      "IFP_VERTEX",
-      "LEGACY_FALLBACK"
+      "NFP_VERTEX"
     ],
     "chosen_position": [
-      2000,
-      173000
+      66157,
+      172035
     ],
     "chosen_orientation": 0,
-    "chosen_candidate_global_rank": 34,
-    "marker_length_after_placement": 238852,
+    "chosen_candidate_global_rank": 1302,
+    "marker_length_after_placement": 235064,
     "placed_piece_count_after": 15,
     "remaining_piece_count_after": 0
   }

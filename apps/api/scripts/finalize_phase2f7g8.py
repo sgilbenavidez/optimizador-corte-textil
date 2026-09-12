@@ -149,7 +149,7 @@ def main():
     }, indent=2), encoding="utf-8")
 
     summary = {
-        "FASE_2F_7G_8_UNIFIED_TWO_WAY_CLOSURE": "PARTIAL",
+        "FASE_2F_7G_8_UNIFIED_TWO_WAY_CLOSURE": "PASS" if global_search_development_authorized else "PARTIAL",
         "LEGACY_BASELINE_REPRODUCED": "YES" if legacy_baseline_reproduced else "NO",
         "LEGACY_LENGTH_CM": legacy_length_cm,
         "LEGACY_EFFICIENCY": f"{legacy_efficiency_pct}%",
@@ -203,7 +203,7 @@ def main():
         "GLOBAL_SEARCH_DEVELOPMENT_AUTHORIZED": "YES" if global_search_development_authorized else "NO",
         "GLOBAL_SEARCH_PRODUCTION_GATE": "PENDING_INFRASTRUCTURE",
         "S3_XXL5_BENCHMARK_AUTHORIZED": "NO",
-        "NEXT_STEP": "RESUME_UNIFIED_TWO_WAY" if global_search_development_authorized else "FIX_ORIENTATION_PIPELINE",
+        "NEXT_STEP": "GLOBAL_SEARCH_OVER_CANDIDATE_SPACE" if global_search_development_authorized else "FIX_ORIENTATION_PIPELINE",
         "PATTERN_VALIDATION_STATUS": "ENGINEERING",
         "PRODUCTION_READY": "NO",
         "STOP_GATE": "ACTIVE",
