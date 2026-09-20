@@ -1,0 +1,121 @@
+{
+  "demand": {
+    "XS": 30,
+    "S": 33,
+    "M": 42,
+    "L": 21,
+    "XL": 35,
+    "XXL": 55,
+    "XXXL": 0
+  },
+  "final_status": "SUCCEEDED",
+  "rounds_summary": [
+    {
+      "round_number": 1,
+      "generated": 48,
+      "distribution": {
+        "ZERO_RESIDUE": 7,
+        "SINGLE_SIZE": 6,
+        "SINGLE_SIZE_REPEAT": 9,
+        "PAIR": 15,
+        "TRIPLE": 0,
+        "RESIDUAL_DRIVEN": 0,
+        "DEMAND_RATIO": 7,
+        "MULTI_SIZE": 4
+      },
+      "deduplicated": 0,
+      "pruned": 78,
+      "evaluated": 8,
+      "feasible": 6,
+      "not_evaluated": 40,
+      "stop_reason": null
+    },
+    {
+      "round_number": 2,
+      "generated": 27,
+      "distribution": {
+        "ZERO_RESIDUE": 0,
+        "SINGLE_SIZE": 0,
+        "SINGLE_SIZE_REPEAT": 0,
+        "PAIR": 0,
+        "TRIPLE": 0,
+        "RESIDUAL_DRIVEN": 18,
+        "DEMAND_RATIO": 6,
+        "MULTI_SIZE": 3
+      },
+      "deduplicated": 15,
+      "pruned": 2,
+      "evaluated": 0,
+      "feasible": 0,
+      "not_evaluated": 12,
+      "stop_reason": "MAX_ROUNDS"
+    }
+  ],
+  "candidate_distribution_round1": {
+    "ZERO_RESIDUE": 7,
+    "SINGLE_SIZE": 6,
+    "SINGLE_SIZE_REPEAT": 9,
+    "PAIR": 15,
+    "TRIPLE": 0,
+    "RESIDUAL_DRIVEN": 0,
+    "DEMAND_RATIO": 7,
+    "MULTI_SIZE": 4
+  },
+  "total_pruned_by_reason": {
+    "area_lower_bound": 20,
+    "candidate_composition_budget": 60
+  },
+  "total_excluded_by_reason": {
+    "candidate_funnel_top_k": 38
+  },
+  "discovery_trace": {
+    "M2+L1": {
+      "generated": true,
+      "round": 1,
+      "prefiltered": null,
+      "prefilter_reason": null,
+      "geometry_evaluated": false,
+      "geometry_result": null,
+      "persisted": false,
+      "excluded_from_geometry_top_k": true,
+      "exclusion_reason": "candidate_funnel_top_k",
+      "planner_selected": null
+    },
+    "S3+XXL5": {
+      "generated": true,
+      "round": 1,
+      "prefiltered": null,
+      "prefilter_reason": null,
+      "geometry_evaluated": false,
+      "geometry_result": null,
+      "persisted": false,
+      "excluded_from_geometry_top_k": true,
+      "exclusion_reason": "candidate_funnel_top_k",
+      "planner_selected": null
+    },
+    "XS3+XL3": {
+      "generated": false,
+      "round": null,
+      "prefiltered": null,
+      "prefilter_reason": null,
+      "geometry_evaluated": false,
+      "geometry_result": null,
+      "persisted": false,
+      "excluded_from_geometry_top_k": false,
+      "exclusion_reason": null,
+      "planner_selected": null
+    },
+    "XL1": {
+      "generated": true,
+      "round": 1,
+      "prefiltered": null,
+      "prefilter_reason": null,
+      "geometry_evaluated": true,
+      "geometry_result": null,
+      "persisted": false,
+      "excluded_from_geometry_top_k": false,
+      "exclusion_reason": null,
+      "planner_selected": null
+    }
+  }
+}

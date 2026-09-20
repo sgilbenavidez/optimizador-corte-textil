@@ -12,12 +12,14 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, selectinload
 
 from costura_optima.application.schemas import MarkerPreviewRequest
-from costura_optima.application.services import MarkerPreviewService
+from costura_optima.application.services import MarkerPreviewService, build_marker_request
 from costura_optima.domain.candidate_generator import (
     CandidateCompositionGenerator, SIZE_ORDER, candidate_category, select_balanced_budget,
 )
 from costura_optima.domain.candidate_funnel import select_geometry_top_k
-from costura_optima.domain.integer_kernel import canonical_json_hash, canonical_path, path_bbox, signed_area2
+from costura_optima.domain.global_nesting_search import GlobalNestingSearch, make_state
+from costura_optima.domain.integer_kernel import canonical_json_hash, canonical_path, close_path, path_bbox, signed_area2
+from costura_optima.domain.nesting_models import Placement
 from costura_optima.domain.production_models import (
     CandidateGenerationConfig, PlanningConfig, PlanningSolution, ValidatedMarkerCandidate,
 )
@@ -29,6 +31,7 @@ from costura_optima.infrastructure.db_models import (
     MarkerArtifactORM, OptimizationCandidateORM, OptimizationRunORM, OptimizationSolutionORM,
     OptimizationSolutionProfileORM, PatternSetVersionORM, ProductionOrderORM, SizeResultORM, SpreadORM,
 )
+from costura_optima.infrastructure.repositories import CatalogRepository
 from costura_optima.operational import metrics
 
 
@@ -67,6 +70,42 @@ def _marker_from_payload(artifact: MarkerArtifactORM) -> ValidatedMarkerCandidat
         marker_search_status=payload["search_status"], input_hash=payload["input_hash"],
         lower_bound_length_units=round(payload["lower_bound_length_cm"] * units),
     )
+
+
+def _placement_from_marker_payload_row(row: dict) -> Placement:
+    """Reconstructs a Placement from a ValidatedMarkerCandidate.placements
+    row (the rich dict shape services.py::MarkerPreviewService.generate
+    builds, e.g. via `_marker_from_payload`). Used only by 2F.8's marker
+    refinement to seed GlobalNestingSearch from an already-validated
+    marker's own geometry -- never to reinterpret arbitrary/untrusted input.
+    """
+    ring = row["transformed_polygon"]["coordinates"][0]
+    polygon = tuple(tuple(point) for point in ring[:-1])  # drop close_path's repeated closing vertex
+    grainline = (tuple(row["grainline"]["start"]), tuple(row["grainline"]["end"]))
+    translation = (row["translation"]["x_units"], row["translation"]["y_units"])
+    return Placement(
+        row["piece_instance_id"], row["pattern_piece_id"], row["size_code"], row["piece_code"],
+        row["transform"]["rotation"], row["transform"]["mirrored"], translation, polygon, grainline,
+        tuple(row["bbox"]["units"]), row["geometry_hash"], row["sequence"],
+    )
+
+
+def _serialize_placement_for_payload(placement: Placement, units: int) -> dict:
+    """Mirrors services.py::MarkerPreviewService.generate's placement dict
+    construction exactly, so a refined marker's payload stays compatible
+    with every existing consumer (SVG/cut-map rendering, _marker_from_payload).
+    """
+    return {
+        "piece_instance_id": placement.piece_instance_id, "pattern_piece_id": placement.pattern_piece_id,
+        "size_code": placement.size_code, "piece_code": placement.piece_code,
+        "transform": {"rotation": placement.rotation, "mirrored": placement.mirrored},
+        "translation": {"x_units": placement.translation[0], "y_units": placement.translation[1],
+                        "x_cm": placement.translation[0] / units, "y_cm": placement.translation[1] / units},
+        "transformed_polygon": {"unit": "geometry_unit", "coordinates": [close_path(placement.transformed_polygon)]},
+        "grainline": {"unit": "geometry_unit", "start": placement.transformed_grainline[0], "end": placement.transformed_grainline[1]},
+        "bbox": {"units": placement.bbox, "cm": [round(value / units, 4) for value in placement.bbox]},
+        "geometry_hash": placement.geometry_hash, "sequence": placement.sequence,
+    }
 
 
 def remove_dominated(markers: tuple[ValidatedMarkerCandidate, ...]) -> tuple[ValidatedMarkerCandidate, ...]:
@@ -150,6 +189,43 @@ class PlanningCoordinator:
             funnel_audit = []
             no_improvement_streak = 0
             candidate_generation_budget = float(config.get("candidate_generation_budget_seconds", 5))
+
+            if config.get("persistent_catalog_bootstrap_enabled"):
+                self._check_cancel(run, deadline)
+                bootstrap_markers = self._bootstrap_compatible_markers(
+                    pattern_set.content_hash, fabric_snapshot["content_hash"],
+                    order.catalog_snapshot["cutting_table_configuration"]["content_hash"],
+                )
+                early_solution_found = False
+                if bootstrap_markers:
+                    markers.extend(bootstrap_markers)
+                    bootstrap_catalog = remove_dominated(tuple(markers))
+                    bootstrap_solution = heuristic.solve(demand, maximum_overproduction, bootstrap_catalog)
+                    if bootstrap_solution.spreads:
+                        evidence = self._audit_evidence(run, order, pattern_set, config, bootstrap_catalog, bootstrap_solution)
+                        report = validator.validate(
+                            bootstrap_solution, bootstrap_catalog, demand, maximum_overproduction, max_layers,
+                            usable_table_length_units=max_length, audit_evidence=evidence,
+                        )
+                        if report.status == "VALIDATED_PLAN":
+                            best_valid = self._merge_valid_solutions(best_valid, [(bootstrap_solution, report)])
+                            best_key = self._best_key(best_valid)
+                            early_solution_found = True
+                            elapsed = round((perf_counter() - total_started) * 1000, 3)
+                            self._persist_solution(
+                                run, bootstrap_solution, report,
+                                "BEST_VALIDATED_SO_FAR · plan a partir del catálogo persistente de markers validados.", 999,
+                            )
+                            if run.first_solution_elapsed_ms is None:
+                                run.first_solution_elapsed_ms = elapsed
+                                run.first_solution_spreads = bootstrap_solution.spread_count
+                                run.first_solution_fabric_units = bootstrap_solution.total_fabric_units
+                run.audit = {**(run.audit or {}), "catalog_bootstrap": {
+                    "markers_loaded": len(bootstrap_markers),
+                    "composition_hashes": sorted({marker.marker_hash for marker in bootstrap_markers}),
+                    "early_solution_found": early_solution_found,
+                }}
+                self._heartbeat(run)
 
             for round_number in range(1, int(config["candidate_generation"]["max_rounds"]) + 1):
                 self._check_cancel(run, deadline)
@@ -348,6 +424,11 @@ class PlanningCoordinator:
                 )
                 run.finished_at = utcnow(); self.session.commit(); return
 
+            valid_solutions, markers = self._refine_plan_with_geometry(
+                run, order, pattern_set, demand, maximum_overproduction, max_layers, max_length,
+                markers, valid_solutions, heuristic, refinement, validator, config, deadline,
+            )
+
             serialization_started = perf_counter()
             explained = self._explain(valid_solutions)
             self._check_cancel(run, deadline)
@@ -498,24 +579,219 @@ class PlanningCoordinator:
         if response["status"] != "VALIDATED_FEASIBLE" or response["validation"]["status"] != "VALIDATED":
             return None, False, elapsed, response["diagnostics"]
         response["geometry_units_per_cm"] = pattern_set.geometry_units_per_cm
+        artifact, cache_hit = self._persist_marker_artifact(content_key, pattern_set, order, composition, response)
+        if cache_hit:
+            metrics.inc("marker_cache_hits")
+            return _marker_from_payload(artifact), True, elapsed, response["diagnostics"]
+        metrics.inc("marker_cache_misses")
+        return _marker_from_payload(artifact), False, elapsed, response["diagnostics"]
+
+    def _persist_marker_artifact(self, content_key, pattern_set, order, composition, payload):
+        """Race-safe cache insert for a validated marker artifact, keyed by
+        content_key. Shared by `_evaluate_candidate` (legacy engine) and
+        `_refine_plan_with_geometry` (2F.8 ALNS refinement) -- both build a
+        `payload` dict shaped like `MarkerPreviewResponse.model_dump(mode="json")`
+        (only the subset `_marker_from_payload` actually reads is required)
+        and call this to persist/dedupe it identically.
+
+        Returns (artifact, was_cache_hit).
+        """
         artifact = MarkerArtifactORM(
-            marker_hash=response["result_hash"], content_key=content_key, pattern_hash=pattern_set.content_hash,
+            marker_hash=payload["result_hash"], content_key=content_key, pattern_hash=pattern_set.content_hash,
             fabric_hash=order.catalog_snapshot["fabric_configuration"]["content_hash"],
             table_hash=order.catalog_snapshot["cutting_table_configuration"]["content_hash"], composition=composition,
-            marker_payload=response, geometry_engine_version=response["algorithm_version"],
-            marker_search_status=response["search_status"], validation_status=response["validation"]["status"],
+            marker_payload=payload, geometry_engine_version=payload["algorithm_version"],
+            marker_search_status=payload["search_status"], validation_status=payload["validation"]["status"],
         )
         try:
             with self.session.begin_nested():
                 self.session.add(artifact); self.session.flush()
         except IntegrityError:
-            artifact = self.session.scalar(select(MarkerArtifactORM).where(MarkerArtifactORM.content_key == content_key))
-            if artifact is None:
+            existing = self.session.scalar(select(MarkerArtifactORM).where(MarkerArtifactORM.content_key == content_key))
+            if existing is None:
                 raise
+            return existing, True
+        return artifact, False
+
+    def _bootstrap_compatible_markers(self, pattern_hash, fabric_hash, table_hash):
+        """Phase 2F.8.1 Sections 3/4/6: cross-order validated-marker reuse.
+
+        Fail-closed compatibility: only markers whose pattern/fabric/table
+        content hashes ALL match exactly are returned.
+        `fabric.content_hash` already bakes in usable_width/clearance/
+        margins/fabric_directionality/marker_direction_policy/lay_face_mode
+        (`infrastructure/seed_data.py`), and `table.content_hash` bakes in
+        usable_length/max_layers -- so this 3-hash match is already a
+        sufficient geometric-compatibility contract, not a bare
+        composition-string match (Section 4's explicit warning against
+        that). Unlike `_evaluate_candidate`'s `content_key` (which also
+        hashes in seed/geometry_budget/engine -- appropriate for same-run
+        dedup, wrong for cross-order reuse: a validated marker's geometry
+        doesn't depend on which seed found it), this query intentionally
+        ignores those fields. Ambiguous/partial matches are never returned
+        (fail closed, per Section 4).
+        """
+        rows = self.session.scalars(
+            select(MarkerArtifactORM).where(
+                MarkerArtifactORM.pattern_hash == pattern_hash,
+                MarkerArtifactORM.fabric_hash == fabric_hash,
+                MarkerArtifactORM.table_hash == table_hash,
+                MarkerArtifactORM.validation_status == "VALIDATED",
+            )
+        ).all()
+        return remove_dominated(tuple(_marker_from_payload(row) for row in rows))
+
+    def _refine_marker_geometry(self, run, order, pattern_set, fabric, table, config, original, budget_s):
+        """Phase 2F.8 Section 12: attempts to shorten one already-validated
+        marker via GlobalNestingSearch (unmodified), seeded from its OWN
+        cached placements -- never re-runs the legacy engine. Returns a new,
+        strictly-shorter, independently-VALIDATED ValidatedMarkerCandidate
+        (persisted under a distinct content_key) on success, else None. The
+        original cached artifact is never touched or overwritten.
+        """
+        units = pattern_set.geometry_units_per_cm
+        composition = list(original.composition)
+        max_iterations = 3
+        signature = {
+            "pattern": pattern_set.content_hash, "fabric": fabric.content_hash, "table": table.content_hash,
+            "composition": composition, "seed": config["seed"], "engine": "joint-optimization-alns-v1",
+            "max_iterations": max_iterations,
+        }
+        content_key = canonical_json_hash(signature)
+        cached = self.session.scalar(select(MarkerArtifactORM).where(MarkerArtifactORM.content_key == content_key))
+        if cached:
             metrics.inc("marker_cache_hits")
-            return _marker_from_payload(artifact), True, elapsed, response["diagnostics"]
-        metrics.inc("marker_cache_misses")
-        return _marker_from_payload(artifact), False, elapsed, response["diagnostics"]
+            candidate = _marker_from_payload(cached)
+            return candidate if candidate.marker_length_units < original.marker_length_units else None
+
+        request = build_marker_request(
+            pattern_set, fabric, table, composition, deterministic=True, seed=config["seed"],
+            evaluation_budget=config["geometry_evaluation_budget_per_candidate"],
+        )
+        by_id = {item.instance_id: item for item in request.piece_instances}
+        seed_placements = tuple(_placement_from_marker_payload_row(row) for row in original.placements)
+        initial_state = make_state(seed_placements, 0, None, None)
+        # piece_time_budget_ms bounds each reinserted piece's candidate search
+        # inside one ALNS iteration; max_runtime_s is only checked BETWEEN
+        # iterations, so a single iteration can still cost up to
+        # k_pieces x piece_time_budget_ms in the worst case (k in {1..4}).
+        # Both are kept small here specifically so that worst case stays
+        # bounded well under a realistic worker refinement budget.
+        search = GlobalNestingSearch(
+            request, by_id, seed=config["seed"], candidate_budget=1000, top_k=1, beam_width=1,
+            piece_time_budget_ms=3_000, heartbeat=lambda _stats: self._heartbeat(run),
+        )
+        result = search.run(initial_state, max_iterations=max_iterations, max_runtime_s=max(1.0, budget_s))
+        best = result["best_state"]
+        if best.marker_length_units >= initial_state.marker_length_units:
+            return None
+        full_report = search.full_validator.validate(request, best.placements, request.max_length)
+        if full_report.status != "VALIDATED":
+            return None
+
+        piece_area_units2 = sum(search.kernel.area_units2(item.piece.cut_polygon) for item in request.piece_instances)
+        marker_area_units2 = request.usable_width * best.marker_length_units
+        waste_area_units2 = marker_area_units2 - piece_area_units2
+        efficiency_pct = round(piece_area_units2 / marker_area_units2 * 100, 6) if marker_area_units2 else 0.0
+        payload = {
+            "geometry_units_per_cm": units,
+            "marker_length_cm": best.marker_length_units / units,
+            "usable_width_cm": request.usable_width / units,
+            "piece_area_total_cm2": piece_area_units2 / (units * units),
+            "marker_area_cm2": marker_area_units2 / (units * units),
+            "waste_area_cm2": waste_area_units2 / (units * units),
+            "efficiency_percentage": efficiency_pct,
+            "placements": [_serialize_placement_for_payload(p, units) for p in best.placements],
+            "validation": {"status": full_report.status, "checks": full_report.checks,
+                           "errors": list(full_report.errors), "pair_checks": full_report.pair_checks},
+            "algorithm_version": "joint-optimization-alns-v1",
+            "search_status": "REFINED_FEASIBLE",
+            "input_hash": content_key,
+            "result_hash": best.layout_hash,
+            "lower_bound_length_cm": original.lower_bound_length_units / units,
+        }
+        artifact, cache_hit = self._persist_marker_artifact(content_key, pattern_set, order, dict(original.composition), payload)
+        metrics.inc("marker_cache_hits" if cache_hit else "marker_cache_misses")
+        candidate = _marker_from_payload(artifact)
+        return candidate if candidate.marker_length_units < original.marker_length_units else None
+
+    def _refine_plan_with_geometry(self, run, order, pattern_set, demand, maximum_overproduction, max_layers,
+                                    max_length, markers, best_valid, heuristic, refinement, validator, config, deadline):
+        """Phase 2F.8 Section 12: PLAN -> REFINE USED MARKERS -> REPLAN ->
+        COMPARE -> ACCEPT ONLY IF SYSTEM OBJECTIVE IMPROVES. Only runs when
+        `joint_optimization_enabled` is set and a validated plan already
+        exists. Returns (best_valid, markers), both possibly extended --
+        never smaller/worse: `_merge_valid_solutions` never discards a
+        previously-validated distinct solution, so this can only add options
+        for `_best_key`/`_explain` to choose from downstream, matching
+        Section 13's per-incumbent independent-validity contract.
+        """
+        if not config.get("joint_optimization_enabled") or not best_valid:
+            return best_valid, markers
+        self._check_cancel(run, deadline)
+        refinement_budget_s = float(config.get("joint_optimization_refinement_budget_seconds", 60.0))
+        max_markers = int(config.get("joint_optimization_max_markers_to_refine", 3))
+        refinement_deadline = perf_counter() + refinement_budget_s
+        if deadline is not None:
+            refinement_deadline = min(refinement_deadline, deadline)
+        run.phase = "REFINING_MARKERS"; self._heartbeat(run)
+
+        best_solution, _best_report = min(best_valid, key=lambda item: self._best_key([item]))
+        by_hash = {marker.marker_hash: marker for marker in markers}
+        contribution: dict[str, int] = {}
+        for spread in best_solution.spreads:
+            contribution[spread.marker_hash] = contribution.get(spread.marker_hash, 0) + spread.layers * spread.repeats * spread.marker_length_units
+        used_markers = [by_hash[marker_hash] for marker_hash in contribution if marker_hash in by_hash]
+        used_markers.sort(key=lambda marker: -contribution.get(marker.marker_hash, 0))
+        used_markers = used_markers[:max_markers]
+
+        fabric = CatalogRepository(self.session).get_fabric(order.fabric_configuration_id)
+        table = CatalogRepository(self.session).get_table(order.cutting_table_configuration_id)
+        refined_by_original_hash: dict[str, ValidatedMarkerCandidate] = {}
+        for original in used_markers:
+            if perf_counter() >= refinement_deadline:
+                break
+            self._check_cancel(run, deadline)
+            per_marker_budget = max(1.0, refinement_deadline - perf_counter())
+            candidate = self._refine_marker_geometry(run, order, pattern_set, fabric, table, config, original, per_marker_budget)
+            if candidate is not None:
+                refined_by_original_hash[original.marker_hash] = candidate
+            self._heartbeat(run)
+
+        plan_improved = False
+        if refined_by_original_hash:
+            substituted = tuple(refined_by_original_hash.get(marker.marker_hash, marker) for marker in markers)
+            refined_catalog = remove_dominated(substituted)
+            heuristic_solution = heuristic.solve(demand, maximum_overproduction, refined_catalog)
+            candidate_solutions = (heuristic_solution,)
+            engine = config.get("planner_refinement_engine", "hybrid")
+            if engine in {"hybrid", "cp_sat"}:
+                candidate_solutions = candidate_solutions + refinement.solve_profiles(
+                    demand, maximum_overproduction, refined_catalog,
+                    cancellation_checkpoint=lambda: self._check_cancel(run, deadline),
+                    incumbent=heuristic_solution if heuristic_solution.spreads else None,
+                )
+            candidate_valid = []
+            for solution in candidate_solutions:
+                if not solution.spreads:
+                    continue
+                evidence = self._audit_evidence(run, order, pattern_set, config, refined_catalog, solution)
+                report = validator.validate(solution, refined_catalog, demand, maximum_overproduction, max_layers,
+                                             usable_table_length_units=max_length, audit_evidence=evidence)
+                if report.status == "VALIDATED_PLAN":
+                    candidate_valid.append((solution, report))
+            if candidate_valid:
+                key_before = self._best_key(best_valid)
+                best_valid = self._merge_valid_solutions(best_valid, candidate_valid)
+                markers = list(substituted)
+                plan_improved = self._best_key(best_valid) < key_before
+
+        run.audit = {**(run.audit or {}), "joint_optimization": {
+            "markers_considered": len(used_markers), "markers_refined": len(refined_by_original_hash),
+            "plan_improved": plan_improved,
+        }}
+        self._heartbeat(run)
+        return best_valid, markers
 
     @staticmethod
     def _size_statistics(pattern_set, usable_width, available_length=None):

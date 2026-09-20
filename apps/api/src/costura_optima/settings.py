@@ -18,6 +18,8 @@ class Settings(BaseSettings):
     max_request_bytes: int = 1_000_000
     worker_stale_seconds: int = 90
     planner_refinement_engine: str = "hybrid"
+    joint_optimization_enabled: bool = False
+    persistent_catalog_bootstrap_enabled: bool = False
 
     @property
     def cors_origin_list(self) -> list[str]:

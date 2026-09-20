@@ -1,0 +1,25 @@
+{
+  "composition_id": "XSx6+XLx7",
+  "size_counts": {
+    "XS": 6,
+    "XL": 7
+  },
+  "garment_count": 13,
+  "piece_count": 0,
+  "piece_area_units2": 0,
+  "usable_width_units": 0,
+  "theoretical_length_100_units": 694238,
+  "theoretical_length_90_units": 771376,
+  "best_marker_length_cm": null,
+  "best_efficiency_pct": null,
+  "best_seed": null,
+  "validated": false,
+  "marker_hash": null,
+  "runtime_seconds": 0.0,
+  "search_iterations": 0,
+  "attainability_class": "VERY_TIGHT",
+  "status": "PREFILTER_REJECTED",
+  "seed_lengths_cm": [],
+  "median_length_cm": null,
+  "worst_length_cm": null
+}

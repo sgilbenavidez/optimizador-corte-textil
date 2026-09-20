@@ -1,0 +1,27 @@
+{
+  "composition_id": "Mx4",
+  "size_counts": {
+    "M": 4
+  },
+  "garment_count": 4,
+  "piece_count": 20,
+  "piece_area_units2": 36875240188,
+  "usable_width_units": 176000,
+  "theoretical_length_100_units": 209519,
+  "theoretical_length_90_units": 232799,
+  "best_marker_length_cm": 280.394,
+  "best_efficiency_pct": 74.722858,
+  "best_seed": 2,
+  "validated": true,
+  "marker_hash": "56c7d60dcf150eacc3b10844a9dbd2181458910c7fecf2945f4d37a21f77cc8f",
+  "runtime_seconds": 509.454,
+  "search_iterations": 4,
+  "attainability_class": "PROMISING",
+  "status": "VALIDATED",
+  "seed_lengths_cm": [
+    280.394,
+    312.956
+  ],
+  "median_length_cm": 296.675,
+  "worst_length_cm": 312.956
+}

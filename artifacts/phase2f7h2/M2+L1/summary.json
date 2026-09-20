@@ -1,0 +1,28 @@
+{
+  "composition_id": "Mx2+Lx1",
+  "size_counts": {
+    "M": 2,
+    "L": 1
+  },
+  "garment_count": 3,
+  "piece_count": 15,
+  "piece_area_units2": 28490233996,
+  "usable_width_units": 176000,
+  "theoretical_length_100_units": 161877,
+  "theoretical_length_90_units": 179863,
+  "best_marker_length_cm": 218.0,
+  "best_efficiency_pct": 74.255197,
+  "best_seed": 1,
+  "validated": true,
+  "marker_hash": "123438d26ed31a18f8c235356a542645e21c2cfb070c8041d3cb68cec765b946",
+  "runtime_seconds": 490.402,
+  "search_iterations": 5,
+  "attainability_class": "PROMISING",
+  "status": "VALIDATED",
+  "seed_lengths_cm": [
+    218.0,
+    220.621
+  ],
+  "median_length_cm": 219.31,
+  "worst_length_cm": 220.621
+}

@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from decimal import Decimal
 
-from sqlalchemy import BigInteger, Boolean, DateTime, Float, ForeignKey, Integer, JSON, Numeric, String, Text, UniqueConstraint
+from sqlalchemy import BigInteger, Boolean, DateTime, Float, ForeignKey, Index, Integer, JSON, Numeric, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from costura_optima.infrastructure.database import Base
@@ -216,6 +216,9 @@ class ProductionOrderDemandORM(Base):
 
 class MarkerArtifactORM(Base):
     __tablename__ = "marker_artifacts"
+    __table_args__ = (
+        Index("ix_marker_artifacts_compatibility", "pattern_hash", "fabric_hash", "table_hash"),
+    )
 
     marker_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
     content_key: Mapped[str] = mapped_column(String(64), unique=True)

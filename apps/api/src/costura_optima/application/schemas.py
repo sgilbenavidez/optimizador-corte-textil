@@ -265,6 +265,8 @@ class OptimizationRunCreate(BaseModel):
     beam_width: int = Field(default=10, ge=1, le=100)
     no_improvement_rounds: int = Field(default=1, ge=1, le=10)
     planner_refinement_engine: Literal["heuristic", "cp_sat", "hybrid"] | None = None
+    joint_optimization_enabled: bool | None = None
+    persistent_catalog_bootstrap_enabled: bool | None = None
     seed: int = 1
 
 

@@ -1,0 +1,25 @@
+{
+  "run_tag": "det1",
+  "seed": 1,
+  "iterations": 5,
+  "max_iterations": 5,
+  "runtime_s": 195.821,
+  "candidate_budget": 5000,
+  "top_k": 1,
+  "beam_width": 1,
+  "initial_length_cm": 235.064,
+  "best_length_cm": 233.296,
+  "best_efficiency_pct": 69.386672,
+  "protected_best_length_cm": 229.5,
+  "protected_best_efficiency_pct": 70.534348,
+  "accepted_states": 5,
+  "unique_valid_layouts_visited": 6,
+  "incumbent_improvements": 1,
+  "first_baseline_beat_iteration": "NOT_REACHED",
+  "best_layout_hash": "8db613ced7d8d8cd89cbc6c9f9ea0b731d316379d02e84f7848fd25e54d8d8b6",
+  "final_validation_status": "VALIDATED",
+  "orientation_counts": {
+    "0": 13,
+    "180": 2
+  }
+}

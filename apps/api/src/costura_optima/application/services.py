@@ -387,6 +387,88 @@ class PatternService:
         )
 
 
+def build_marker_request(
+    pattern_set, fabric, table, composition: list[tuple[str, int]],
+    *, transform_lab_mode: bool = False, deterministic: bool = True, seed: int = 1,
+    evaluation_budget: int = 100_000, debug: bool = False,
+) -> MarkerRequest:
+    """Builds a MarkerRequest for `composition` against `pattern_set`/`fabric`/`table`.
+
+    Extracted from MarkerPreviewService.generate (2F.8) so the joint-
+    optimization marker-refinement path (PlanningCoordinator) can build the
+    same request shape for an already-known composition without duplicating
+    this construction or going through the request/response HTTP schema.
+    `generate` below calls this too -- behavior unchanged.
+    """
+    units = pattern_set.geometry_units_per_cm
+    available_sizes = {piece.size_code for piece in pattern_set.pieces}
+    requested_sizes = {size for size, _quantity in composition}
+    unknown = requested_sizes - available_sizes
+    if unknown:
+        raise ValidationError(f"Tallas sin geometría en el patrón: {', '.join(sorted(unknown))}.")
+
+    pieces_by_size: dict[str, list] = {}
+    for piece in pattern_set.pieces:
+        pieces_by_size.setdefault(piece.size_code, []).append(piece)
+    instances: list[PieceInstance] = []
+    for size_code, quantity in sorted(composition, key=lambda item: SIZE_ORDER.get(item[0], 999)):
+        for piece in sorted(pieces_by_size[size_code], key=lambda item: item.piece_code):
+            count = quantity * piece.quantity
+            cut_path = canonical_path(piece.operational_geometry["coordinates"][0])
+            grainline = (
+                tuple(round(value * units) for value in piece.grainline["start"]),
+                tuple(round(value * units) for value in piece.grainline["end"]),
+            )
+            nesting_piece = NestingPiece(
+                pattern_piece_id=piece.id,
+                size_code=piece.size_code,
+                piece_code=piece.piece_code,
+                cut_polygon=cut_path,
+                grainline=grainline,
+                allowed_rotations=tuple(piece.allowed_rotations_degrees),
+                mirror_allowed=piece.mirror_allowed,
+                geometry_hash=piece.geometry_hash,
+                grainline_policy=STRAIGHT_GRAIN_TWO_WAY,
+            )
+            for index in range(1, count + 1):
+                instances.append(PieceInstance(f"{piece.size_code}_{piece.piece_code}_{index:03d}", nesting_piece))
+
+    # Face mode and direction are independent: FACE_ONE_WAY does not ban 180°.
+    fabric_directionality = fabric.fabric_directionality
+    marker_direction_policy = fabric.marker_direction_policy
+    signature = {
+        "pattern": pattern_set.content_hash,
+        "composition": sorted(composition),
+        "fabric": fabric.content_hash,
+        "table": table.content_hash,
+        "seed": seed,
+    }
+    return MarkerRequest(
+        request_id=f"preview-{canonical_json_hash(signature)[:16]}",
+        piece_instances=tuple(instances),
+        usable_width=round(float(fabric.usable_width_cm) * units),
+        physical_width=round(float(fabric.physical_width_cm) * units),
+        max_length=round(float(table.usable_length_cm) * units),
+        clearance=round(float(fabric.piece_clearance_cm) * units),
+        margins=MarkerMargins(
+            left=round(float(fabric.left_margin_cm) * units),
+            right=round(float(fabric.right_margin_cm) * units),
+            start=round(float(fabric.start_margin_cm) * units),
+            end=round(float(fabric.end_margin_cm) * units),
+        ),
+        allowed_transforms=(0, 90, 180, 270) if transform_lab_mode else (0, 180),
+        fabric_directionality=fabric_directionality,
+        marker_direction_policy=marker_direction_policy,
+        lay_face_mode=fabric.lay_face_mode,
+        transform_lab_mode=transform_lab_mode,
+        deterministic=deterministic,
+        seed=seed,
+        evaluation_budget=evaluation_budget,
+        debug=debug,
+        precision=PrecisionConfiguration(geometry_units_per_cm=units),
+    )
+
+
 class MarkerPreviewService:
     def __init__(self, session: Session):
         self.patterns = PatternRepository(session)
@@ -407,71 +489,10 @@ class MarkerPreviewService:
         if table is None or not table.is_active:
             raise NotFoundError("La configuración de mesa no existe o está inactiva.")
         units = pattern_set.geometry_units_per_cm
-        available_sizes = {piece.size_code for piece in pattern_set.pieces}
-        requested_sizes = {item.size_code for item in payload.composition}
-        unknown = requested_sizes - available_sizes
-        if unknown:
-            raise ValidationError(f"Tallas sin geometría en el patrón: {', '.join(sorted(unknown))}.")
-
-        pieces_by_size: dict[str, list] = {}
-        for piece in pattern_set.pieces:
-            pieces_by_size.setdefault(piece.size_code, []).append(piece)
-        instances: list[PieceInstance] = []
-        for line in sorted(payload.composition, key=lambda item: SIZE_ORDER.get(item.size_code, 999)):
-            for piece in sorted(pieces_by_size[line.size_code], key=lambda item: item.piece_code):
-                count = line.quantity * piece.quantity
-                cut_path = canonical_path(piece.operational_geometry["coordinates"][0])
-                grainline = (
-                    tuple(round(value * units) for value in piece.grainline["start"]),
-                    tuple(round(value * units) for value in piece.grainline["end"]),
-                )
-                nesting_piece = NestingPiece(
-                    pattern_piece_id=piece.id,
-                    size_code=piece.size_code,
-                    piece_code=piece.piece_code,
-                    cut_polygon=cut_path,
-                    grainline=grainline,
-                    allowed_rotations=tuple(piece.allowed_rotations_degrees),
-                    mirror_allowed=piece.mirror_allowed,
-                    geometry_hash=piece.geometry_hash,
-                    grainline_policy=STRAIGHT_GRAIN_TWO_WAY,
-                )
-                for index in range(1, count + 1):
-                    instances.append(PieceInstance(f"{piece.size_code}_{piece.piece_code}_{index:03d}", nesting_piece))
-
-        # Face mode and direction are independent: FACE_ONE_WAY does not ban 180°.
-        fabric_directionality = fabric.fabric_directionality
-        marker_direction_policy = fabric.marker_direction_policy
-        signature = {
-            "pattern": pattern_set.content_hash,
-            "composition": [line.model_dump() for line in payload.composition],
-            "fabric": fabric.content_hash,
-            "table": table.content_hash,
-            "seed": payload.seed,
-        }
-        request = MarkerRequest(
-            request_id=f"preview-{canonical_json_hash(signature)[:16]}",
-            piece_instances=tuple(instances),
-            usable_width=round(float(fabric.usable_width_cm) * units),
-            physical_width=round(float(fabric.physical_width_cm) * units),
-            max_length=round(float(table.usable_length_cm) * units),
-            clearance=round(float(fabric.piece_clearance_cm) * units),
-            margins=MarkerMargins(
-                left=round(float(fabric.left_margin_cm) * units),
-                right=round(float(fabric.right_margin_cm) * units),
-                start=round(float(fabric.start_margin_cm) * units),
-                end=round(float(fabric.end_margin_cm) * units),
-            ),
-            allowed_transforms=(0, 90, 180, 270) if payload.transform_lab_mode else (0, 180),
-            fabric_directionality=fabric_directionality,
-            marker_direction_policy=marker_direction_policy,
-            lay_face_mode=fabric.lay_face_mode,
-            transform_lab_mode=payload.transform_lab_mode,
-            deterministic=payload.deterministic,
-            seed=payload.seed,
-            evaluation_budget=payload.evaluation_budget,
-            debug=payload.debug,
-            precision=PrecisionConfiguration(geometry_units_per_cm=units),
+        request = build_marker_request(
+            pattern_set, fabric, table, [(line.size_code, line.quantity) for line in payload.composition],
+            transform_lab_mode=payload.transform_lab_mode, deterministic=payload.deterministic,
+            seed=payload.seed, evaluation_budget=payload.evaluation_budget, debug=payload.debug,
         )
         result = MARKER_ENGINE.nest(request)
         scale_area = units * units
@@ -557,6 +578,14 @@ class OptimizationRunService:
         refinement_engine = payload.planner_refinement_engine or get_settings().planner_refinement_engine
         if refinement_engine not in {"heuristic", "cp_sat", "hybrid"}:
             raise ValidationError("PLANNER_REFINEMENT_ENGINE debe ser heuristic, cp_sat o hybrid.")
+        joint_optimization_enabled = (
+            payload.joint_optimization_enabled if payload.joint_optimization_enabled is not None
+            else get_settings().joint_optimization_enabled
+        )
+        persistent_catalog_bootstrap_enabled = (
+            payload.persistent_catalog_bootstrap_enabled if payload.persistent_catalog_bootstrap_enabled is not None
+            else get_settings().persistent_catalog_bootstrap_enabled
+        )
         configuration = {
             "allow_overproduction": payload.allow_overproduction,
             "overproduction_rate": payload.overproduction_rate,
@@ -581,6 +610,10 @@ class OptimizationRunService:
             "beam_width": payload.beam_width,
             "no_improvement_rounds": payload.no_improvement_rounds,
             "planner_refinement_engine": refinement_engine,
+            "joint_optimization_enabled": joint_optimization_enabled,
+            "joint_optimization_refinement_budget_seconds": 60.0,
+            "joint_optimization_max_markers_to_refine": 3,
+            "persistent_catalog_bootstrap_enabled": persistent_catalog_bootstrap_enabled,
             "recommended_profile": "MAX_ORDER_PER_CUT",
             "objective_profiles": ["MAX_ORDER_PER_CUT", "MIN_FABRIC", "MIN_SPREADS", "BALANCED", "CONSOLIDATED_PRODUCTION"],
             "length_scale": "geometry_units_1000_per_cm",

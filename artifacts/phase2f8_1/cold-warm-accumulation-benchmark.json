@@ -1,0 +1,200 @@
+{
+  "demand": {
+    "XS": 30,
+    "S": 33,
+    "M": 42,
+    "L": 21,
+    "XL": 35,
+    "XXL": 55,
+    "XXXL": 0
+  },
+  "cold": {
+    "tag": "cold",
+    "status": "SUCCEEDED",
+    "best_solution_available": true,
+    "wall_time_s": 83.789,
+    "catalog_entries_before": 0,
+    "catalog_entries_after": 6,
+    "marker_cache_hits": 0,
+    "geometry_evaluations": 8,
+    "catalog_bootstrap": null,
+    "overproduction": 0,
+    "physical_spreads": 10,
+    "distinct_marker_designs": 6,
+    "total_fabric_m": 225.86520000000002,
+    "global_weighted_efficiency_pct": 53.730473
+  },
+  "warm": {
+    "tag": "warm",
+    "status": "SUCCEEDED",
+    "best_solution_available": true,
+    "wall_time_s": 81.507,
+    "catalog_entries_before": 4,
+    "catalog_entries_after": 10,
+    "marker_cache_hits": 0,
+    "geometry_evaluations": 8,
+    "catalog_bootstrap": {
+      "markers_loaded": 4,
+      "composition_hashes": [
+        "123438d26ed31a18f8c235356a542645e21c2cfb070c8041d3cb68cec765b946",
+        "cceb19ddea83e6d7ddf655b1f1e4cfbdf35e4a53d58fa10f6e926b793b932c38",
+        "d183a4b10032efceef16a62ba0195d46e317aebc5b20bff7ef4deca61c8c0c3a",
+        "d748a4a3a21cc03fc8d6c34011ec83dfd787fa4b8ed90b77aa7ab489ffbebae0"
+      ],
+      "early_solution_found": false
+    },
+    "overproduction": 0,
+    "physical_spreads": 4,
+    "distinct_marker_designs": 4,
+    "total_fabric_m": 167.209,
+    "global_weighted_efficiency_pct": 72.578893,
+    "import_results": [
+      {
+        "tag": "M2+L1",
+        "status": "IMPORTED",
+        "marker_hash": "123438d26ed31a18f8c235356a542645e21c2cfb070c8041d3cb68cec765b946",
+        "marker_length_cm": 218.0,
+        "efficiency_percentage": 74.255197
+      },
+      {
+        "tag": "S3+XXL5",
+        "status": "IMPORTED",
+        "marker_hash": "d183a4b10032efceef16a62ba0195d46e317aebc5b20bff7ef4deca61c8c0c3a",
+        "marker_length_cm": 660.0,
+        "efficiency_percentage": 72.524126
+      },
+      {
+        "tag": "XS3+XL3",
+        "status": "IMPORTED",
+        "marker_hash": "d748a4a3a21cc03fc8d6c34011ec83dfd787fa4b8ed90b77aa7ab489ffbebae0",
+        "marker_length_cm": 441.5,
+        "efficiency_percentage": 71.600167
+      },
+      {
+        "tag": "XL1",
+        "status": "IMPORTED",
+        "marker_hash": "cceb19ddea83e6d7ddf655b1f1e4cfbdf35e4a53d58fa10f6e926b793b932c38",
+        "marker_length_cm": 93.58,
+        "efficiency_percentage": 66.262511
+      }
+    ]
+  },
+  "accumulation": [
+    {
+      "tag": "accumulation_run1_cold",
+      "status": "SUCCEEDED",
+      "best_solution_available": true,
+      "wall_time_s": 89.097,
+      "catalog_entries_before": 0,
+      "catalog_entries_after": 6,
+      "marker_cache_hits": 0,
+      "geometry_evaluations": 8,
+      "catalog_bootstrap": {
+        "markers_loaded": 0,
+        "composition_hashes": [],
+        "early_solution_found": false
+      },
+      "overproduction": 0,
+      "physical_spreads": 10,
+      "distinct_marker_designs": 6,
+      "total_fabric_m": 225.86520000000002,
+      "global_weighted_efficiency_pct": 53.730473
+    },
+    {
+      "tag": "accumulation_run2_after_run1",
+      "status": "SUCCEEDED",
+      "best_solution_available": true,
+      "wall_time_s": 94.382,
+      "catalog_entries_before": 6,
+      "catalog_entries_after": 10,
+      "marker_cache_hits": 6,
+      "geometry_evaluations": 13,
+      "catalog_bootstrap": {
+        "markers_loaded": 6,
+        "composition_hashes": [
+          "7d4f3e6ba4848aa12a99c99992d34a455f2021b81f74c8254c331305413279e8",
+          "98fd9a70551e2be1a3323dd6f4e49e821f46ae3f2ccdfa9b9ea50835c2e2fb5f",
+          "b59801c5195826947d6268fd87ad2f0639a2dbcbcffb12495436429cdb674327",
+          "e1151567830d8a41c8d8ea7984c79b7b59724c6d2680bf681a807cbff690d6a9",
+          "e7cde490e70218aa7cbb3ffda909eda4574a4a79338b8158b5b6958ddf3bbedf",
+          "feaa615a411fc209d0a1066deea42ff4a28a7ccfb7bb2bd1361cdd4d10153931"
+        ],
+        "early_solution_found": true
+      },
+      "overproduction": 0,
+      "physical_spreads": 6,
+      "distinct_marker_designs": 6,
+      "total_fabric_m": 176.50864,
+      "global_weighted_efficiency_pct": 68.754958
+    },
+    {
+      "tag": "accumulation_run3_after_enrichment",
+      "status": "SUCCEEDED",
+      "best_solution_available": true,
+      "wall_time_s": 86.403,
+      "catalog_entries_before": 14,
+      "catalog_entries_after": 18,
+      "marker_cache_hits": 10,
+      "geometry_evaluations": 17,
+      "catalog_bootstrap": {
+        "markers_loaded": 13,
+        "composition_hashes": [
+          "123438d26ed31a18f8c235356a542645e21c2cfb070c8041d3cb68cec765b946",
+          "1be5e630026b9de12d68d63392ae7eecf1e9f9a7a949f267a68f351ce6f9bd5a",
+          "2fd732c471bd15bb5c7a611dabcefd309f252d834885455863a38410bac12f70",
+          "5fc185d4f93b98e61c56679ae2e38b6e8fcf08542208a2b8ed96434b61a1e5b0",
+          "7d4f3e6ba4848aa12a99c99992d34a455f2021b81f74c8254c331305413279e8",
+          "98fd9a70551e2be1a3323dd6f4e49e821f46ae3f2ccdfa9b9ea50835c2e2fb5f",
+          "b59801c5195826947d6268fd87ad2f0639a2dbcbcffb12495436429cdb674327",
+          "c0caa71998c8721b0925022cad57fc17646d6d77f9d2960745c89a33c8b7500f",
+          "cceb19ddea83e6d7ddf655b1f1e4cfbdf35e4a53d58fa10f6e926b793b932c38",
+          "d183a4b10032efceef16a62ba0195d46e317aebc5b20bff7ef4deca61c8c0c3a",
+          "d748a4a3a21cc03fc8d6c34011ec83dfd787fa4b8ed90b77aa7ab489ffbebae0",
+          "e1151567830d8a41c8d8ea7984c79b7b59724c6d2680bf681a807cbff690d6a9",
+          "feaa615a411fc209d0a1066deea42ff4a28a7ccfb7bb2bd1361cdd4d10153931"
+        ],
+        "early_solution_found": true
+      },
+      "overproduction": 0,
+      "physical_spreads": 4,
+      "distinct_marker_designs": 4,
+      "total_fabric_m": 167.209,
+      "global_weighted_efficiency_pct": 72.578893,
+      "import_results_before_run3": [
+        {
+          "tag": "M2+L1",
+          "status": "IMPORTED",
+          "marker_hash": "123438d26ed31a18f8c235356a542645e21c2cfb070c8041d3cb68cec765b946",
+          "marker_length_cm": 218.0,
+          "efficiency_percentage": 74.255197
+        },
+        {
+          "tag": "S3+XXL5",
+          "status": "IMPORTED",
+          "marker_hash": "d183a4b10032efceef16a62ba0195d46e317aebc5b20bff7ef4deca61c8c0c3a",
+          "marker_length_cm": 660.0,
+          "efficiency_percentage": 72.524126
+        },
+        {
+          "tag": "XS3+XL3",
+          "status": "IMPORTED",
+          "marker_hash": "d748a4a3a21cc03fc8d6c34011ec83dfd787fa4b8ed90b77aa7ab489ffbebae0",
+          "marker_length_cm": 441.5,
+          "efficiency_percentage": 71.600167
+        },
+        {
+          "tag": "XL1",
+          "status": "IMPORTED",
+          "marker_hash": "cceb19ddea83e6d7ddf655b1f1e4cfbdf35e4a53d58fa10f6e926b793b932c38",
+          "marker_length_cm": 93.58,
+          "efficiency_percentage": 66.262511
+        }
+      ]
+    }
+  ],
+  "known_reference_total_fabric_m": 167.209,
+  "known_reference_global_efficiency_pct": 72.578893,
+  "pattern_validation_status": "ENGINEERING",
+  "production_ready": false,
+  "stop_gate": "ACTIVE"
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "iteration": 0,
+    "runtime_s": 0.0,
+    "length_units": 235064,
+    "efficiency_pct": null,
+    "operator": "SEED",
+    "layout_hash": "e71dc4d9fb68b179a3b05438d1823e519057ad2b69bb5afc267bdbec9bc9ceca"
+  },
+  {
+    "iteration": 1,
+    "runtime_s": 25.081,
+    "length_units": 233296,
+    "operator": "TAIL_REMOVAL+ORIGINAL_ORDER",
+    "layout_hash": "8db613ced7d8d8cd89cbc6c9f9ea0b731d316379d02e84f7848fd25e54d8d8b6"
+  }
+]

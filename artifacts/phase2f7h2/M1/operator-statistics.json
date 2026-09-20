@@ -1,0 +1,74 @@
+{
+  "destroy": {
+    "RANDOM_K_REMOVAL": {
+      "proposed": 2,
+      "repair_succeeded": 2,
+      "validated": 2,
+      "accepted": 1,
+      "incumbent_improvements": 0
+    },
+    "TAIL_REMOVAL": {
+      "proposed": 1,
+      "repair_succeeded": 1,
+      "validated": 1,
+      "accepted": 1,
+      "incumbent_improvements": 1
+    },
+    "WORST_CONTRIBUTOR_REMOVAL": {
+      "proposed": 0,
+      "repair_succeeded": 0,
+      "validated": 0,
+      "accepted": 0,
+      "incumbent_improvements": 0
+    },
+    "REGION_REMOVAL": {
+      "proposed": 2,
+      "repair_succeeded": 2,
+      "validated": 2,
+      "accepted": 2,
+      "incumbent_improvements": 0
+    },
+    "SLEEVE_CLUSTER_REMOVAL": {
+      "proposed": 1,
+      "repair_succeeded": 1,
+      "validated": 1,
+      "accepted": 1,
+      "incumbent_improvements": 0
+    },
+    "SMALL_PIECE_REMOVAL": {
+      "proposed": 0,
+      "repair_succeeded": 0,
+      "validated": 0,
+      "accepted": 0,
+      "incumbent_improvements": 0
+    }
+  },
+  "reinsert": {
+    "LARGEST_FIRST": {
+      "proposed": 1,
+      "repair_succeeded": 1,
+      "validated": 1,
+      "accepted": 1,
+      "incumbent_improvements": 0
+    },
+    "ORIGINAL_ORDER": {
+      "proposed": 3,
+      "repair_succeeded": 3,
+      "validated": 3,
+      "accepted": 2,
+      "incumbent_improvements": 1
+    },
+    "CONTACT_POTENTIAL_FIRST": {
+      "proposed": 2,
+      "repair_succeeded": 2,
+      "validated": 2,
+      "accepted": 2,
+      "incumbent_improvements": 0
+    }
+  },
+  "compaction": {
+    "applied": 0,
+    "iterations_improved": 0,
+    "length_reduction_units_total": 0
+  }
+}

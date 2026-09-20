@@ -1,0 +1,446 @@
+{
+  "XXL1": {
+    "composition_tag": "XXL1",
+    "composition": [
+      [
+        "XXL",
+        1
+      ]
+    ],
+    "status": "OK",
+    "initial_length_cm": 120.5,
+    "tiers": {
+      "runtime": {
+        "tier": "runtime",
+        "config": {
+          "seeds": [
+            1
+          ],
+          "max_iterations": 3,
+          "candidate_budget": 1000,
+          "piece_time_budget_ms": 3000,
+          "max_runtime_s": 60.0
+        },
+        "seed_results": [
+          {
+            "seed": 1,
+            "iterations_run": 2,
+            "runtime_s": 166.556,
+            "best_length_cm": 120.5,
+            "validated": true,
+            "improved_from_initial": false,
+            "time_to_first_improvement_s": null,
+            "iterations_to_first_improvement": null
+          }
+        ],
+        "best": {
+          "seed": 1,
+          "iterations_run": 2,
+          "runtime_s": 166.556,
+          "best_length_cm": 120.5,
+          "validated": true,
+          "improved_from_initial": false,
+          "time_to_first_improvement_s": null,
+          "iterations_to_first_improvement": null
+        }
+      },
+      "medium": {
+        "tier": "medium",
+        "config": {
+          "seeds": [
+            1,
+            2
+          ],
+          "max_iterations": 6,
+          "candidate_budget": 2000,
+          "piece_time_budget_ms": 5000,
+          "max_runtime_s": 120.0
+        },
+        "seed_results": [
+          {
+            "seed": 1,
+            "iterations_run": 1,
+            "runtime_s": 423.832,
+            "best_length_cm": 120.5,
+            "validated": true,
+            "improved_from_initial": false,
+            "time_to_first_improvement_s": null,
+            "iterations_to_first_improvement": null
+          },
+          {
+            "seed": 2,
+            "iterations_run": 1,
+            "runtime_s": 426.577,
+            "best_length_cm": 120.5,
+            "validated": true,
+            "improved_from_initial": false,
+            "time_to_first_improvement_s": null,
+            "iterations_to_first_improvement": null
+          }
+        ],
+        "best": {
+          "seed": 1,
+          "iterations_run": 1,
+          "runtime_s": 423.832,
+          "best_length_cm": 120.5,
+          "validated": true,
+          "improved_from_initial": false,
+          "time_to_first_improvement_s": null,
+          "iterations_to_first_improvement": null
+        }
+      },
+      "deep": {
+        "tier": "deep",
+        "config": {
+          "seeds": [
+            1,
+            2,
+            3
+          ],
+          "max_iterations": 6,
+          "candidate_budget": 3000,
+          "piece_time_budget_ms": 5000,
+          "max_runtime_s": 120.0
+        },
+        "seed_results": [
+          {
+            "seed": 1,
+            "iterations_run": 1,
+            "runtime_s": 724.712,
+            "best_length_cm": 120.5,
+            "validated": true,
+            "improved_from_initial": false,
+            "time_to_first_improvement_s": null,
+            "iterations_to_first_improvement": null
+          },
+          {
+            "seed": 2,
+            "iterations_run": 1,
+            "runtime_s": 729.492,
+            "best_length_cm": 120.5,
+            "validated": true,
+            "improved_from_initial": false,
+            "time_to_first_improvement_s": null,
+            "iterations_to_first_improvement": null
+          },
+          {
+            "seed": 3,
+            "iterations_run": 6,
+            "runtime_s": 34.725,
+            "best_length_cm": 111.68,
+            "validated": true,
+            "improved_from_initial": true,
+            "time_to_first_improvement_s": 9.858,
+            "iterations_to_first_improvement": 1
+          }
+        ],
+        "best": {
+          "seed": 3,
+          "iterations_run": 6,
+          "runtime_s": 34.725,
+          "best_length_cm": 111.68,
+          "validated": true,
+          "improved_from_initial": true,
+          "time_to_first_improvement_s": 9.858,
+          "iterations_to_first_improvement": 1
+        }
+      }
+    }
+  },
+  "XL1": {
+    "composition_tag": "XL1",
+    "composition": [
+      [
+        "XL",
+        1
+      ]
+    ],
+    "status": "OK",
+    "initial_length_cm": 114.0,
+    "tiers": {
+      "runtime": {
+        "tier": "runtime",
+        "config": {
+          "seeds": [
+            1
+          ],
+          "max_iterations": 3,
+          "candidate_budget": 1000,
+          "piece_time_budget_ms": 3000,
+          "max_runtime_s": 60.0
+        },
+        "seed_results": [
+          {
+            "seed": 1,
+            "iterations_run": 1,
+            "runtime_s": 773.933,
+            "best_length_cm": 114.0,
+            "validated": true,
+            "improved_from_initial": false,
+            "time_to_first_improvement_s": null,
+            "iterations_to_first_improvement": null
+          }
+        ],
+        "best": {
+          "seed": 1,
+          "iterations_run": 1,
+          "runtime_s": 773.933,
+          "best_length_cm": 114.0,
+          "validated": true,
+          "improved_from_initial": false,
+          "time_to_first_improvement_s": null,
+          "iterations_to_first_improvement": null
+        }
+      },
+      "medium": {
+        "tier": "medium",
+        "config": {
+          "seeds": [
+            1,
+            2
+          ],
+          "max_iterations": 6,
+          "candidate_budget": 2000,
+          "piece_time_budget_ms": 5000,
+          "max_runtime_s": 120.0
+        },
+        "seed_results": [
+          {
+            "seed": 1,
+            "iterations_run": 1,
+            "runtime_s": 816.468,
+            "best_length_cm": 114.0,
+            "validated": true,
+            "improved_from_initial": false,
+            "time_to_first_improvement_s": null,
+            "iterations_to_first_improvement": null
+          },
+          {
+            "seed": 2,
+            "iterations_run": 1,
+            "runtime_s": 1263.839,
+            "best_length_cm": 114.0,
+            "validated": true,
+            "improved_from_initial": false,
+            "time_to_first_improvement_s": null,
+            "iterations_to_first_improvement": null
+          }
+        ],
+        "best": {
+          "seed": 1,
+          "iterations_run": 1,
+          "runtime_s": 816.468,
+          "best_length_cm": 114.0,
+          "validated": true,
+          "improved_from_initial": false,
+          "time_to_first_improvement_s": null,
+          "iterations_to_first_improvement": null
+        }
+      },
+      "deep": {
+        "tier": "deep",
+        "config": {
+          "seeds": [
+            1,
+            2,
+            3
+          ],
+          "max_iterations": 6,
+          "candidate_budget": 3000,
+          "piece_time_budget_ms": 5000,
+          "max_runtime_s": 120.0
+        },
+        "seed_results": [
+          {
+            "seed": 1,
+            "iterations_run": 1,
+            "runtime_s": 2802.85,
+            "best_length_cm": 114.0,
+            "validated": true,
+            "improved_from_initial": false,
+            "time_to_first_improvement_s": null,
+            "iterations_to_first_improvement": null
+          },
+          {
+            "seed": 2,
+            "iterations_run": 1,
+            "runtime_s": 1571.78,
+            "best_length_cm": 114.0,
+            "validated": true,
+            "improved_from_initial": false,
+            "time_to_first_improvement_s": null,
+            "iterations_to_first_improvement": null
+          },
+          {
+            "seed": 3,
+            "iterations_run": 1,
+            "runtime_s": 3081.116,
+            "best_length_cm": 114.0,
+            "validated": true,
+            "improved_from_initial": false,
+            "time_to_first_improvement_s": null,
+            "iterations_to_first_improvement": null
+          }
+        ],
+        "best": {
+          "seed": 1,
+          "iterations_run": 1,
+          "runtime_s": 2802.85,
+          "best_length_cm": 114.0,
+          "validated": true,
+          "improved_from_initial": false,
+          "time_to_first_improvement_s": null,
+          "iterations_to_first_improvement": null
+        }
+      }
+    }
+  },
+  "M1": {
+    "composition_tag": "M1",
+    "composition": [
+      [
+        "M",
+        1
+      ]
+    ],
+    "status": "OK",
+    "initial_length_cm": 81.466,
+    "tiers": {
+      "runtime": {
+        "tier": "runtime",
+        "config": {
+          "seeds": [
+            1
+          ],
+          "max_iterations": 3,
+          "candidate_budget": 1000,
+          "piece_time_budget_ms": 3000,
+          "max_runtime_s": 60.0
+        },
+        "seed_results": [
+          {
+            "seed": 1,
+            "iterations_run": 1,
+            "runtime_s": 412.177,
+            "best_length_cm": 81.466,
+            "validated": true,
+            "improved_from_initial": false,
+            "time_to_first_improvement_s": null,
+            "iterations_to_first_improvement": null
+          }
+        ],
+        "best": {
+          "seed": 1,
+          "iterations_run": 1,
+          "runtime_s": 412.177,
+          "best_length_cm": 81.466,
+          "validated": true,
+          "improved_from_initial": false,
+          "time_to_first_improvement_s": null,
+          "iterations_to_first_improvement": null
+        }
+      },
+      "medium": {
+        "tier": "medium",
+        "config": {
+          "seeds": [
+            1,
+            2
+          ],
+          "max_iterations": 6,
+          "candidate_budget": 2000,
+          "piece_time_budget_ms": 5000,
+          "max_runtime_s": 120.0
+        },
+        "seed_results": [
+          {
+            "seed": 1,
+            "iterations_run": 1,
+            "runtime_s": 622.677,
+            "best_length_cm": 81.466,
+            "validated": true,
+            "improved_from_initial": false,
+            "time_to_first_improvement_s": null,
+            "iterations_to_first_improvement": null
+          },
+          {
+            "seed": 2,
+            "iterations_run": 2,
+            "runtime_s": 633.313,
+            "best_length_cm": 79.991,
+            "validated": true,
+            "improved_from_initial": true,
+            "time_to_first_improvement_s": 0.683,
+            "iterations_to_first_improvement": 1
+          }
+        ],
+        "best": {
+          "seed": 2,
+          "iterations_run": 2,
+          "runtime_s": 633.313,
+          "best_length_cm": 79.991,
+          "validated": true,
+          "improved_from_initial": true,
+          "time_to_first_improvement_s": 0.683,
+          "iterations_to_first_improvement": 1
+        }
+      },
+      "deep": {
+        "tier": "deep",
+        "config": {
+          "seeds": [
+            1,
+            2,
+            3
+          ],
+          "max_iterations": 6,
+          "candidate_budget": 3000,
+          "piece_time_budget_ms": 5000,
+          "max_runtime_s": 120.0
+        },
+        "seed_results": [
+          {
+            "seed": 1,
+            "iterations_run": 1,
+            "runtime_s": 621.678,
+            "best_length_cm": 81.466,
+            "validated": true,
+            "improved_from_initial": false,
+            "time_to_first_improvement_s": null,
+            "iterations_to_first_improvement": null
+          },
+          {
+            "seed": 2,
+            "iterations_run": 2,
+            "runtime_s": 638.385,
+            "best_length_cm": 79.991,
+            "validated": true,
+            "improved_from_initial": true,
+            "time_to_first_improvement_s": 0.773,
+            "iterations_to_first_improvement": 1
+          },
+          {
+            "seed": 3,
+            "iterations_run": 1,
+            "runtime_s": 617.227,
+            "best_length_cm": 81.466,
+            "validated": true,
+            "improved_from_initial": false,
+            "time_to_first_improvement_s": null,
+            "iterations_to_first_improvement": null
+          }
+        ],
+        "best": {
+          "seed": 2,
+          "iterations_run": 2,
+          "runtime_s": 638.385,
+          "best_length_cm": 79.991,
+          "validated": true,
+          "improved_from_initial": true,
+          "time_to_first_improvement_s": 0.773,
+          "iterations_to_first_improvement": 1
+        }
+      }
+    }
+  }
+}

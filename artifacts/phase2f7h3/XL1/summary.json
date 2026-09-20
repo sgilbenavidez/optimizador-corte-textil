@@ -1,0 +1,28 @@
+{
+  "composition_id": "XLx1",
+  "size_counts": {
+    "XL": 1
+  },
+  "garment_count": 1,
+  "piece_count": 5,
+  "piece_area_units2": 10913488653,
+  "usable_width_units": 176000,
+  "theoretical_length_100_units": 62009,
+  "theoretical_length_90_units": 68899,
+  "best_marker_length_cm": 93.58,
+  "best_efficiency_pct": 66.262511,
+  "best_seed": 3,
+  "validated": true,
+  "marker_hash": "cceb19ddea83e6d7ddf655b1f1e4cfbdf35e4a53d58fa10f6e926b793b932c38",
+  "runtime_seconds": 202.459,
+  "search_iterations": 6,
+  "attainability_class": "PROMISING",
+  "status": "VALIDATED",
+  "seed_lengths_cm": [
+    93.58,
+    108.48,
+    111.086
+  ],
+  "median_length_cm": 108.48,
+  "worst_length_cm": 111.086
+}
