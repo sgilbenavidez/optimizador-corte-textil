@@ -13,3 +13,4 @@ dist/
 coverage/
 *.sqlite3
 .codex_deps/
+.venv-audit/

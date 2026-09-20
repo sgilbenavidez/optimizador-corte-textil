@@ -1,0 +1,27 @@
+{
+  "composition_id": "Mx2",
+  "size_counts": {
+    "M": 2
+  },
+  "garment_count": 2,
+  "piece_count": 10,
+  "piece_area_units2": 18437620094,
+  "usable_width_units": 176000,
+  "theoretical_length_100_units": 104760,
+  "theoretical_length_90_units": 116400,
+  "best_marker_length_cm": 145.73,
+  "best_efficiency_pct": 71.88582,
+  "best_seed": 1,
+  "validated": true,
+  "marker_hash": "ab2248e4c0fd9f9ef7732ba2dc3f63521eaf2dcc7a448bfea46e6fad8a64fbea",
+  "runtime_seconds": 260.986,
+  "search_iterations": 6,
+  "attainability_class": "PROMISING",
+  "status": "VALIDATED",
+  "seed_lengths_cm": [
+    145.73,
+    147.698
+  ],
+  "median_length_cm": 146.714,
+  "worst_length_cm": 147.698
+}

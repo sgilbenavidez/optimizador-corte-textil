@@ -1,6 +1,6 @@
 # Costura Óptima
 
-Implementación acumulada hasta FASE 2E: catálogo y patrones versionados, geometría/nesting irregular validado y planificación asíncrona de pedidos con OR-Tools CP-SAT.
+Implementación acumulada hasta FASE 2F.1: catálogo y patrones versionados, geometría/nesting irregular validado, planificación asíncrona con OR-Tools CP-SAT y operación recuperable/observable con mapas de corte certificados.
 
 > El patrón incluido sigue siendo `ENGINEERING / UNVALIDATED_FOR_PRODUCTION`. Los planes usan markers geométricamente validados, pero no constituyen una aprobación industrial del patrón ni una prueba de optimalidad geométrica global.
 
@@ -18,8 +18,10 @@ El servicio `api` espera PostgreSQL y Redis, ejecuta migraciones/seed/generació
 - inspección técnica de patrones: <http://localhost:5173/patterns>
 - API: <http://localhost:8000/api/v1>
 - documentación OpenAPI: <http://localhost:8000/docs>
+- liveness/readiness/worker: <http://localhost:8000/api/v1/health/live>, <http://localhost:8000/api/v1/health/ready> y <http://localhost:8000/api/v1/health/worker>
+- métricas OpenMetrics: <http://localhost:8000/api/v1/metrics>
 
-El flujo de **Optimizar corte** crea una orden y un `OptimizationRun` (HTTP 202), muestra progreso por polling y termina en una comparación de soluciones con tendidos y SVG certificados.
+El flujo de **Optimizar corte** crea una orden y un `OptimizationRun` (HTTP 202), muestra progreso recuperable por URL y termina en una comparación de soluciones, tendidos y SVG certificados. `/orders` conserva el historial; `/optimization-runs/{run_id}` reabre cualquier corrida y `/markers/{marker_hash}` amplía el mapa sin recalcular placements.
 
 Para detener:
 
@@ -151,4 +153,4 @@ Las consultas reconstruyen todas las tallas desde el snapshot. Cambiar el catál
 
 ## Límite de alcance
 
-No se afirma optimalidad geométrica global ni estado production-ready. NFP continúa parcial; no hay DXF/Optitex, multi-roll avanzado, inventario, ERP, múltiples referencias ni múltiples telas/colores por orden. La FASE 2F no está autorizada.
+No se afirma optimalidad geométrica global ni estado production-ready. NFP continúa parcial; no hay DXF/Optitex, multi-roll avanzado, inventario, ERP, múltiples referencias ni múltiples telas/colores por orden. `AUTHENTICATION = OUT_OF_SCOPE_MVP`; antes de exposición pública se debe incorporar identidad, autorización y endurecimiento de infraestructura.

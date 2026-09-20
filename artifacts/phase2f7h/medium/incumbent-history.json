@@ -1,0 +1,24 @@
+[
+  {
+    "iteration": 0,
+    "runtime_s": 0.0,
+    "length_units": 235064,
+    "efficiency_pct": null,
+    "operator": "SEED",
+    "layout_hash": "e71dc4d9fb68b179a3b05438d1823e519057ad2b69bb5afc267bdbec9bc9ceca"
+  },
+  {
+    "iteration": 1,
+    "runtime_s": 24.948,
+    "length_units": 233296,
+    "operator": "RANDOM_K_REMOVAL+LARGEST_FIRST",
+    "layout_hash": "90ba8e62f506d8301a6193995692d7bd6983b6ef2483597a550e5636d49568a6"
+  },
+  {
+    "iteration": 33,
+    "runtime_s": 1021.034,
+    "length_units": 227483,
+    "operator": "WORST_CONTRIBUTOR_REMOVAL+LARGEST_FIRST",
+    "layout_hash": "9af1ed22fcbd6c14b237be00148101311e0f6cd549763dc9db210ccd848afcdb"
+  }
+]

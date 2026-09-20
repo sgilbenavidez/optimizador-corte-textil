@@ -1,0 +1,102 @@
+[
+  {
+    "composition": {
+      "XXL": 1
+    },
+    "layers": 30,
+    "repeats": 1,
+    "marker_hash": "feaa615a411fc209d0a1066deea42ff4a28a7ccfb7bb2bd1361cdd4d10153931",
+    "marker_length_cm": 122.5,
+    "fabric_contribution_cm": 3675.0
+  },
+  {
+    "composition": {
+      "XL": 1
+    },
+    "layers": 30,
+    "repeats": 1,
+    "marker_hash": "e7cde490e70218aa7cbb3ffda909eda4574a4a79338b8158b5b6958ddf3bbedf",
+    "marker_length_cm": 116.5,
+    "fabric_contribution_cm": 3495.0
+  },
+  {
+    "composition": {
+      "XXL": 1
+    },
+    "layers": 25,
+    "repeats": 1,
+    "marker_hash": "feaa615a411fc209d0a1066deea42ff4a28a7ccfb7bb2bd1361cdd4d10153931",
+    "marker_length_cm": 122.5,
+    "fabric_contribution_cm": 3062.5
+  },
+  {
+    "composition": {
+      "S": 1
+    },
+    "layers": 30,
+    "repeats": 1,
+    "marker_hash": "e1151567830d8a41c8d8ea7984c79b7b59724c6d2680bf681a807cbff690d6a9",
+    "marker_length_cm": 98.5,
+    "fabric_contribution_cm": 2955.0
+  },
+  {
+    "composition": {
+      "XS": 1
+    },
+    "layers": 30,
+    "repeats": 1,
+    "marker_hash": "98fd9a70551e2be1a3323dd6f4e49e821f46ae3f2ccdfa9b9ea50835c2e2fb5f",
+    "marker_length_cm": 92.5,
+    "fabric_contribution_cm": 2775.0
+  },
+  {
+    "composition": {
+      "M": 1
+    },
+    "layers": 30,
+    "repeats": 1,
+    "marker_hash": "7d4f3e6ba4848aa12a99c99992d34a455f2021b81f74c8254c331305413279e8",
+    "marker_length_cm": 83.466,
+    "fabric_contribution_cm": 2503.98
+  },
+  {
+    "composition": {
+      "L": 1
+    },
+    "layers": 21,
+    "repeats": 1,
+    "marker_hash": "b59801c5195826947d6268fd87ad2f0639a2dbcbcffb12495436429cdb674327",
+    "marker_length_cm": 106.688,
+    "fabric_contribution_cm": 2240.448
+  },
+  {
+    "composition": {
+      "M": 1
+    },
+    "layers": 12,
+    "repeats": 1,
+    "marker_hash": "7d4f3e6ba4848aa12a99c99992d34a455f2021b81f74c8254c331305413279e8",
+    "marker_length_cm": 83.466,
+    "fabric_contribution_cm": 1001.5919999999999
+  },
+  {
+    "composition": {
+      "XL": 1
+    },
+    "layers": 5,
+    "repeats": 1,
+    "marker_hash": "e7cde490e70218aa7cbb3ffda909eda4574a4a79338b8158b5b6958ddf3bbedf",
+    "marker_length_cm": 116.5,
+    "fabric_contribution_cm": 582.5
+  },
+  {
+    "composition": {
+      "S": 1
+    },
+    "layers": 3,
+    "repeats": 1,
+    "marker_hash": "e1151567830d8a41c8d8ea7984c79b7b59724c6d2680bf681a807cbff690d6a9",
+    "marker_length_cm": 98.5,
+    "fabric_contribution_cm": 295.5
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "case": "S3_XXL5",
+  "mode": "ZERO_ONLY",
+  "composition": {
+    "S": 3,
+    "XXL": 5
+  },
+  "layers": 11,
+  "piece_count": 40,
+  "total_piece_area_cm2": 84244.0253,
+  "area_lower_bound_length_cm": 482.66,
+  "geometry_lower_bound_cm": 482.66,
+  "target_length_100_cm": 478.6592,
+  "target_length_90_cm": 531.8436,
+  "target_length_95_cm": 503.8518,
+  "required_efficiency_at_max_length_percentage": 68.379891,
+  "actual_marker_length_cm": 664.63,
+  "efficiency_percentage": 72.018903,
+  "waste_percentage": 27.981097,
+  "geometry_status": "VALIDATED_FEASIBLE",
+  "search_status": "FEASIBLE_NOT_PROVEN_BEST",
+  "validation_status": "VALIDATED",
+  "elapsed_time_ms": 4544.336,
+  "wall_elapsed_ms": 4559.025,
+  "evaluation_count": 48361,
+  "orientation": {
+    "eligible_0": 25,
+    "eligible_180": 0,
+    "evaluated_0": 25,
+    "evaluated_180": 0,
+    "selected_0": 22,
+    "selected_180": 0
+  },
+  "nfp_status": "PARTIAL",
+  "stopping_reason": "deterministic_neighborhoods_completed",
+  "gap_to_90_cm": 132.7864,
+  "gap_to_95_cm": 160.7782
+}

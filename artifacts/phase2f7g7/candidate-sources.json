@@ -1,0 +1,164 @@
+[
+  {
+    "piece": "L_BACK_001",
+    "source": null,
+    "rank": null,
+    "position": [
+      2000,
+      2000
+    ],
+    "marker_length": null
+  },
+  {
+    "piece": "L_FRONT_001",
+    "source": null,
+    "rank": null,
+    "position": [
+      2000,
+      76000
+    ],
+    "marker_length": null
+  },
+  {
+    "piece": "M_BACK_001",
+    "source": null,
+    "rank": null,
+    "position": [
+      64000,
+      45667
+    ],
+    "marker_length": null
+  },
+  {
+    "piece": "M_BACK_002",
+    "source": null,
+    "rank": null,
+    "position": [
+      117796,
+      106500
+    ],
+    "marker_length": null
+  },
+  {
+    "piece": "M_FRONT_001",
+    "source": null,
+    "rank": null,
+    "position": [
+      143555,
+      13611
+    ],
+    "marker_length": null
+  },
+  {
+    "piece": "M_FRONT_002",
+    "source": null,
+    "rank": null,
+    "position": [
+      176064,
+      103030
+    ],
+    "marker_length": null
+  },
+  {
+    "piece": "L_SLEEVE_001",
+    "source": null,
+    "rank": null,
+    "position": [
+      64000,
+      19668
+    ],
+    "marker_length": null
+  },
+  {
+    "piece": "L_SLEEVE_002",
+    "source": null,
+    "rank": null,
+    "position": [
+      64000,
+      117667
+    ],
+    "marker_length": null
+  },
+  {
+    "piece": "M_SLEEVE_001",
+    "source": null,
+    "rank": null,
+    "position": [
+      77796,
+      143666
+    ],
+    "marker_length": null
+  },
+  {
+    "piece": "M_SLEEVE_002",
+    "source": null,
+    "rank": null,
+    "position": [
+      36796,
+      151827
+    ],
+    "marker_length": null
+  },
+  {
+    "piece": "M_SLEEVE_003",
+    "source": null,
+    "rank": null,
+    "position": [
+      99079,
+      5102
+    ],
+    "marker_length": null
+  },
+  {
+    "piece": "M_SLEEVE_004",
+    "source": [
+      "FEASIBLE_BOUNDARY",
+      "NFP_VERTEX"
+    ],
+    "rank": 3809,
+    "position": [
+      197852,
+      74148
+    ],
+    "marker_length": 238852
+  },
+  {
+    "piece": "L_NECKBAND_001",
+    "source": [
+      "FEASIBLE_BOUNDARY",
+      "NFP_NFP_INTERSECTION"
+    ],
+    "rank": 16,
+    "position": [
+      105367,
+      40167
+    ],
+    "marker_length": 238852
+  },
+  {
+    "piece": "M_NECKBAND_001",
+    "source": [
+      "FEASIBLE_BOUNDARY",
+      "NFP_NFP_INTERSECTION"
+    ],
+    "rank": 18,
+    "position": [
+      106589,
+      34667
+    ],
+    "marker_length": 238852
+  },
+  {
+    "piece": "M_NECKBAND_002",
+    "source": [
+      "FEASIBLE_BOUNDARY",
+      "IFP_VERTEX"
+    ],
+    "rank": 34,
+    "position": [
+      2000,
+      173000
+    ],
+    "marker_length": 238852
+  }
+]

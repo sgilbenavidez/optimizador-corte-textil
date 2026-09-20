@@ -35,6 +35,7 @@ class NestingPiece:
     allowed_rotations: tuple[int, ...]
     mirror_allowed: bool
     geometry_hash: str
+    grainline_policy: str = "STRAIGHT_GRAIN_TWO_WAY"
 
 
 @dataclass(frozen=True)
@@ -53,6 +54,10 @@ class MarkerRequest:
     clearance: int
     margins: MarkerMargins
     allowed_transforms: tuple[int, ...]
+    fabric_directionality: str = "NON_DIRECTIONAL"
+    marker_direction_policy: str = "TWO_WAY"
+    lay_face_mode: str = "FACE_ONE_WAY"
+    transform_lab_mode: bool = False
     deterministic: bool = True
     seed: int = 1
     evaluation_budget: int = 100_000

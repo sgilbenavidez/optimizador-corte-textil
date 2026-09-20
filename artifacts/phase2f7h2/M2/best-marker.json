@@ -1,0 +1,95 @@
+{
+  "marker_hash": "ab2248e4c0fd9f9ef7732ba2dc3f63521eaf2dcc7a448bfea46e6fad8a64fbea",
+  "placements": [
+    {
+      "piece_instance_id": "M_BACK_001",
+      "translation": [
+        2000,
+        2000
+      ],
+      "rotation": 0,
+      "geometry_hash": "6c33a1fbaba3084784bb469ec4cc6ca848ed3d5a7613aa8d84ec5c9fe428de71"
+    },
+    {
+      "piece_instance_id": "M_BACK_002",
+      "translation": [
+        2000,
+        74000
+      ],
+      "rotation": 0,
+      "geometry_hash": "6c33a1fbaba3084784bb469ec4cc6ca848ed3d5a7613aa8d84ec5c9fe428de71"
+    },
+    {
+      "piece_instance_id": "M_SLEEVE_001",
+      "translation": [
+        2000,
+        146000
+      ],
+      "rotation": 0,
+      "geometry_hash": "271f1acdf4ca16041e48ce4735efb74efd29a715ebf66f6538ba33b4650d457f"
+    },
+    {
+      "piece_instance_id": "M_NECKBAND_002",
+      "translation": [
+        2000,
+        170999
+      ],
+      "rotation": 0,
+      "geometry_hash": "813a58ecb94e1a53f888706f9a7f09e3993aff0845163ee597a1b8365eb0381c"
+    },
+    {
+      "piece_instance_id": "M_SLEEVE_002",
+      "translation": [
+        40466,
+        153501
+      ],
+      "rotation": 180,
+      "geometry_hash": "271f1acdf4ca16041e48ce4735efb74efd29a715ebf66f6538ba33b4650d457f"
+    },
+    {
+      "piece_instance_id": "M_FRONT_001",
+      "translation": [
+        61500,
+        2000
+      ],
+      "rotation": 0,
+      "geometry_hash": "80c5c1594a3bd9094648c60cd4d149d918fd50d8ec285cbfad50770841dbc215"
+    },
+    {
+      "piece_instance_id": "M_FRONT_002",
+      "translation": [
+        61500,
+        74000
+      ],
+      "rotation": 0,
+      "geometry_hash": "80c5c1594a3bd9094648c60cd4d149d918fd50d8ec285cbfad50770841dbc215"
+    },
+    {
+      "piece_instance_id": "M_SLEEVE_003",
+      "translation": [
+        72156,
+        150246
+      ],
+      "rotation": 0,
+      "geometry_hash": "271f1acdf4ca16041e48ce4735efb74efd29a715ebf66f6538ba33b4650d457f"
+    },
+    {
+      "piece_instance_id": "M_SLEEVE_004",
+      "translation": [
+        104730,
+        153501
+      ],
+      "rotation": 180,
+      "geometry_hash": "271f1acdf4ca16041e48ce4735efb74efd29a715ebf66f6538ba33b4650d457f"
+    },
+    {
+      "piece_instance_id": "M_NECKBAND_001",
+      "translation": [
+        106478,
+        144746
+      ],
+      "rotation": 0,
+      "geometry_hash": "813a58ecb94e1a53f888706f9a7f09e3993aff0845163ee597a1b8365eb0381c"
+    }
+  ]
+}

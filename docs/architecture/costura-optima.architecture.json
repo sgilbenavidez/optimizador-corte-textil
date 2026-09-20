@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "COSTURA ÓPTIMA — mapa de arquitectura",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/sgilbenavidez/optimizador-corte-textil",
+      "revision": "5f6965bc9aae8c398b66cc66208ba202e523c82a"
+    }
+  },
+  "layout": { "mode": "grid", "cols": 3, "origin": [40, 60], "gapX": 72, "gapY": 72, "cellW": 180, "cellH": 88 },
+  "components": [
+    { "id": "user", "type": "external", "label": "Usuario", "sublabel": "operador", "col": 0, "row": 0 },
+    { "id": "web", "type": "frontend", "label": "Web React / Vite", "sublabel": "órdenes y resultados", "col": 1, "row": 0 },
+    { "id": "api", "type": "backend", "label": "FastAPI API", "sublabel": "órdenes, runs y métricas", "col": 2, "row": 0 },
+    { "id": "order-run", "type": "backend", "label": "Order + Run", "sublabel": "order / optimization run", "col": 0, "row": 1 },
+    { "id": "queue", "type": "messagebus", "label": "Redis / RQ", "sublabel": "efímero; no source of truth", "col": 1, "row": 1 },
+    { "id": "worker", "type": "backend", "label": "Optimization Worker", "sublabel": "consume OptimizationRun", "col": 2, "row": 1 },
+    { "id": "completion-runner", "type": "backend", "label": "Completion Runner", "sublabel": "checkpoint / resume", "col": 1, "row": 2,
+      "sources": [{ "path": "apps/api/src/costura_optima/domain/completion_runner.py", "label": "DeterministicCompletionRunner" }] },
+    { "id": "pipeline", "type": "backend", "label": "Candidates", "sublabel": "topology + exact recovery", "col": 2, "row": 3,
+      "sources": [
+        { "path": "apps/api/src/costura_optima/domain/candidate_space.py", "label": "CandidateSpaceEngine" },
+        { "path": "apps/api/src/costura_optima/domain/global_nesting_search.py", "label": "GlobalNestingSearch (feature-flagged plan-aware marker refinement, 2F.8)" },
+        { "path": "apps/api/src/costura_optima/domain/composition_explorer.py", "label": "CompositionExplorer (experimental, not product-integrated)" }
+      ] },
+    { "id": "solvers", "type": "backend", "label": "Production Solvers", "sublabel": "heurístico + CP-SAT opcional", "col": 1, "row": 3,
+      "sources": [{ "path": "apps/api/src/costura_optima/domain/coverage_catalog.py", "label": "coverage_catalog (experimental, not product-integrated)" }] },
+    { "id": "validator", "type": "backend", "label": "Plan Validator", "sublabel": "independiente", "col": 0, "row": 3,
+      "sources": [{ "path": "apps/api/src/costura_optima/domain/marker_validator.py", "label": "Independent + incremental validators" }] },
+    { "id": "patterns", "type": "backend", "label": "Pattern Engineering", "sublabel": "ENGINEERING · UNVALIDATED", "col": 1, "row": 4 },
+    { "id": "postgres", "type": "database", "label": "PostgreSQL", "sublabel": "source of truth", "col": 0, "row": 4 },
+    { "id": "observability", "type": "backend", "label": "Observability", "sublabel": "health + metrics", "col": 2, "row": 4 }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Frontend", "wraps": ["web"], "pad": 18 },
+    { "kind": "region", "label": "API / Application", "wraps": ["api", "order-run"], "pad": 18 },
+    { "kind": "region", "label": "Worker / Queue", "wraps": ["queue", "worker"], "pad": 18 },
+    { "kind": "region", "label": "Optimization Domain", "wraps": ["completion-runner", "pipeline", "solvers", "validator"], "pad": 18 },
+    { "kind": "region", "label": "Persistence", "wraps": ["postgres"], "pad": 18 },
+    { "kind": "region", "label": "Pattern Engineering", "wraps": ["patterns"], "pad": 18 }
+  ],
+  "connections": [
+    { "id": "c-user-web", "from": "user", "to": "web", "label": "opera", "variant": "emphasis", "route": "straight" },
+    { "id": "c-web-api", "from": "web", "to": "api", "label": "HTTP", "variant": "emphasis", "route": "straight" },
+    { "id": "c-api-run", "from": "api", "to": "order-run", "label": "crea", "variant": "emphasis", "fromSide": "bottom", "toSide": "top" },
+    { "id": "c-run-queue", "from": "order-run", "to": "queue", "label": "encola", "variant": "emphasis", "route": "straight" },
+    { "id": "c-queue-worker", "from": "queue", "to": "worker", "label": "RQ job", "variant": "emphasis", "route": "straight" },
+    { "id": "c-worker-pipeline", "from": "worker", "to": "pipeline", "label": "ejecuta", "variant": "emphasis", "fromSide": "bottom", "toSide": "top", "labelAt": [604, 294] },
+    { "id": "c-pipeline-completion", "from": "pipeline", "to": "completion-runner", "label": "continÃºa", "variant": "emphasis", "fromSide": "top", "toSide": "bottom" },
+    { "id": "c-completion-validator", "from": "completion-runner", "to": "validator", "label": "valida / checkpoint", "variant": "emphasis", "fromSide": "bottom", "toSide": "top" },
+    { "id": "c-pipeline-solvers", "from": "pipeline", "to": "solvers", "label": "markers", "variant": "emphasis", "route": "straight" },
+    { "id": "c-solvers-validator", "from": "solvers", "to": "validator", "label": "solución", "variant": "emphasis", "route": "straight" },
+    { "id": "c-validator-postgres", "from": "validator", "to": "postgres", "label": "solution", "variant": "emphasis", "fromSide": "bottom", "toSide": "top", "labelAt": [100, 614] }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Pipeline de optimización", "items": ["ProductionOrder → CandidateCompositionGenerator → Candidate Funnel → GeometryEngine → Validated Marker Catalog", "OperationalHeuristicSolver → BEST_VALIDATED_SO_FAR → CpSatRefinementSolver [OPTIONAL REFINEMENT]", "IndependentProductionPlanValidator → OptimizationSolution"] },
+    { "dot": "violet", "title": "Pipeline de patrones", "items": ["Measurements → PatternParameterProfile → PatternSetVersion → PatternPiece → PatternPieceGeometry → GeometryEngine", "Estado de ingeniería: UNVALIDATED_FOR_PRODUCTION"] },
+    { "dot": "emerald", "title": "Persistencia y operación", "items": ["PostgreSQL: catálogo, patrones, órdenes, runs, marker artifacts, solutions, spreads y audit.", "Redis/RQ es cola y coordinación efímera del worker; no es fuente de verdad."] }
+  ]
+}

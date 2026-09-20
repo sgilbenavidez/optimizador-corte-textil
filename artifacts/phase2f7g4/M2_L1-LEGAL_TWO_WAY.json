@@ -1,0 +1,496 @@
+{
+  "case": "M2_L1",
+  "mode": "LEGAL_TWO_WAY",
+  "candidate_mode": "CANDIDATE_SPACE",
+  "composition": {
+    "M": 2,
+    "L": 1
+  },
+  "layers": 21,
+  "piece_count": 0,
+  "total_piece_area_cm2": 28490.233996,
+  "area_lower_bound_length_cm": 165.877,
+  "geometry_lower_bound_cm": 165.877,
+  "target_length_100_cm": 161.8763,
+  "target_length_90_cm": 179.8626,
+  "target_length_95_cm": 170.3961,
+  "required_efficiency_at_max_length_percentage": 23.12519,
+  "actual_marker_length_cm": null,
+  "efficiency_percentage": null,
+  "waste_percentage": null,
+  "geometry_status": "NOT_FOUND_WITHIN_BUDGET",
+  "search_status": "NOT_FOUND_WITHIN_BUDGET",
+  "validation_status": "NOT_RUN",
+  "elapsed_time_ms": 245440.58,
+  "wall_elapsed_ms": 245502.24,
+  "evaluation_count": 25000,
+  "orientation": {
+    "eligible_0": 14,
+    "eligible_180": 14,
+    "evaluated_0": 14,
+    "evaluated_180": 14,
+    "selected_0": 10,
+    "selected_180": 3
+  },
+  "placement_strategy": "CANDIDATE_SPACE",
+  "legacy_fallback_enabled": false,
+  "candidate_trace": [
+    {
+      "piece_index": 1,
+      "piece_instance_id": "L_BACK_001",
+      "piece_type": "BACK",
+      "size": "L",
+      "orientations": [
+        0,
+        180
+      ],
+      "legacy_generated_count": 0,
+      "candidate_space_generated_count": 138,
+      "candidate_space_nonlegacy_count": 138,
+      "deduplicated_count": 138,
+      "validator_accepted_count": 138,
+      "validator_rejected_count": 0,
+      "rejection_counts": {
+        "OVERLAP": 0,
+        "CLEARANCE": 0,
+        "CONTAINMENT": 0
+      },
+      "scored_count": 138,
+      "evaluated_count": 138,
+      "candidate_set_hash_after_piece_i": "f9e1615e68aeb9ba1b20394ee534792966378fa704a309ca6b4c52cfdc21059c",
+      "chosen_candidate": [
+        2000,
+        2000
+      ],
+      "chosen_source": [
+        "FEASIBLE_BOUNDARY",
+        "IFP_VERTEX"
+      ],
+      "resulting_length_after_piece": 65000,
+      "failure": null,
+      "candidate_space_state": null
+    },
+    {
+      "piece_index": 2,
+      "piece_instance_id": "L_FRONT_001",
+      "piece_type": "FRONT",
+      "size": "L",
+      "orientations": [
+        0,
+        180
+      ],
+      "legacy_generated_count": 0,
+      "candidate_space_generated_count": 426,
+      "candidate_space_nonlegacy_count": 426,
+      "deduplicated_count": 426,
+      "validator_accepted_count": 333,
+      "validator_rejected_count": 93,
+      "rejection_counts": {
+        "OVERLAP": 0,
+        "CLEARANCE": 93,
+        "CONTAINMENT": 0
+      },
+      "scored_count": 333,
+      "evaluated_count": 426,
+      "candidate_set_hash_after_piece_i": "24dbf62ccccce4170f36ef2720202f34a29dabbb9b271dc5a3f93e96d9fe9f66",
+      "chosen_candidate": [
+        2000,
+        76000
+      ],
+      "chosen_source": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_IFP_INTERSECTION"
+      ],
+      "resulting_length_after_piece": 65000,
+      "failure": null,
+      "candidate_space_state": null
+    },
+    {
+      "piece_index": 3,
+      "piece_instance_id": "M_BACK_001",
+      "piece_type": "BACK",
+      "size": "M",
+      "orientations": [
+        0,
+        180
+      ],
+      "legacy_generated_count": 0,
+      "candidate_space_generated_count": 716,
+      "candidate_space_nonlegacy_count": 716,
+      "deduplicated_count": 716,
+      "validator_accepted_count": 213,
+      "validator_rejected_count": 503,
+      "rejection_counts": {
+        "OVERLAP": 358,
+        "CLEARANCE": 145,
+        "CONTAINMENT": 0
+      },
+      "scored_count": 213,
+      "evaluated_count": 716,
+      "candidate_set_hash_after_piece_i": "7ea595cb59367ea20ccbb060823e44b5903c033d3904d6a34674ced0d973de51",
+      "chosen_candidate": [
+        63999,
+        72231
+      ],
+      "chosen_source": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "resulting_length_after_piece": 122999,
+      "failure": null,
+      "candidate_space_state": null
+    },
+    {
+      "piece_index": 4,
+      "piece_instance_id": "M_BACK_002",
+      "piece_type": "BACK",
+      "size": "M",
+      "orientations": [
+        0,
+        180
+      ],
+      "legacy_generated_count": 0,
+      "candidate_space_generated_count": 990,
+      "candidate_space_nonlegacy_count": 990,
+      "deduplicated_count": 990,
+      "validator_accepted_count": 325,
+      "validator_rejected_count": 665,
+      "rejection_counts": {
+        "OVERLAP": 551,
+        "CLEARANCE": 114,
+        "CONTAINMENT": 0
+      },
+      "scored_count": 325,
+      "evaluated_count": 990,
+      "candidate_set_hash_after_piece_i": "eb3155c3b45ad8c42810c78235ff91e702517b6c561d7155567307ff1e8a9663",
+      "chosen_candidate": [
+        113239,
+        2700
+      ],
+      "chosen_source": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "resulting_length_after_piece": 172239,
+      "failure": null,
+      "candidate_space_state": null
+    },
+    {
+      "piece_index": 5,
+      "piece_instance_id": "M_FRONT_001",
+      "piece_type": "FRONT",
+      "size": "M",
+      "orientations": [
+        0,
+        180
+      ],
+      "legacy_generated_count": 0,
+      "candidate_space_generated_count": 1716,
+      "candidate_space_nonlegacy_count": 1716,
+      "deduplicated_count": 1716,
+      "validator_accepted_count": 343,
+      "validator_rejected_count": 1373,
+      "rejection_counts": {
+        "OVERLAP": 1065,
+        "CLEARANCE": 308,
+        "CONTAINMENT": 0
+      },
+      "scored_count": 343,
+      "evaluated_count": 1716,
+      "candidate_set_hash_after_piece_i": "6e8c282dc8e3d7676c700dfe477d4f5b56f9f9a67588a47eefc8f382fb234a1a",
+      "chosen_candidate": [
+        121999,
+        75999
+      ],
+      "chosen_source": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "resulting_length_after_piece": 180999,
+      "failure": null,
+      "candidate_space_state": null
+    },
+    {
+      "piece_index": 6,
+      "piece_instance_id": "M_FRONT_002",
+      "piece_type": "FRONT",
+      "size": "M",
+      "orientations": [
+        0,
+        180
+      ],
+      "legacy_generated_count": 0,
+      "candidate_space_generated_count": 1918,
+      "candidate_space_nonlegacy_count": 1918,
+      "deduplicated_count": 1918,
+      "validator_accepted_count": 237,
+      "validator_rejected_count": 1681,
+      "rejection_counts": {
+        "OVERLAP": 1326,
+        "CLEARANCE": 355,
+        "CONTAINMENT": 0
+      },
+      "scored_count": 237,
+      "evaluated_count": 1918,
+      "candidate_set_hash_after_piece_i": "aa497fea055ca6a995303c1f648addda6b54c423d4659056496e27aa91c415ab",
+      "chosen_candidate": [
+        171243,
+        6469
+      ],
+      "chosen_source": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "resulting_length_after_piece": 230243,
+      "failure": null,
+      "candidate_space_state": null
+    },
+    {
+      "piece_index": 7,
+      "piece_instance_id": "L_SLEEVE_001",
+      "piece_type": "SLEEVE",
+      "size": "L",
+      "orientations": [
+        0,
+        180
+      ],
+      "legacy_generated_count": 0,
+      "candidate_space_generated_count": 2558,
+      "candidate_space_nonlegacy_count": 2558,
+      "deduplicated_count": 2558,
+      "validator_accepted_count": 379,
+      "validator_rejected_count": 2179,
+      "rejection_counts": {
+        "OVERLAP": 1790,
+        "CLEARANCE": 389,
+        "CONTAINMENT": 0
+      },
+      "scored_count": 379,
+      "evaluated_count": 2558,
+      "candidate_set_hash_after_piece_i": "ab96c857e62f048ff61b72d3156dc9ebb2ce5db00fc00a374e6ad1d83c2a1689",
+      "chosen_candidate": [
+        2000,
+        149999
+      ],
+      "chosen_source": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_IFP_INTERSECTION"
+      ],
+      "resulting_length_after_piece": 45000,
+      "failure": null,
+      "candidate_space_state": null
+    },
+    {
+      "piece_index": 8,
+      "piece_instance_id": "L_SLEEVE_002",
+      "piece_type": "SLEEVE",
+      "size": "L",
+      "orientations": [
+        0,
+        180
+      ],
+      "legacy_generated_count": 0,
+      "candidate_space_generated_count": 2586,
+      "candidate_space_nonlegacy_count": 2586,
+      "deduplicated_count": 2586,
+      "validator_accepted_count": 311,
+      "validator_rejected_count": 2275,
+      "rejection_counts": {
+        "OVERLAP": 1931,
+        "CLEARANCE": 344,
+        "CONTAINMENT": 0
+      },
+      "scored_count": 311,
+      "evaluated_count": 2586,
+      "candidate_set_hash_after_piece_i": "f116f60ef05612e5118ff3d395c2368d9ce9d23b65c117eeb50295910a005715",
+      "chosen_candidate": [
+        40298,
+        149980
+      ],
+      "chosen_source": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "resulting_length_after_piece": 83298,
+      "failure": null,
+      "candidate_space_state": null
+    },
+    {
+      "piece_index": 9,
+      "piece_instance_id": "M_SLEEVE_001",
+      "piece_type": "SLEEVE",
+      "size": "M",
+      "orientations": [
+        0,
+        180
+      ],
+      "legacy_generated_count": 0,
+      "candidate_space_generated_count": 2656,
+      "candidate_space_nonlegacy_count": 2656,
+      "deduplicated_count": 2656,
+      "validator_accepted_count": 186,
+      "validator_rejected_count": 2470,
+      "rejection_counts": {
+        "OVERLAP": 2133,
+        "CLEARANCE": 337,
+        "CONTAINMENT": 0
+      },
+      "scored_count": 186,
+      "evaluated_count": 2656,
+      "candidate_set_hash_after_piece_i": "13506f3bbbbc3c8d0e505b4d6c1d100e446ccba6373d2b1a758954da67172282",
+      "chosen_candidate": [
+        63944,
+        47022
+      ],
+      "chosen_source": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ],
+      "resulting_length_after_piece": 104944,
+      "failure": null,
+      "candidate_space_state": null
+    },
+    {
+      "piece_index": 10,
+      "piece_instance_id": "M_SLEEVE_002",
+      "piece_type": "SLEEVE",
+      "size": "M",
+      "orientations": [
+        0,
+        180
+      ],
+      "legacy_generated_count": 0,
+      "candidate_space_generated_count": 2730,
+      "candidate_space_nonlegacy_count": 2730,
+      "deduplicated_count": 2730,
+      "validator_accepted_count": 155,
+      "validator_rejected_count": 2575,
+      "rejection_counts": {
+        "OVERLAP": 2266,
+        "CLEARANCE": 309,
+        "CONTAINMENT": 0
+      },
+      "scored_count": 155,
+      "evaluated_count": 2730,
+      "candidate_set_hash_after_piece_i": "2d92d4041f0de138b63dc47eb9def7bd7cae2a631a907fd364bc5f367e4bf901",
+      "chosen_candidate": [
+        64000,
+        22023
+      ],
+      "chosen_source": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_NFP_INTERSECTION"
+      ],
+      "resulting_length_after_piece": 105000,
+      "failure": null,
+      "candidate_space_state": null
+    },
+    {
+      "piece_index": 11,
+      "piece_instance_id": "M_SLEEVE_003",
+      "piece_type": "SLEEVE",
+      "size": "M",
+      "orientations": [
+        0,
+        180
+      ],
+      "legacy_generated_count": 0,
+      "candidate_space_generated_count": 2686,
+      "candidate_space_nonlegacy_count": 2686,
+      "deduplicated_count": 2686,
+      "validator_accepted_count": 90,
+      "validator_rejected_count": 2596,
+      "rejection_counts": {
+        "OVERLAP": 2415,
+        "CLEARANCE": 181,
+        "CONTAINMENT": 0
+      },
+      "scored_count": 90,
+      "evaluated_count": 2686,
+      "candidate_set_hash_after_piece_i": "4cbec5cca2cbb7c74e95fc0dbef12bbc823d8d7ce515e733b238b8279852f89c",
+      "chosen_candidate": [
+        220333,
+        86167
+      ],
+      "chosen_source": [
+        "FEASIBLE_INTERIOR_RECOVERY"
+      ],
+      "resulting_length_after_piece": 261333,
+      "failure": null,
+      "candidate_space_state": null
+    },
+    {
+      "piece_index": 12,
+      "piece_instance_id": "M_SLEEVE_004",
+      "piece_type": "SLEEVE",
+      "size": "M",
+      "orientations": [
+        0,
+        180
+      ],
+      "legacy_generated_count": 0,
+      "candidate_space_generated_count": 2788,
+      "candidate_space_nonlegacy_count": 2788,
+      "deduplicated_count": 2788,
+      "validator_accepted_count": 96,
+      "validator_rejected_count": 2692,
+      "rejection_counts": {
+        "OVERLAP": 2510,
+        "CLEARANCE": 182,
+        "CONTAINMENT": 0
+      },
+      "scored_count": 96,
+      "evaluated_count": 2788,
+      "candidate_set_hash_after_piece_i": "21692ff950f978bcdfac4d6a9b4f9edeae8afa605852cae1eac070dfb3563080",
+      "chosen_candidate": [
+        189091,
+        94500
+      ],
+      "chosen_source": [
+        "FEASIBLE_INTERIOR_RECOVERY"
+      ],
+      "resulting_length_after_piece": 230091,
+      "failure": null,
+      "candidate_space_state": null
+    },
+    {
+      "piece_index": 13,
+      "piece_instance_id": "L_NECKBAND_001",
+      "piece_type": "NECKBAND",
+      "size": "L",
+      "orientations": [
+        0,
+        180
+      ],
+      "legacy_generated_count": 0,
+      "candidate_space_generated_count": 2824,
+      "candidate_space_nonlegacy_count": 2824,
+      "deduplicated_count": 2824,
+      "validator_accepted_count": 298,
+      "validator_rejected_count": 2526,
+      "rejection_counts": {
+        "OVERLAP": 2022,
+        "CLEARANCE": 504,
+        "CONTAINMENT": 0
+      },
+      "scored_count": 298,
+      "evaluated_count": 2824,
+      "candidate_set_hash_after_piece_i": "dec0f55a45d35b4a48772cc8aaff395ec990ece3d2649e75bf514e9ee2b02c4e",
+      "chosen_candidate": [
+        64000,
+        16523
+      ],
+      "chosen_source": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_NFP_INTERSECTION"
+      ],
+      "resulting_length_after_piece": 103188,
+      "failure": null,
+      "candidate_space_state": null
+    }
+  ],
+  "nfp_status": "PARTIAL",
+  "stopping_reason": "not_found_within_budget",
+  "gap_to_90_cm": null,
+  "gap_to_95_cm": null
+}

@@ -6,6 +6,8 @@ from random import Random
 from time import perf_counter
 from typing import Iterable
 
+import pyclipper
+
 from costura_optima.domain.integer_kernel import (
     GeometryOperationCache,
     IntegerGeometryKernel,
@@ -13,10 +15,12 @@ from costura_optima.domain.integer_kernel import (
     close_path,
     path_bbox,
     rotate_and_translate_point,
+    transform_piece,
     transform_and_normalize,
     translate_path,
 )
 from costura_optima.domain.marker_validator import IndependentMarkerValidator
+from costura_optima.domain.candidate_space import CandidateSpaceEngine, PlacedGeometry
 from costura_optima.domain.nesting_models import (
     IntPath,
     MarkerRequest,
@@ -25,10 +29,11 @@ from costura_optima.domain.nesting_models import (
     Placement,
     ValidationReport,
 )
+from costura_optima.domain.transform_policy import EffectiveTransformResolver
 
 
-ALGORITHM = "DETERMINISTIC_IRREGULAR_BOTTOM_LEFT_FILL"
-ALGORITHM_VERSION = "blf-exact-collision-local-search-v1"
+ALGORITHM = "DETERMINISTIC_IRREGULAR_MULTI_START_V2"
+ALGORITHM_VERSION = "blf-multistart-contact-fill-v2"
 NFP_STATUS = "PARTIAL"
 CANDIDATE_ORDER = "MIN_X_THEN_MIN_Y_THEN_ROTATION_THEN_INTEGER_COORDINATES"
 
@@ -80,17 +85,26 @@ def _significant_vertices(path: IntPath, target: int = 6) -> tuple[tuple[int, in
 
 
 class DeterministicNestingEngine:
-    def __init__(self, cache: GeometryOperationCache | None = None):
+    def __init__(self, cache: GeometryOperationCache | None = None, candidate_mode: str = "LEGACY"):
         self.cache = cache or GeometryOperationCache()
+        aliases = {"LEGACY_ONLY": "LEGACY", "CANDIDATE_SPACE_ONLY": "CANDIDATE_SPACE",
+                   "CANDIDATE_SPACE_PLUS_LEGACY": "CANDIDATE_SPACE_PLUS_LEGACY"}
+        candidate_mode = aliases.get(candidate_mode, candidate_mode)
+        if candidate_mode not in {"LEGACY", "NFP_VERTEX_ONLY", "CANDIDATE_SPACE", "CANDIDATE_SPACE_PLUS_LEGACY"}:
+            raise ValueError(f"Unsupported candidate mode: {candidate_mode}")
+        self.candidate_mode = candidate_mode
+        self._candidate_sources: dict[tuple[int, int], tuple[str, ...]] = {}
+        self._candidate_space_state: dict[str, object] = {}
 
     def nest(self, request: MarkerRequest) -> MarkerResult:
         started = perf_counter()
         input_hash = canonical_json_hash(_request_payload(request))
         diagnostics = self._preflight(request)
+        resolver = self._resolver(request)
         paths_and_rotations = [
             (
                 instance.piece.cut_polygon,
-                tuple(sorted(set(instance.piece.allowed_rotations).intersection(request.allowed_transforms))),
+                resolver.resolve(tuple(sorted(set(instance.piece.allowed_rotations).intersection(request.allowed_transforms))), instance.piece.grainline_policy),
             )
             for instance in request.piece_instances
         ]
@@ -102,10 +116,16 @@ class DeterministicNestingEngine:
 
         kernel = IntegerGeometryKernel(request.precision, self.cache)
         evaluation = [0]
-        debug_data = {"candidate_positions": [], "rejected_placements": [], "placement_sequence": []} if request.debug else None
-        sequences = self._initial_sequences(request.piece_instances, kernel)
+        debug_data = {"candidate_positions": [], "rejected_placements": [], "placement_sequence": [], "orientation_audit": {},
+                      "placement_strategy": self.candidate_mode, "legacy_fallback_enabled": self.candidate_mode == "CANDIDATE_SPACE_PLUS_LEGACY",
+                      "candidate_trace": []} if request.debug else None
+        sequences = self._initial_sequences(request.piece_instances, kernel, request.seed)
+        # The adoption diagnostic deliberately holds one piece order fixed: it
+        # measures candidate generation/selection, not multi-start variation.
+        if self.candidate_mode == "CANDIDATE_SPACE":
+            sequences = sequences[:1]
         conservative_order = sequences[0][1]
-        conservative, conservative_exhausted = self._pack_extrema_frontier(
+        conservative, conservative_exhausted = (None, False) if self.candidate_mode == "CANDIDATE_SPACE" else self._pack_extrema_frontier(
             request, conservative_order, kernel, evaluation, debug_data
         )
         best: tuple[tuple[Placement, ...], str] | None = (
@@ -120,7 +140,7 @@ class DeterministicNestingEngine:
             if exhausted:
                 break
 
-        if best and not budget_exhausted:
+        if best and not budget_exhausted and self.candidate_mode != "CANDIDATE_SPACE":
             for name, order, reverse_rotations in self._local_variants(best[0], request.piece_instances):
                 packed, exhausted = self._pack(request, order, kernel, evaluation, reverse_rotations, debug_data)
                 budget_exhausted |= exhausted
@@ -130,9 +150,12 @@ class DeterministicNestingEngine:
                     break
 
         if best is None:
-            status = "EVALUATION_LIMIT" if budget_exhausted else "INFEASIBLE"
-            reason = "evaluation_budget_exhausted" if budget_exhausted else "no_valid_polygon_placement_within_region"
-            return self._empty_result(request, input_hash, (reason,), lower_bound, area_bound, started, status, evaluation[0])
+            # A finite heuristic search is not a proof that arbitrary irregular
+            # polygons cannot fit.  Only preflight capacity/containment facts use
+            # PROVEN_INFEASIBLE; this branch preserves the distinction for callers.
+            status = "NOT_FOUND_WITHIN_BUDGET" if budget_exhausted else "SEARCH_EXHAUSTED"
+            reason = "evaluation_budget_exhausted" if budget_exhausted else "all_configured_starts_exhausted"
+            return self._empty_result(request, input_hash, (reason,), lower_bound, area_bound, started, status, evaluation[0], debug_data)
 
         placements, strategy = best
         marker_length = max(placement.bbox[2] for placement in placements) + request.margins.end
@@ -210,7 +233,7 @@ class DeterministicNestingEngine:
         available_length = request.max_length - request.margins.start - request.margins.end
         total_area = 0
         for instance in request.piece_instances:
-            rotations = tuple(sorted(set(instance.piece.allowed_rotations).intersection(request.allowed_transforms)))
+            rotations = self._resolver(request).resolve(tuple(sorted(set(instance.piece.allowed_rotations).intersection(request.allowed_transforms))), instance.piece.grainline_policy)
             if not rotations:
                 issues.append(f"no_allowed_transform:{instance.instance_id}")
                 continue
@@ -226,7 +249,7 @@ class DeterministicNestingEngine:
             issues.append("total_piece_area_exceeds_marker_capacity")
         return tuple(sorted(set(issues)))
 
-    def _initial_sequences(self, instances: tuple[PieceInstance, ...], kernel: IntegerGeometryKernel):
+    def _initial_sequences(self, instances: tuple[PieceInstance, ...], kernel: IntegerGeometryKernel, seed: int):
         def dimensions(instance: PieceInstance) -> tuple[int, int]:
             min_x, min_y, max_x, max_y = path_bbox(instance.piece.cut_polygon)
             return max_x - min_x, max_y - min_y
@@ -239,6 +262,13 @@ class DeterministicNestingEngine:
             ("PERIMETER_DESC", lambda item: (-kernel.perimeter_units(item.piece.cut_polygon), item.instance_id)),
             ("TYPE_SIZE_GROUP", lambda item: (item.piece.piece_code, item.piece.size_code, item.instance_id)),
             ("CANONICAL_ID", lambda item: (item.instance_id,)),
+            # Bodies establish the structural envelope; sleeves/bands are then
+            # deliberately available as hole-fillers rather than being forced by
+            # lexical piece-code order.
+            ("STRUCTURAL_THEN_FILL", lambda item: (
+                0 if item.piece.piece_code in {"FRONT", "BACK"} else 1,
+                -kernel.area_units2(item.piece.cut_polygon), item.instance_id,
+            )),
         ]
         result = []
         seen = set()
@@ -247,6 +277,17 @@ class DeterministicNestingEngine:
             signature = tuple(item.instance_id for item in order)
             if signature not in seen:
                 result.append((name, order, False))
+                seen.add(signature)
+        # Reproducible multi-start: seed-derived permutations explore mixed sizes
+        # and piece types without making scheduling/concurrency affect the winner.
+        randomizer = Random(seed)
+        for start in range(4):
+            shuffled = list(instances)
+            randomizer.shuffle(shuffled)
+            order = tuple(shuffled)
+            signature = tuple(item.instance_id for item in order)
+            if signature not in seen:
+                result.append((f"SEEDED_MIXED_{start + 1}", order, bool(start % 2)))
                 seen.add(signature)
         return result
 
@@ -277,38 +318,55 @@ class DeterministicNestingEngine:
             request.margins.left + request.usable_width,
         )
         for sequence, instance in enumerate(order, start=1):
-            rotations = sorted(set(instance.piece.allowed_rotations).intersection(request.allowed_transforms), reverse=reverse_rotations)
+            rotations = sorted(self._resolver(request).resolve(tuple(sorted(set(instance.piece.allowed_rotations).intersection(request.allowed_transforms))), instance.piece.grainline_policy), reverse=reverse_rotations)
+            if debug_data is not None:
+                debug_data["orientation_audit"][instance.instance_id] = {"configured": list(instance.piece.allowed_rotations), "effective": list(rotations), "evaluated": []}
             options = []
+            source_rows: list[tuple[int, int, int, tuple[str, ...]]] = []
             for rotation in rotations:
                 oriented = transform_and_normalize(instance.piece.cut_polygon, rotation)
-                if request.clearance > 0:
-                    kernel.offset(oriented, request.clearance // 2, instance.piece.geometry_hash, rotation)
-                for x, y in self._candidates(oriented, placements, request.clearance, region):
-                    options.append((x, y, rotation, oriented))
+                for x, y in self._candidates(
+                    oriented, placements, request.clearance, region, kernel,
+                    instance.piece.geometry_hash, rotation,
+                ):
+                    sources = self._candidate_sources.get((x, y), ())
+                    options.append((x, y, rotation, oriented, sources))
+                    source_rows.append((x, y, rotation, sources))
+                if debug_data is not None:
+                    debug_data["orientation_audit"][instance.instance_id]["evaluated"].append(rotation)
             options.sort(key=lambda item: (item[0], item[1], item[2]))
             chosen = None
-            for x, y, rotation, oriented in options:
+            accepted: list[tuple[tuple, Placement, tuple[str, ...]]] = []
+            rejected = 0
+            rejection_counts = {"OVERLAP": 0, "CLEARANCE": 0, "CONTAINMENT": 0}
+            for x, y, rotation, oriented, sources in options:
                 if evaluation[0] >= request.evaluation_budget:
                     return None, True
                 evaluation[0] += 1
-                translated = translate_path(oriented, x, y)
+                translated = transform_piece(instance.piece.cut_polygon, rotation, (x, y))
                 candidate_bbox = path_bbox(translated)
                 reason = None
                 if not kernel.inside_rectangle(translated, region):
-                    reason = "outside_region"
+                    reason = "CONTAINMENT"
                 else:
                     for existing in placements:
                         if kernel.bboxes_may_conflict(candidate_bbox, existing.bbox, request.clearance) and kernel.conflicts(
                             translated, existing.transformed_polygon, request.clearance
                         ):
-                            reason = f"collision:{existing.piece_instance_id}"
+                            candidate_polygon = kernel.polygon(translated)
+                            obstacle_polygon = kernel.polygon(existing.transformed_polygon)
+                            distance = candidate_polygon.distance(obstacle_polygon)
+                            category = "OVERLAP" if candidate_polygon.intersection(obstacle_polygon).area > 0 else "CLEARANCE"
+                            reason = f"{category}:{existing.piece_instance_id}:{distance:.6f}"
                             break
-                if debug_data is not None and len(debug_data["candidate_positions"]) < 1000:
+                if debug_data is not None:
                     debug_data["candidate_positions"].append([x, y])
                     if reason:
-                        debug_data["rejected_placements"].append({"position": [x, y], "reason": reason})
+                        debug_data["rejected_placements"].append({
+                            "position": [x, y], "orientation": rotation, "sources": list(sources), "reason": reason,
+                        })
                 if reason is None:
-                    chosen = Placement(
+                    candidate = Placement(
                         piece_instance_id=instance.instance_id,
                         pattern_piece_id=instance.piece.pattern_piece_id,
                         size_code=instance.piece.size_code,
@@ -325,10 +383,53 @@ class DeterministicNestingEngine:
                         geometry_hash=instance.piece.geometry_hash,
                         sequence=sequence,
                     )
-                    break
+                    # A source only controls diagnostic/evaluation order.  It must
+                    # never suppress a later non-legacy candidate merely because a
+                    # legacy position was valid first.
+                    resulting_length = max([candidate_bbox[2], *(item.bbox[2] for item in placements)])
+                    # CandidateSpace already independently records real contact
+                    # counts.  Here source provenance is only a deterministic
+                    # tie-breaker; recomputing Shapely distance for every raw
+                    # proposal would turn the diagnostic pipeline quadratic.
+                    contact_count = 2 if "NFP_NFP_INTERSECTION" in sources else (1 if any(source.startswith("NFP_") for source in sources) else 0)
+                    accepted.append(((resulting_length, -contact_count, x, y, rotation), candidate, sources))
+                else:
+                    rejected += 1
+                    rejection_counts[reason.split(":", 1)[0]] = rejection_counts.get(reason.split(":", 1)[0], 0) + 1
+            if accepted:
+                _, chosen, chosen_sources = min(accepted, key=lambda item: item[0])
+            else:
+                chosen_sources = ()
+            if debug_data is not None:
+                legacy_rows = [row for row in source_rows if "LEGACY_FALLBACK" in row[3]]
+                nonlegacy_rows = [row for row in source_rows if any(source != "LEGACY_FALLBACK" for source in row[3])]
+                debug_data["candidate_trace"].append({
+                    "piece_index": sequence,
+                    "piece_instance_id": instance.instance_id,
+                    "piece_type": instance.piece.piece_code,
+                    "size": instance.piece.size_code,
+                    "orientations": list(rotations),
+                    "legacy_generated_count": len(legacy_rows),
+                    "candidate_space_generated_count": len(nonlegacy_rows),
+                    "candidate_space_nonlegacy_count": len(nonlegacy_rows),
+                    "deduplicated_count": len(options),
+                    "validator_accepted_count": len(accepted),
+                    "validator_rejected_count": rejected,
+                    "rejection_counts": rejection_counts,
+                    "scored_count": len(accepted),
+                    "evaluated_count": len(options),
+                    "candidate_set_hash_after_piece_i": canonical_json_hash(sorted((x, y, rotation, sources) for x, y, rotation, sources in source_rows)),
+                    "chosen_candidate": list(chosen.translation) if chosen else None,
+                    "chosen_source": list(chosen_sources),
+                    "resulting_length_after_piece": chosen.bbox[2] if chosen else None,
+                    "failure": "NO_CANDIDATE_SPACE_POSITION" if chosen is None and self.candidate_mode == "CANDIDATE_SPACE" else None,
+                    "candidate_space_state": self._candidate_space_state if chosen is None else None,
+                })
             if chosen is None:
                 return None, False
             placements.append(chosen)
+            if debug_data is not None:
+                debug_data["orientation_audit"][instance.instance_id]["selected"] = chosen.rotation
             if debug_data is not None:
                 debug_data["placement_sequence"].append(chosen.piece_instance_id)
         return tuple(placements), False
@@ -347,7 +448,7 @@ class DeterministicNestingEngine:
         cursor_x, cursor_y, column_right = x0, y0, x0
         for sequence, instance in enumerate(order, start=1):
             choices = []
-            for rotation in sorted(set(instance.piece.allowed_rotations).intersection(request.allowed_transforms)):
+            for rotation in self._resolver(request).resolve(tuple(sorted(set(instance.piece.allowed_rotations).intersection(request.allowed_transforms))), instance.piece.grainline_policy):
                 oriented = transform_and_normalize(instance.piece.cut_polygon, rotation)
                 bx0, by0, bx1, by1 = path_bbox(oriented)
                 choices.append((by1 - by0, bx1 - bx0, rotation, oriented))
@@ -357,7 +458,7 @@ class DeterministicNestingEngine:
                 candidate_x, candidate_y = cursor_x, cursor_y
                 if candidate_y + height > y_limit:
                     candidate_x, candidate_y = column_right + request.clearance, y0
-                translated = translate_path(oriented, candidate_x, candidate_y)
+                translated = transform_piece(instance.piece.cut_polygon, rotation, (candidate_x, candidate_y))
                 candidate_bbox = path_bbox(translated)
                 if evaluation[0] >= request.evaluation_budget:
                     return None, True
@@ -399,28 +500,113 @@ class DeterministicNestingEngine:
                 debug_data["placement_sequence"].append(chosen.piece_instance_id)
         return tuple(placements), False
 
-    def _candidates(self, moving: IntPath, placed: list[Placement], clearance: int, region):
+    def _candidates(self, moving: IntPath, placed: list[Placement], clearance: int, region,
+                    kernel: IntegerGeometryKernel, moving_hash: str, moving_rotation: int):
         min_x, min_y, max_x, max_y = path_bbox(moving)
         width, height = max_x - min_x, max_y - min_y
         x0, y0, x1, y1 = region
-        candidates = {(x0, y0), (x0, y1 - height)}
-        moving_vertices = _significant_vertices(moving)
+        candidates = {(x0, y0), (x0, y1 - height)} if self.candidate_mode != "CANDIDATE_SPACE" else set()
+        sources = {point: {"LEGACY_FALLBACK"} for point in candidates}
+        # IFP bounds are the authoritative containment space for the moving
+        # reference point.  NFP contours below add contact points from actual
+        # polygon Minkowski geometry; legacy extrema remain a safe fallback.
+        ifp_x0, ifp_y0, ifp_x1, ifp_y1 = kernel.ifp_bounds(moving, region)
+        # Full vertex contacts are inexpensive for the engineering patterns and
+        # preserve concavity opportunities.  Large future polygons are bounded
+        # deterministically to avoid an unbounded Cartesian product.
+        moving_vertices = moving if len(moving) <= 24 else _significant_vertices(moving, 12)
+        if self.candidate_mode in {"CANDIDATE_SPACE", "CANDIDATE_SPACE_PLUS_LEGACY"}:
+            candidate_space = CandidateSpaceEngine().build(
+                kernel, moving, moving_hash, moving_rotation, region, clearance,
+                tuple(PlacedGeometry(
+                    translate_path(existing.transformed_polygon, -existing.translation[0], -existing.translation[1]),
+                    existing.geometry_hash, existing.rotation, existing.translation,
+                ) for existing in placed),
+            )
+            # Raw polygonal proposals remain subject to the exact collision
+            # predicate and final independent marker validation in _pack/nest.
+            for row in candidate_space.candidates:
+                # The engine must not spend its finite candidate budget on raw
+                # NFP/IFP boundary vertices that CandidateSpace itself marks as
+                # forbidden.  Filtering precedes the deterministic cap below.
+                if not CandidateSpaceEngine.is_valid_reference_position(candidate_space, row.position):
+                    continue
+                candidates.add(row.position)
+                sources.setdefault(row.position, set()).update(row.sources)
+            # Boundary contacts are the first-class candidate set, but an
+            # inner-approximated offset can leave every boundary proposal a
+            # fraction inside contractual clearance.  Add bounded,
+            # deterministic component probes; exact collision and the final
+            # independent validator remain the only authorities.
+            for row in CandidateSpaceEngine.interior_candidates(candidate_space, moving_rotation):
+                candidates.add(row.position)
+                sources.setdefault(row.position, set()).update(row.sources)
+            self._candidate_space_state = {
+                "ifp": candidate_space.ifp_geometry,
+                "forbidden_components": len(candidate_space.forbidden_union),
+                "feasible_components": len(candidate_space.feasible_space),
+                "source_counts": {
+                    source: sum(source in row.sources for row in candidate_space.candidates)
+                    for source in ("IFP_VERTEX", "NFP_VERTEX", "NFP_IFP_INTERSECTION", "NFP_NFP_INTERSECTION", "FEASIBLE_BOUNDARY", "FEASIBLE_INTERIOR_RECOVERY")
+                },
+            }
+        # CandidateSpace is the complete topology producer.  In particular it
+        # already contains every translated NFP vertex.  Re-adding them below
+        # used to destroy its priority ordering and the subsequent 1,200 cap
+        # silently dropped NFP/NFP contacts and any future interior recovery.
+        # The legacy branch remains deliberately isolated.
         for existing in placed:
             bx0, by0, bx1, by1 = existing.bbox
-            xs = (x0, bx0, bx1 + clearance, bx0 - width - clearance, bx1 - width)
-            ys = (y0, by0, by1 + clearance, by0 - height - clearance, by1 - height)
-            candidates.update((x, y) for x in xs for y in ys)
-            existing_vertices = _significant_vertices(existing.transformed_polygon)
-            offsets = ((0, 0),) if clearance == 0 else ((clearance, 0), (-clearance, 0), (0, clearance), (0, -clearance))
-            for px, py in existing_vertices:
-                for mx, my in moving_vertices:
-                    for ox, oy in offsets:
-                        candidates.add((px - mx + ox, py - my + oy))
+            if self.candidate_mode in {"LEGACY", "CANDIDATE_SPACE_PLUS_LEGACY"}:
+                xs = (x0, bx0, bx1 + clearance, bx0 - width - clearance, bx1 - width)
+                ys = (y0, by0, by1 + clearance, by0 - height - clearance, by1 - height)
+                candidates.update((x, y) for x in xs for y in ys)
+                for x in xs:
+                    for y in ys:
+                        sources.setdefault((x, y), set()).add("LEGACY_FALLBACK")
+                existing_vertices = (existing.transformed_polygon if len(existing.transformed_polygon) <= 24
+                                     else _significant_vertices(existing.transformed_polygon, 12))
+                offsets = ((0, 0),) if clearance == 0 else ((clearance, 0), (-clearance, 0), (0, clearance), (0, -clearance))
+                for px, py in existing_vertices:
+                    for mx, my in moving_vertices:
+                        for ox, oy in offsets:
+                            candidates.add((px - mx + ox, py - my + oy))
+                            sources.setdefault((px - mx + ox, py - my + oy), set()).add("LEGACY_FALLBACK")
+            if self.candidate_mode in {"LEGACY", "CANDIDATE_SPACE_PLUS_LEGACY", "CANDIDATE_SPACE"}:
+                continue
+            try:
+                # Existing paths are normalized by construction and translated;
+                # translate relative NFP contour vertices into marker coordinates.
+                base_fixed = translate_path(existing.transformed_polygon, -existing.translation[0], -existing.translation[1])
+                for contour in kernel.nfp(
+                    base_fixed, moving, existing.geometry_hash, existing.rotation,
+                    moving_hash, moving_rotation, clearance,
+                ):
+                    for px, py in contour:
+                        candidates.add((px + existing.translation[0], py + existing.translation[1]))
+                        sources.setdefault((px + existing.translation[0], py + existing.translation[1]), set()).add("NFP_VERTEX")
+            except (ValueError, pyclipper.ClipperException):
+                # Exact collision remains the authorised correctness fallback.
+                pass
         valid = [
             (x, y)
             for x, y in candidates
-            if x >= x0 and y >= y0 and x + width <= x1 and y + height <= y1
+            if ifp_x0 <= x <= ifp_x1 and ifp_y0 <= y <= ifp_y1
         ]
+        self._candidate_sources = {point: tuple(sorted(sources.get(point, {"NFP_VERTEX"}))) for point in valid}
+        # CandidateSpace rows arrive in semantic source/contact priority.  Keep
+        # that order and do not apply the historical X/Y truncation: it was a
+        # filtering bug, not a geometry budget.  The caller's evaluation budget
+        # remains the explicit, auditable bound.
+        if self.candidate_mode == "CANDIDATE_SPACE":
+            # The historic bound remains a performance guard, now applied to
+            # CandidateSpace's deterministic semantic order rather than to an
+            # accidental X/Y ordering of a mixed legacy set.
+            boundary = [row.position for row in candidate_space.candidates
+                        if row.position in self._candidate_sources][:1200]
+            interior = sorted(point for point, labels in self._candidate_sources.items()
+                              if "FEASIBLE_INTERIOR_RECOVERY" in labels and point not in set(boundary))
+            return boundary + interior
         return sorted(valid, key=lambda item: (item[0], item[1]))[:1200]
 
     @staticmethod
@@ -445,7 +631,14 @@ class DeterministicNestingEngine:
             "sequence": placement.sequence,
         }
 
-    def _empty_result(self, request, input_hash, diagnostics, lower_bound, area_bound, started, status="INFEASIBLE", evaluations=0):
+    @staticmethod
+    def _resolver(request: MarkerRequest) -> EffectiveTransformResolver:
+        return EffectiveTransformResolver(
+            request.fabric_directionality, request.marker_direction_policy,
+            request.lay_face_mode, request.transform_lab_mode,
+        )
+
+    def _empty_result(self, request, input_hash, diagnostics, lower_bound, area_bound, started, status="PROVEN_INFEASIBLE", evaluations=0, debug_geometry=None):
         validation = ValidationReport("NOT_RUN", {}, tuple(diagnostics), 0)
         payload = {"status": status, "input_hash": input_hash, "diagnostics": diagnostics, "algorithm_version": ALGORITHM_VERSION}
         return MarkerResult(
@@ -457,7 +650,7 @@ class DeterministicNestingEngine:
             transform_order=tuple(sorted(request.allowed_transforms)), evaluation_count=evaluations,
             stopping_reason=status.lower(), elapsed_time_ms=round((perf_counter() - started) * 1000, 3), input_hash=input_hash,
             result_hash=canonical_json_hash(payload), cache_hits=self.cache.hits, cache_misses=self.cache.misses,
-            diagnostics=tuple(diagnostics), debug_geometry=None,
+            diagnostics=tuple(diagnostics), debug_geometry=debug_geometry,
         )
 
     def _invalid_result(self, request, input_hash, placements, validation, lower_bound, area_bound, evaluations, started, strategy):

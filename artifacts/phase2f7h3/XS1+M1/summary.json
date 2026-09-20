@@ -1,0 +1,27 @@
+{
+  "composition_id": "Mx1+XSx1",
+  "size_counts": {
+    "M": 1,
+    "XS": 1
+  },
+  "garment_count": 2,
+  "piece_count": 10,
+  "piece_area_units2": 16850719282,
+  "usable_width_units": 176000,
+  "theoretical_length_100_units": 95743,
+  "theoretical_length_90_units": 106381,
+  "best_marker_length_cm": 154.0,
+  "best_efficiency_pct": 62.170599,
+  "best_seed": 1,
+  "validated": true,
+  "marker_hash": "63ce686a4646ec02855a2e0d0c745b2f7692db92b457475a03e2e7381ea5df51",
+  "runtime_seconds": 42.831,
+  "search_iterations": 0,
+  "attainability_class": "PROMISING",
+  "status": "VALIDATED",
+  "seed_lengths_cm": [
+    154.0
+  ],
+  "median_length_cm": 154.0,
+  "worst_length_cm": 154.0
+}

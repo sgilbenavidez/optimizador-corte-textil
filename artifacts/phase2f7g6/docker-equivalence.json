@@ -1,0 +1,5 @@
+{
+  "executed": false,
+  "status": "NOT_RUN",
+  "reason": "dockerDesktopLinuxEngine unavailable; Docker Desktop service is stopped and host policy rejected starting it."
+}

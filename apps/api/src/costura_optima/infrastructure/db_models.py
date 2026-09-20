@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from decimal import Decimal
 
-from sqlalchemy import BigInteger, Boolean, DateTime, Float, ForeignKey, Integer, JSON, Numeric, String, Text, UniqueConstraint
+from sqlalchemy import BigInteger, Boolean, DateTime, Float, ForeignKey, Index, Integer, JSON, Numeric, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from costura_optima.infrastructure.database import Base
@@ -95,6 +95,9 @@ class FabricConfigurationORM(Base):
     fabric_family: Mapped[str] = mapped_column(String(64))
     directional: Mapped[bool] = mapped_column(Boolean)
     lay_mode: Mapped[str] = mapped_column(String(64))
+    lay_face_mode: Mapped[str] = mapped_column(String(32), default="FACE_ONE_WAY")
+    marker_direction_policy: Mapped[str] = mapped_column(String(32), default="TWO_WAY")
+    fabric_directionality: Mapped[str] = mapped_column(String(32), default="NON_DIRECTIONAL")
     piece_clearance_cm: Mapped[Decimal] = mapped_column(Numeric(10, 3))
     left_margin_cm: Mapped[Decimal] = mapped_column(Numeric(10, 3))
     right_margin_cm: Mapped[Decimal] = mapped_column(Numeric(10, 3))
@@ -213,6 +216,9 @@ class ProductionOrderDemandORM(Base):
 
 class MarkerArtifactORM(Base):
     __tablename__ = "marker_artifacts"
+    __table_args__ = (
+        Index("ix_marker_artifacts_compatibility", "pattern_hash", "fabric_hash", "table_hash"),
+    )
 
     marker_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
     content_key: Mapped[str] = mapped_column(String(64), unique=True)
@@ -246,6 +252,13 @@ class OptimizationRunORM(Base):
     candidates_infeasible: Mapped[int] = mapped_column(Integer, default=0)
     candidates_not_evaluated: Mapped[int] = mapped_column(Integer, default=0)
     best_feasible_found: Mapped[bool] = mapped_column(Boolean, default=False)
+    use_current_plan_requested: Mapped[bool] = mapped_column(Boolean, default=False)
+    first_solution_elapsed_ms: Mapped[float | None] = mapped_column(Float, nullable=True)
+    first_solution_spreads: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    first_solution_fabric_units: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
+    final_solution_elapsed_ms: Mapped[float | None] = mapped_column(Float, nullable=True)
+    final_solution_spreads: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    final_solution_fabric_units: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
     configuration: Mapped[dict] = mapped_column(JSON)
     audit: Mapped[dict] = mapped_column(JSON, default=dict)
     elapsed_candidate_generation_ms: Mapped[float] = mapped_column(Float, default=0)
@@ -255,7 +268,13 @@ class OptimizationRunORM(Base):
     worker_job_id: Mapped[str | None] = mapped_column(String(64), nullable=True)
     heartbeat_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     error_detail: Mapped[str | None] = mapped_column(Text, nullable=True)
+    error_code: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    failure_phase: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    request_id: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    round_current: Mapped[int] = mapped_column(Integer, default=0)
+    round_total_if_known: Mapped[int | None] = mapped_column(Integer, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
     started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     order: Mapped[ProductionOrderORM] = relationship(back_populates="optimization_runs")
@@ -332,6 +351,10 @@ class SpreadORM(Base):
     marker_efficiency_percentage: Mapped[float] = mapped_column(Float)
     marker_search_status: Mapped[str] = mapped_column(String(64))
     validation_status: Mapped[str] = mapped_column(String(32))
+    useful_garments: Mapped[int] = mapped_column(Integer, default=0)
+    order_coverage_percentage: Mapped[float] = mapped_column(Float, default=0)
+    remaining_demand_after: Mapped[dict] = mapped_column(JSON, default=dict)
+    is_primary: Mapped[bool] = mapped_column(Boolean, default=False)
     solution: Mapped[OptimizationSolutionORM] = relationship(back_populates="spreads")
 
 

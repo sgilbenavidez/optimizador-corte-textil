@@ -1,0 +1,50 @@
+{
+  "demand": {
+    "XS": 30,
+    "S": 33,
+    "M": 42,
+    "L": 21,
+    "XL": 35,
+    "XXL": 55,
+    "XXXL": 0
+  },
+  "results": [
+    {
+      "mode": "baseline",
+      "status": "SUCCEEDED",
+      "best_solution_available": true,
+      "wall_time_s": 84.918,
+      "shortage": 0,
+      "overproduction": 0,
+      "physical_spreads": 10,
+      "distinct_marker_designs": 6,
+      "total_fabric_m": 225.86520000000002,
+      "global_weighted_efficiency_pct": 53.730473,
+      "joint_optimization_audit": null
+    },
+    {
+      "mode": "joint",
+      "status": "TIMED_OUT",
+      "best_solution_available": true,
+      "wall_time_s": 299.932,
+      "shortage": 0,
+      "overproduction": 0,
+      "physical_spreads": 10,
+      "distinct_marker_designs": 6,
+      "total_fabric_m": 225.86520000000002,
+      "global_weighted_efficiency_pct": 53.730473,
+      "joint_optimization_audit": {
+        "markers_considered": 3,
+        "markers_refined": 0,
+        "plan_improved": false
+      }
+    }
+  ],
+  "previous_total_fabric_m": 167.209,
+  "previous_global_efficiency_pct": 72.578893,
+  "fabric_improvement_m": 0.0,
+  "joint_regressed_below_previous": true,
+  "pattern_validation_status": "ENGINEERING",
+  "production_ready": false,
+  "stop_gate": "ACTIVE"
+}

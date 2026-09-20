@@ -1,0 +1,75 @@
+{
+  "candidate_mode": "UNIFIED_LEGACY_PLUS_CANDIDATE_SPACE",
+  "orientation_policy": "ZERO_ONLY",
+  "rotations": [
+    0
+  ],
+  "candidate_budget": 5000,
+  "total_ms": 12808.774,
+  "generation_ms": 11510.256,
+  "exact_ms": 888.039,
+  "recovery_ms": 0.0,
+  "validator_elapsed_ms": 739.321,
+  "budget_expansions": 0,
+  "raw_candidates": 12055,
+  "recovery_candidates": 65,
+  "evaluated": 5000,
+  "evaluated_by_orientation": {
+    "0": 5000
+  },
+  "orientation_generated": {
+    "0": 12075
+  },
+  "accepted": 140,
+  "candidate_hash": "dc3546fd69fa52f406013d8fb058ea878bd1d75661de73f36fde6d6f38e41c51",
+  "chosen_position": [
+    197852,
+    74148
+  ],
+  "chosen_orientation": 0,
+  "chosen_source": [
+    "FEASIBLE_BOUNDARY",
+    "NFP_VERTEX"
+  ],
+  "chosen_marker_length": 238852,
+  "nfp_cache_hits": 5,
+  "nfp_cache_misses": 6,
+  "nfp_cache_hit_rate_pct": 45.455,
+  "timings_ms": {
+    "transform_geometry_ms": 0.0,
+    "ifp_ms": 0.0,
+    "nfp_cache_lookup_ms": 0.0,
+    "nfp_cache_miss_compute_ms": 0.0,
+    "legacy_candidate_generation_ms": 0.0,
+    "candidate_space_generation_ms": 11510.256,
+    "candidate_merge_ms": 0.0,
+    "candidate_dedup_ms": 0.0,
+    "bbox_precheck_ms": 0.0,
+    "exact_overlap_ms": 0.0,
+    "exact_clearance_ms": 739.321,
+    "containment_ms": 0.0,
+    "full_validator_ms": 0.0,
+    "scoring_ms": 0.0,
+    "total_ms": 12808.774
+  },
+  "counters": {
+    "legacy_candidates_raw": 0,
+    "candidate_space_candidates_raw": 12055,
+    "orientation_0_raw": 12075,
+    "orientation_180_raw": 0,
+    "candidates_before_dedup": 12075,
+    "candidates_after_dedup": 12055,
+    "bbox_rejected": 42795,
+    "exact_overlap_rejected": 0,
+    "clearance_rejected": 4860,
+    "containment_rejected": 0,
+    "exact_precheck_accepted": 140,
+    "full_validator_calls": 0,
+    "full_validator_accepted": 0,
+    "scored_candidates": 140,
+    "nfp_cache_hits": 5,
+    "nfp_cache_misses": 6,
+    "ifp_cache_hits": 0,
+    "ifp_cache_misses": 1
+  }
+}

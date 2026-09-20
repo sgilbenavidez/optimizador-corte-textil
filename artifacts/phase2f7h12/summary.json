@@ -1,0 +1,44 @@
+{
+  "FASE_2F_7H_1_LOCAL_COMPACTION": "PASS",
+  "FASE_2F_7H_2_COMPOSITION_SEARCH": "PASS",
+  "REPEATED_GARMENTS_HYPOTHESIS": "SUPPORTED",
+  "REPEATED_GARMENTS_EFFICIENCY_SEQUENCE_PCT": [
+    68.005145,
+    71.88582,
+    73.429349,
+    74.722858
+  ],
+  "BEST_PREVIOUS_M2_L1_LENGTH_CM": 227.483,
+  "BEST_PREVIOUS_M2_L1_EFFICIENCY_PCT": 71.159748,
+  "BEST_NEW_M2_L1_LENGTH_CM": 218.0,
+  "BEST_NEW_M2_L1_EFFICIENCY_PCT": 74.255197,
+  "BEST_NEW_M2_L1_DELTA_LENGTH_CM": 9.483,
+  "BEST_NEW_M2_L1_GAIN_LEVEL": "SMALL_GAIN",
+  "BEST_REPEATED_SINGLE_SIZE_COMPOSITION": "Mx4 (74.722858%)",
+  "BEST_MIXED_SIZE_COMPOSITION": "Mx2+Lx1 (74.255197%)",
+  "BEST_GEOMETRIC_EFFICIENCY_PCT": 74.722858,
+  "S3_XXL5_RESULT": {
+    "status": "VALIDATED",
+    "efficiency_pct": 72.524126
+  },
+  "XS6_XL7_RESULT": {
+    "status": "PREFILTER_REJECTED",
+    "attainability_class": "VERY_TIGHT"
+  },
+  "EXACT_216_ORDER_SOLUTION_FOUND": "NO",
+  "EXACT_216_ORDER_PHYSICAL_SPREADS": null,
+  "EXACT_216_ORDER_OVERPRODUCTION": null,
+  "EXACT_216_ORDER_SHORTAGE": 216,
+  "TARGET_75_REACHED": "NO",
+  "TARGET_80_REACHED": "NO",
+  "TARGET_85_REACHED": "NO",
+  "TARGET_90_REACHED": "NO",
+  "DETERMINISM_STATUS": "PASS",
+  "INDEPENDENT_VALIDATION_STATUS": "PASS",
+  "INCUMBENT_PROTECTION_STATUS": "PASS",
+  "CROSS_PLATFORM_STATUS": "NOT_RUN",
+  "PATTERN_VALIDATION_STATUS": "ENGINEERING",
+  "PRODUCTION_READY": "NO",
+  "STOP_GATE": "ACTIVE",
+  "_scope_note": "2F.7H-1: 6/6 destroy operators, 3/6 reinsert strategies (LARGEST_FIRST, ORIGINAL_ORDER, CONTACT_POTENTIAL_FIRST), SHIFT_LEFT local compaction, per-operator instrumentation, ALNS-loop checkpoint/resume. GAP_CLOSING/SMALL_PIECE_REFILL and operator-weight adaptation deferred (documented, not implemented) -- see phase report Section 19/20. 2F.7H-2: SMALL-tier ALNS budgets (4-6 iterations), 2 seeds per composition (this session's wall-clock budget), not the spec's suggested 5 -- reported honestly as best/median/worst-of-2."
+}

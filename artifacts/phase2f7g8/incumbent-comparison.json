@@ -1,0 +1,10 @@
+{
+  "legacy_baseline_cm": 229.5,
+  "candidate_space_only_cm": 238.852,
+  "unified_0_cm": 238.852,
+  "unified_two_way_cm": 235.064,
+  "best_key": "LEGACY",
+  "best_known_length_cm": 229.5,
+  "incumbent_non_regression_status": "PASS",
+  "unified_greedy_regression": "YES"
+}

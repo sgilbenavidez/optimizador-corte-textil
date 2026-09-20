@@ -1,0 +1,29 @@
+[
+  {
+    "budget": 1800,
+    "fixed_completion": false,
+    "reason": "M_SLEEVE_004 needs rank 3809"
+  },
+  {
+    "budget": 2500,
+    "fixed_completion": false,
+    "reason": "no valid candidate before adaptive expansion"
+  },
+  {
+    "budget": 3500,
+    "fixed_completion": false,
+    "reason": "no valid candidate before adaptive expansion"
+  },
+  {
+    "budget": 5000,
+    "fixed_completion": true,
+    "marker_length_cm": 238.852,
+    "efficiency_percentage": 67.77265
+  },
+  {
+    "budget": 7500,
+    "fixed_completion": true,
+    "marker_length_cm": 238.852,
+    "efficiency_percentage": 67.77265
+  }
+]

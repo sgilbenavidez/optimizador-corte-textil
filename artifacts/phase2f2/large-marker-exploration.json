@@ -1,0 +1,149 @@
+{
+  "generated_at": "2026-09-05T03:35:10.065528+00:00",
+  "order_demand": {
+    "XS": 20,
+    "S": 10,
+    "M": 30,
+    "L": 20,
+    "XL": 14,
+    "XXL": 3
+  },
+  "strategy": "bounded proportional demand candidates from CandidateCompositionGenerator",
+  "results": [
+    {
+      "max_garments_per_marker": 3,
+      "origin": "SINGLE_SIZE_REPEAT",
+      "composition": {
+        "L": 3
+      },
+      "garments_per_layer": 3,
+      "piece_count": 15,
+      "marker_length_cm": 237.5,
+      "marker_efficiency": 72.147947,
+      "status": "VALIDATED_FEASIBLE",
+      "result_hash": "da91d8dc5a57899660211a782b9a8f0a512418d6de6643b71c8c04500bd558b2",
+      "geometry_elapsed_ms": 3062.85,
+      "wall_elapsed_ms": 3101.517,
+      "within_table_700_cm": true
+    },
+    {
+      "max_garments_per_marker": 4,
+      "origin": "PROPORTIONAL_DEMAND",
+      "composition": {
+        "XS": 1,
+        "M": 1,
+        "L": 1,
+        "XL": 1
+      },
+      "garments_per_layer": 4,
+      "piece_count": 20,
+      "marker_length_cm": 331.909,
+      "marker_efficiency": 64.737113,
+      "status": "VALIDATED_FEASIBLE",
+      "result_hash": "520c6fea773748009997299bad1184b44dd8433ac94741fd7754f1d9941967bf",
+      "geometry_elapsed_ms": 2927.995,
+      "wall_elapsed_ms": 2969.662,
+      "within_table_700_cm": true
+    },
+    {
+      "max_garments_per_marker": 5,
+      "origin": "PROPORTIONAL_DEMAND",
+      "composition": {
+        "XS": 1,
+        "S": 1,
+        "M": 1,
+        "L": 1,
+        "XL": 1
+      },
+      "garments_per_layer": 5,
+      "piece_count": 25,
+      "marker_length_cm": 387.409,
+      "marker_efficiency": 67.800147,
+      "status": "VALIDATED_FEASIBLE",
+      "result_hash": "a11b42b26bc84a90f9571c1587a2847a324930aee33d06bf48e8c73a9c23154f",
+      "geometry_elapsed_ms": 2903.013,
+      "wall_elapsed_ms": 2926.443,
+      "within_table_700_cm": true
+    },
+    {
+      "max_garments_per_marker": 6,
+      "origin": "PROPORTIONAL_DEMAND",
+      "composition": {
+        "XS": 1,
+        "S": 1,
+        "M": 2,
+        "L": 1,
+        "XL": 1
+      },
+      "garments_per_layer": 6,
+      "piece_count": 30,
+      "marker_length_cm": 447.5,
+      "marker_efficiency": 70.400776,
+      "status": "VALIDATED_FEASIBLE",
+      "result_hash": "9ed1d4df5b67b2cfce6188be604d4aa90d905907df21c66aecff6e811a432c2b",
+      "geometry_elapsed_ms": 2555.069,
+      "wall_elapsed_ms": 2576.534,
+      "within_table_700_cm": true
+    },
+    {
+      "max_garments_per_marker": 8,
+      "origin": "PROPORTIONAL_DEMAND",
+      "composition": {
+        "XS": 2,
+        "S": 1,
+        "M": 2,
+        "L": 2,
+        "XL": 1
+      },
+      "garments_per_layer": 8,
+      "piece_count": 40,
+      "marker_length_cm": 603.409,
+      "marker_efficiency": 68.862698,
+      "status": "VALIDATED_FEASIBLE",
+      "result_hash": "6b0e0efa4f1671bb4710b533760924bd6fe312c30a30a482b9c576f3d77e7142",
+      "geometry_elapsed_ms": 2749.582,
+      "wall_elapsed_ms": 2794.816,
+      "within_table_700_cm": true
+    },
+    {
+      "max_garments_per_marker": 10,
+      "origin": "PROPORTIONAL_DEMAND",
+      "composition": {
+        "XS": 2,
+        "S": 1,
+        "M": 3,
+        "L": 2,
+        "XL": 2
+      },
+      "garments_per_layer": 10,
+      "piece_count": 0,
+      "marker_length_cm": null,
+      "marker_efficiency": null,
+      "status": "EVALUATION_LIMIT",
+      "result_hash": "7edd536c76c304b2d62ce0a7f08c308eaa02c5487be552ccffbfb2bd9b031225",
+      "geometry_elapsed_ms": 2765.185,
+      "wall_elapsed_ms": 2796.261,
+      "within_table_700_cm": false
+    },
+    {
+      "max_garments_per_marker": 12,
+      "origin": "PROPORTIONAL_DEMAND",
+      "composition": {
+        "XS": 3,
+        "S": 1,
+        "M": 4,
+        "L": 2,
+        "XL": 2
+      },
+      "garments_per_layer": 12,
+      "piece_count": 0,
+      "marker_length_cm": null,
+      "marker_efficiency": null,
+      "status": "EVALUATION_LIMIT",
+      "result_hash": "a2233d52dab11b32e2ddb87fddb4441266f8f03febbacab92f03304edd4b39d0",
+      "geometry_elapsed_ms": 2291.125,
+      "wall_elapsed_ms": 2334.684,
+      "within_table_700_cm": false
+    }
+  ]
+}

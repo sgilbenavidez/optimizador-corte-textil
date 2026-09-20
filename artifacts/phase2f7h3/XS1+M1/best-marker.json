@@ -1,0 +1,95 @@
+{
+  "marker_hash": "63ce686a4646ec02855a2e0d0c745b2f7692db92b457475a03e2e7381ea5df51",
+  "placements": [
+    {
+      "piece_instance_id": "M_BACK_001",
+      "translation": [
+        2000,
+        2000
+      ],
+      "rotation": 0,
+      "geometry_hash": "6c33a1fbaba3084784bb469ec4cc6ca848ed3d5a7613aa8d84ec5c9fe428de71"
+    },
+    {
+      "piece_instance_id": "M_FRONT_001",
+      "translation": [
+        2000,
+        74000
+      ],
+      "rotation": 0,
+      "geometry_hash": "80c5c1594a3bd9094648c60cd4d149d918fd50d8ec285cbfad50770841dbc215"
+    },
+    {
+      "piece_instance_id": "XS_BACK_001",
+      "translation": [
+        61500,
+        2000
+      ],
+      "rotation": 0,
+      "geometry_hash": "9e0bdaf972c19a02a4e8f54869ece96d8de6dc40ebd2ff73493746fed0baeebd"
+    },
+    {
+      "piece_instance_id": "XS_FRONT_001",
+      "translation": [
+        61500,
+        70000
+      ],
+      "rotation": 0,
+      "geometry_hash": "1afd511048319b73b0cc430f68d27470978babe2f2530e40e5a3d5a7631d69cc"
+    },
+    {
+      "piece_instance_id": "M_SLEEVE_001",
+      "translation": [
+        61500,
+        138000
+      ],
+      "rotation": 0,
+      "geometry_hash": "271f1acdf4ca16041e48ce4735efb74efd29a715ebf66f6538ba33b4650d457f"
+    },
+    {
+      "piece_instance_id": "M_SLEEVE_002",
+      "translation": [
+        113000,
+        2000
+      ],
+      "rotation": 0,
+      "geometry_hash": "271f1acdf4ca16041e48ce4735efb74efd29a715ebf66f6538ba33b4650d457f"
+    },
+    {
+      "piece_instance_id": "XS_SLEEVE_001",
+      "translation": [
+        113000,
+        26999
+      ],
+      "rotation": 0,
+      "geometry_hash": "67067df85243c8e1853af61122531ffed64d5c89794d1b2be61419f323ab7d56"
+    },
+    {
+      "piece_instance_id": "XS_SLEEVE_002",
+      "translation": [
+        113000,
+        49998
+      ],
+      "rotation": 0,
+      "geometry_hash": "67067df85243c8e1853af61122531ffed64d5c89794d1b2be61419f323ab7d56"
+    },
+    {
+      "piece_instance_id": "M_NECKBAND_001",
+      "translation": [
+        113000,
+        72997
+      ],
+      "rotation": 0,
+      "geometry_hash": "813a58ecb94e1a53f888706f9a7f09e3993aff0845163ee597a1b8365eb0381c"
+    },
+    {
+      "piece_instance_id": "XS_NECKBAND_001",
+      "translation": [
+        113000,
+        78497
+      ],
+      "rotation": 0,
+      "geometry_hash": "6697bacfe557a12fba0713c73463a53ff3ea82ef42686087eeb5b8f4f66ecdf8"
+    }
+  ]
+}

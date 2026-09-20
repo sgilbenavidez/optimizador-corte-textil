@@ -1,0 +1,30 @@
+[
+  {
+    "tag": "M2+L1",
+    "status": "IMPORTED",
+    "marker_hash": "123438d26ed31a18f8c235356a542645e21c2cfb070c8041d3cb68cec765b946",
+    "marker_length_cm": 218.0,
+    "efficiency_percentage": 74.255197
+  },
+  {
+    "tag": "S3+XXL5",
+    "status": "IMPORTED",
+    "marker_hash": "d183a4b10032efceef16a62ba0195d46e317aebc5b20bff7ef4deca61c8c0c3a",
+    "marker_length_cm": 660.0,
+    "efficiency_percentage": 72.524126
+  },
+  {
+    "tag": "XS3+XL3",
+    "status": "IMPORTED",
+    "marker_hash": "d748a4a3a21cc03fc8d6c34011ec83dfd787fa4b8ed90b77aa7ab489ffbebae0",
+    "marker_length_cm": 441.5,
+    "efficiency_percentage": 71.600167
+  },
+  {
+    "tag": "XL1",
+    "status": "IMPORTED",
+    "marker_hash": "cceb19ddea83e6d7ddf655b1f1e4cfbdf35e4a53d58fa10f6e926b793b932c38",
+    "marker_length_cm": 93.58,
+    "efficiency_percentage": 66.262511
+  }
+]

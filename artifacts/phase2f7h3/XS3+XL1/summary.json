@@ -1,0 +1,27 @@
+{
+  "composition_id": "XSx3+XLx1",
+  "size_counts": {
+    "XS": 3,
+    "XL": 1
+  },
+  "garment_count": 4,
+  "piece_count": 20,
+  "piece_area_units2": 33809216358,
+  "usable_width_units": 176000,
+  "theoretical_length_100_units": 192098,
+  "theoretical_length_90_units": 213443,
+  "best_marker_length_cm": 305.023,
+  "best_efficiency_pct": 62.978143,
+  "best_seed": 1,
+  "validated": true,
+  "marker_hash": "9d8e3fc187db56bd02ce8371a7d05280b8b335df619dba60e2d17d07247f6e56",
+  "runtime_seconds": 39.175,
+  "search_iterations": 0,
+  "attainability_class": "PROMISING",
+  "status": "VALIDATED",
+  "seed_lengths_cm": [
+    305.023
+  ],
+  "median_length_cm": 305.023,
+  "worst_length_cm": 305.023
+}

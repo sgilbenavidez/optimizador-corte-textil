@@ -1,0 +1,11 @@
+{
+  "input_hash": "c6ab7b88d93c0f8a858acb7ced319c242509c50c80393519d2c1239d2c5b2d58",
+  "raw_candidate_hash": "043975c6dc85a0259149b79071b8010c36fd6acf4a5dc1f9a2656790928f7df0",
+  "dedup_candidate_hash": "043975c6dc85a0259149b79071b8010c36fd6acf4a5dc1f9a2656790928f7df0",
+  "validated_set_hash": "6f31df77df299cf34ec14f0c00f40339790cd54e0f3fce70ec790a8beb73e612",
+  "scored_set_hash": "6f31df77df299cf34ec14f0c00f40339790cd54e0f3fce70ec790a8beb73e612",
+  "chosen_candidate_hash": "10e032e51b2a66d5d5d59e4cc6c6cb1a2d3bca6c97ba9872a75ee8e64335b3fb",
+  "evaluated": 5000,
+  "accepted_count": 140,
+  "elapsed_s": 27.907
+}

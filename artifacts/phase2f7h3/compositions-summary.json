@@ -1,0 +1,566 @@
+[
+  {
+    "composition_id": "Sx1+XSx1",
+    "size_counts": {
+      "S": 1,
+      "XS": 1
+    },
+    "garment_count": 2,
+    "piece_count": 10,
+    "piece_area_units2": 16043928773,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 91159,
+    "theoretical_length_90_units": 101288,
+    "best_marker_length_cm": 148.0,
+    "best_efficiency_pct": 61.593707,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "9b99a993979da3cf41eedae85f856577cb6b453d09bbd57e394a626f456a001d",
+    "runtime_seconds": 42.395,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      148.0
+    ],
+    "median_length_cm": 148.0,
+    "worst_length_cm": 148.0
+  },
+  {
+    "composition_id": "XSx1+XLx1",
+    "size_counts": {
+      "XS": 1,
+      "XL": 1
+    },
+    "garment_count": 2,
+    "piece_count": 10,
+    "piece_area_units2": 18545397888,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 105372,
+    "theoretical_length_90_units": 117080,
+    "best_marker_length_cm": 166.0,
+    "best_efficiency_pct": 63.476855,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "fabcf3b0e4c5af02d11815ed63e569c2b9c9cc94ca606736cdd54b301b2318c6",
+    "runtime_seconds": 41.818,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      166.0
+    ],
+    "median_length_cm": 166.0,
+    "worst_length_cm": 166.0
+  },
+  {
+    "composition_id": "XSx2+XLx1",
+    "size_counts": {
+      "XS": 2,
+      "XL": 1
+    },
+    "garment_count": 3,
+    "piece_count": 15,
+    "piece_area_units2": 26177307123,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 148735,
+    "theoretical_length_90_units": 165261,
+    "best_marker_length_cm": 217.5,
+    "best_efficiency_pct": 68.38377,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "d98d4ed8951fabb5e6082a9255a81fb138025853a16ffa6f94f068772c50645a",
+    "runtime_seconds": 43.027,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      217.5
+    ],
+    "median_length_cm": 217.5,
+    "worst_length_cm": 217.5
+  },
+  {
+    "composition_id": "XSx1+XLx2",
+    "size_counts": {
+      "XS": 1,
+      "XL": 2
+    },
+    "garment_count": 3,
+    "piece_count": 15,
+    "piece_area_units2": 29458886541,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 167381,
+    "theoretical_length_90_units": 185978,
+    "best_marker_length_cm": 233.5,
+    "best_efficiency_pct": 71.683099,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "decf518628fc5ad79f561a7122d6876a720c5d14c6ca6f0ca83a48b37c3def61",
+    "runtime_seconds": 43.768,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      233.5
+    ],
+    "median_length_cm": 233.5,
+    "worst_length_cm": 233.5
+  },
+  {
+    "composition_id": "XSx2+XLx2",
+    "size_counts": {
+      "XS": 2,
+      "XL": 2
+    },
+    "garment_count": 4,
+    "piece_count": 20,
+    "piece_area_units2": 37090795776,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 210744,
+    "theoretical_length_90_units": 234160,
+    "best_marker_length_cm": 325.909,
+    "best_efficiency_pct": 64.663191,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "06111e75a396cb45986493e14735b8928d6dd8c92daf54dae02a3666b599100c",
+    "runtime_seconds": 42.686,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      325.909
+    ],
+    "median_length_cm": 325.909,
+    "worst_length_cm": 325.909
+  },
+  {
+    "composition_id": "XSx3+XLx1",
+    "size_counts": {
+      "XS": 3,
+      "XL": 1
+    },
+    "garment_count": 4,
+    "piece_count": 20,
+    "piece_area_units2": 33809216358,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 192098,
+    "theoretical_length_90_units": 213443,
+    "best_marker_length_cm": 305.023,
+    "best_efficiency_pct": 62.978143,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "9d8e3fc187db56bd02ce8371a7d05280b8b335df619dba60e2d17d07247f6e56",
+    "runtime_seconds": 39.175,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      305.023
+    ],
+    "median_length_cm": 305.023,
+    "worst_length_cm": 305.023
+  },
+  {
+    "composition_id": "XSx1+XLx3",
+    "size_counts": {
+      "XS": 1,
+      "XL": 3
+    },
+    "garment_count": 4,
+    "piece_count": 20,
+    "piece_area_units2": 40372375194,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 229389,
+    "theoretical_length_90_units": 254877,
+    "best_marker_length_cm": 341.909,
+    "best_efficiency_pct": 67.090511,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "624ab66f4b9761c3ca8ae168eb58c8736fe918075537dbc70a35d0d25ccbd25c",
+    "runtime_seconds": 41.239,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      341.909
+    ],
+    "median_length_cm": 341.909,
+    "worst_length_cm": 341.909
+  },
+  {
+    "composition_id": "XSx2+XLx3",
+    "size_counts": {
+      "XS": 2,
+      "XL": 3
+    },
+    "garment_count": 5,
+    "piece_count": 25,
+    "piece_area_units2": 48004284429,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 272752,
+    "theoretical_length_90_units": 303058,
+    "best_marker_length_cm": 393.409,
+    "best_efficiency_pct": 69.330294,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "325f066aab7c255ceeb3aaaacad5450833c7df4f03c92fe00cf46a6fa9794cee",
+    "runtime_seconds": 40.676,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      393.409
+    ],
+    "median_length_cm": 393.409,
+    "worst_length_cm": 393.409
+  },
+  {
+    "composition_id": "XSx3+XLx2",
+    "size_counts": {
+      "XS": 3,
+      "XL": 2
+    },
+    "garment_count": 5,
+    "piece_count": 25,
+    "piece_area_units2": 44722705011,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 254107,
+    "theoretical_length_90_units": 282341,
+    "best_marker_length_cm": 377.409,
+    "best_efficiency_pct": 67.329152,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "827d02cc0e9f8ec7bb63c9aaaba32c6366023e840cab4679a60d4dcbb1f854be",
+    "runtime_seconds": 41.528,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      377.409
+    ],
+    "median_length_cm": 377.409,
+    "worst_length_cm": 377.409
+  },
+  {
+    "composition_id": "XSx3+XLx3",
+    "size_counts": {
+      "XS": 3,
+      "XL": 3
+    },
+    "garment_count": 6,
+    "piece_count": 30,
+    "piece_area_units2": 55636193664,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 316115,
+    "theoretical_length_90_units": 351239,
+    "best_marker_length_cm": 441.5,
+    "best_efficiency_pct": 71.600167,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "d748a4a3a21cc03fc8d6c34011ec83dfd787fa4b8ed90b77aa7ab489ffbebae0",
+    "runtime_seconds": 1092.438,
+    "search_iterations": 3,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      441.5,
+      441.5
+    ],
+    "median_length_cm": 441.5,
+    "worst_length_cm": 441.5
+  },
+  {
+    "composition_id": "Mx1+XSx1",
+    "size_counts": {
+      "M": 1,
+      "XS": 1
+    },
+    "garment_count": 2,
+    "piece_count": 10,
+    "piece_area_units2": 16850719282,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 95743,
+    "theoretical_length_90_units": 106381,
+    "best_marker_length_cm": 154.0,
+    "best_efficiency_pct": 62.170599,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "63ce686a4646ec02855a2e0d0c745b2f7692db92b457475a03e2e7381ea5df51",
+    "runtime_seconds": 42.831,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      154.0
+    ],
+    "median_length_cm": 154.0,
+    "worst_length_cm": 154.0
+  },
+  {
+    "composition_id": "Lx1+XSx1",
+    "size_counts": {
+      "L": 1,
+      "XS": 1
+    },
+    "garment_count": 2,
+    "piece_count": 10,
+    "piece_area_units2": 17684523137,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 100481,
+    "theoretical_length_90_units": 111645,
+    "best_marker_length_cm": 160.0,
+    "best_efficiency_pct": 62.800153,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "2af94a0806f51acaa99dffdeda156acc2fee047c0c5082c0c05a20e2ec525aa6",
+    "runtime_seconds": 42.895,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      160.0
+    ],
+    "median_length_cm": 160.0,
+    "worst_length_cm": 160.0
+  },
+  {
+    "composition_id": "XSx1+XXLx1",
+    "size_counts": {
+      "XS": 1,
+      "XXL": 1
+    },
+    "garment_count": 2,
+    "piece_count": 10,
+    "piece_area_units2": 19433502564,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 110418,
+    "theoretical_length_90_units": 122687,
+    "best_marker_length_cm": 172.0,
+    "best_efficiency_pct": 64.196295,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "f2b782bed49152064f41c6ab23972f2aa7e80a5f9aa33115287c16e3211960c2",
+    "runtime_seconds": 42.286,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      172.0
+    ],
+    "median_length_cm": 172.0,
+    "worst_length_cm": 172.0
+  },
+  {
+    "composition_id": "Sx1+XLx1",
+    "size_counts": {
+      "S": 1,
+      "XL": 1
+    },
+    "garment_count": 2,
+    "piece_count": 10,
+    "piece_area_units2": 19325508191,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 109805,
+    "theoretical_length_90_units": 122005,
+    "best_marker_length_cm": 170.0,
+    "best_efficiency_pct": 64.590602,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "6762fd8a00c75392e033b38fd3fbe88c24006f3433c17b411faf1530209d3f15",
+    "runtime_seconds": 39.654,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      170.0
+    ],
+    "median_length_cm": 170.0,
+    "worst_length_cm": 170.0
+  },
+  {
+    "composition_id": "Mx1+XLx1",
+    "size_counts": {
+      "M": 1,
+      "XL": 1
+    },
+    "garment_count": 2,
+    "piece_count": 10,
+    "piece_area_units2": 20132298700,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 114389,
+    "theoretical_length_90_units": 127098,
+    "best_marker_length_cm": 174.0,
+    "best_efficiency_pct": 65.740265,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "640fe20c5443e0e337097188e00546f996297d6803732fe0ae4708e2f5de2dc5",
+    "runtime_seconds": 41.866,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      174.0
+    ],
+    "median_length_cm": 174.0,
+    "worst_length_cm": 174.0
+  },
+  {
+    "composition_id": "XSx1",
+    "size_counts": {
+      "XS": 1
+    },
+    "garment_count": 1,
+    "piece_count": 5,
+    "piece_area_units2": 7631909235,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 43364,
+    "theoretical_length_90_units": 48182,
+    "best_marker_length_cm": 76.5,
+    "best_efficiency_pct": 56.683818,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "363d457cede5997104e5ff8311af9a1fbcba6a44765177b9dd47207540cf7038",
+    "runtime_seconds": 28.259,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      76.5
+    ],
+    "median_length_cm": 76.5,
+    "worst_length_cm": 76.5
+  },
+  {
+    "composition_id": "XLx1",
+    "size_counts": {
+      "XL": 1
+    },
+    "garment_count": 1,
+    "piece_count": 5,
+    "piece_area_units2": 10913488653,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 62009,
+    "theoretical_length_90_units": 68899,
+    "best_marker_length_cm": 93.58,
+    "best_efficiency_pct": 66.262511,
+    "best_seed": 3,
+    "validated": true,
+    "marker_hash": "cceb19ddea83e6d7ddf655b1f1e4cfbdf35e4a53d58fa10f6e926b793b932c38",
+    "runtime_seconds": 202.459,
+    "search_iterations": 6,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      93.58,
+      108.48,
+      111.086
+    ],
+    "median_length_cm": 108.48,
+    "worst_length_cm": 111.086
+  },
+  {
+    "composition_id": "XSx2",
+    "size_counts": {
+      "XS": 2
+    },
+    "garment_count": 2,
+    "piece_count": 10,
+    "piece_area_units2": 15263818470,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 86727,
+    "theoretical_length_90_units": 96363,
+    "best_marker_length_cm": 142.0,
+    "best_efficiency_pct": 61.074818,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "8f3ff7ed0a3b86114ebc787b22325014a91dfa20ecfe01fb5187f113d8c43c10",
+    "runtime_seconds": 37.79,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      142.0
+    ],
+    "median_length_cm": 142.0,
+    "worst_length_cm": 142.0
+  },
+  {
+    "composition_id": "XSx3",
+    "size_counts": {
+      "XS": 3
+    },
+    "garment_count": 3,
+    "piece_count": 15,
+    "piece_area_units2": 22895727705,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 130090,
+    "theoretical_length_90_units": 144544,
+    "best_marker_length_cm": 193.5,
+    "best_efficiency_pct": 67.229644,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "f21015b58d33cfe0b2f4bee86cbfd63d329774f7f28b56ae160262cdad014cd8",
+    "runtime_seconds": 39.006,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      193.5
+    ],
+    "median_length_cm": 193.5,
+    "worst_length_cm": 193.5
+  },
+  {
+    "composition_id": "XLx2",
+    "size_counts": {
+      "XL": 2
+    },
+    "garment_count": 2,
+    "piece_count": 10,
+    "piece_area_units2": 21826977306,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 124017,
+    "theoretical_length_90_units": 137797,
+    "best_marker_length_cm": 182.0,
+    "best_efficiency_pct": 68.141163,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "253fd8483ac1a2b864d5fcb2e64ebf1942bd7dc9d281c70ac2c05c522d836a73",
+    "runtime_seconds": 40.714,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      182.0
+    ],
+    "median_length_cm": 182.0,
+    "worst_length_cm": 182.0
+  },
+  {
+    "composition_id": "XLx3",
+    "size_counts": {
+      "XL": 3
+    },
+    "garment_count": 3,
+    "piece_count": 15,
+    "piece_area_units2": 32740465959,
+    "usable_width_units": 176000,
+    "theoretical_length_100_units": 186026,
+    "theoretical_length_90_units": 206695,
+    "best_marker_length_cm": 290.409,
+    "best_efficiency_pct": 64.056339,
+    "best_seed": 1,
+    "validated": true,
+    "marker_hash": "cb04a0895dcc74436b7942474e068a7f5aa85f31313c5599340a98f876670507",
+    "runtime_seconds": 40.855,
+    "search_iterations": 0,
+    "attainability_class": "PROMISING",
+    "status": "VALIDATED",
+    "seed_lengths_cm": [
+      290.409
+    ],
+    "median_length_cm": 290.409,
+    "worst_length_cm": 290.409
+  }
+]

@@ -1,0 +1,188 @@
+{
+  "schema_version": "nesting-baseline-v1",
+  "platform": {
+    "system": "Windows",
+    "machine": "AMD64",
+    "python": "3.12.14"
+  },
+  "coordinate_convention": "X=marker length, Y=fabric width, integer scale 1000 units/cm",
+  "nfp_status": "PARTIAL",
+  "cases": [
+    {
+      "case_id": "M1",
+      "composition": [
+        {
+          "size_code": "M",
+          "quantity": 1
+        }
+      ],
+      "status": "VALIDATED_FEASIBLE",
+      "validation": "VALIDATED",
+      "pieces": 5,
+      "marker_length_cm": 83.466,
+      "efficiency_percentage": 62.755616,
+      "lower_bound_length_cm": 63.0,
+      "evaluations": 10687,
+      "elapsed_time_ms": 1135.872,
+      "result_memory_approx_mib": 0.136,
+      "cache": {
+        "hits": 102,
+        "misses": 8
+      },
+      "input_hash": "11bf599d28f4c1f3513447c334ed1b375222881e411f7344f8de5db916b60736",
+      "result_hash": "8c24ebd09e8992e76f7d552f0368f25108651e7935313d39ba27c5d9d63ab697"
+    },
+    {
+      "case_id": "M2",
+      "composition": [
+        {
+          "size_code": "M",
+          "quantity": 2
+        }
+      ],
+      "status": "VALIDATED_FEASIBLE",
+      "validation": "VALIDATED",
+      "pieces": 10,
+      "marker_length_cm": 164.0,
+      "efficiency_percentage": 63.877564,
+      "lower_bound_length_cm": 108.76,
+      "evaluations": 57861,
+      "elapsed_time_ms": 5092.119,
+      "result_memory_approx_mib": 0.265,
+      "cache": {
+        "hits": 162,
+        "misses": 8
+      },
+      "input_hash": "c5ba2fb82dd159400f8ff52af2b05d7ce7c43976305a37d7e0524f7413d1d535",
+      "result_hash": "e1771e8526285fe5fa7daaa39e4685d6194b82d931430465f2a096c7257fadbb"
+    },
+    {
+      "case_id": "M3",
+      "composition": [
+        {
+          "size_code": "S",
+          "quantity": 1
+        },
+        {
+          "size_code": "M",
+          "quantity": 1
+        }
+      ],
+      "status": "VALIDATED_FEASIBLE",
+      "validation": "VALIDATED",
+      "pieces": 10,
+      "marker_length_cm": 160.0,
+      "efficiency_percentage": 62.60948,
+      "lower_bound_length_cm": 104.176,
+      "evaluations": 66023,
+      "elapsed_time_ms": 9072.425,
+      "result_memory_approx_mib": 0.271,
+      "cache": {
+        "hits": 174,
+        "misses": 16
+      },
+      "input_hash": "11e407a760186627f77b0d18d4695a214ca0cc00e80bb0b921f9b1ace267a6fa",
+      "result_hash": "26b6ee46dfabebcca8d368992422fe8ede6bdf5c3f400647fe8f86f12f91a183"
+    },
+    {
+      "case_id": "M4",
+      "composition": [
+        {
+          "size_code": "M",
+          "quantity": 1
+        },
+        {
+          "size_code": "XL",
+          "quantity": 1
+        }
+      ],
+      "status": "VALIDATED_FEASIBLE",
+      "validation": "VALIDATED",
+      "pieces": 10,
+      "marker_length_cm": 176.0,
+      "efficiency_percentage": 64.993216,
+      "lower_bound_length_cm": 118.389,
+      "evaluations": 86520,
+      "elapsed_time_ms": 12455.517,
+      "result_memory_approx_mib": 0.269,
+      "cache": {
+        "hits": 198,
+        "misses": 16
+      },
+      "input_hash": "e77361ccf8004b136508a4111529567b2cde02a791b5a3c20efb092acf491a9d",
+      "result_hash": "dada620bbac75d0fc08871d8982a6941d8a2fd176cd6dec71d77094f2ad03ca0"
+    },
+    {
+      "case_id": "M5",
+      "composition": [
+        {
+          "size_code": "XS",
+          "quantity": 1
+        },
+        {
+          "size_code": "S",
+          "quantity": 1
+        },
+        {
+          "size_code": "M",
+          "quantity": 1
+        },
+        {
+          "size_code": "L",
+          "quantity": 1
+        },
+        {
+          "size_code": "XL",
+          "quantity": 1
+        },
+        {
+          "size_code": "XXL",
+          "quantity": 1
+        },
+        {
+          "size_code": "XXXL",
+          "quantity": 1
+        }
+      ],
+      "status": "VALIDATED_FEASIBLE",
+      "validation": "VALIDATED",
+      "pieces": 35,
+      "marker_length_cm": 583.13,
+      "efficiency_percentage": 68.933861,
+      "lower_bound_length_cm": 405.975,
+      "evaluations": 100000,
+      "elapsed_time_ms": 17077.739,
+      "result_memory_approx_mib": 0.939,
+      "cache": {
+        "hits": 158,
+        "misses": 34
+      },
+      "input_hash": "0703f05dbfd6985fc9dcdd32615372f901c5aac1e013b9f7d5b817deb7092061",
+      "result_hash": "cf7af420b8d128ab15e8cf870c973ce735c05391e9774e8bb7d8aae195c597e5"
+    },
+    {
+      "case_id": "M6",
+      "composition": [
+        {
+          "size_code": "XXXL",
+          "quantity": 2
+        }
+      ],
+      "status": "VALIDATED_FEASIBLE",
+      "validation": "VALIDATED",
+      "pieces": 10,
+      "marker_length_cm": 204.0,
+      "efficiency_percentage": 70.838868,
+      "lower_bound_length_cm": 148.512,
+      "evaluations": 100000,
+      "elapsed_time_ms": 11079.164,
+      "result_memory_approx_mib": 0.274,
+      "cache": {
+        "hits": 212,
+        "misses": 8
+      },
+      "input_hash": "9b536acc4e0bb0e72e9e9899e074406a3672a2a43d73316eb52f720e884299e3",
+      "result_hash": "e82b5b23e8505bb770ddd0adb6cd11bc816f67011a14a107d8dab01cf3b9ea42"
+    }
+  ]
+}

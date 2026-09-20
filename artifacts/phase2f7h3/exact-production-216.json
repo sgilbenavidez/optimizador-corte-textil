@@ -1,0 +1,81 @@
+{
+  "exact_solution_found": true,
+  "planning_status": "OPTIMAL",
+  "spread_count": 4,
+  "marker_design_count": 4,
+  "produced_by_size": {
+    "L": 21,
+    "M": 42,
+    "S": 33,
+    "XL": 35,
+    "XS": 30,
+    "XXL": 55,
+    "XXXL": 0
+  },
+  "overproduction_by_size": {
+    "XS": 0,
+    "S": 0,
+    "M": 0,
+    "L": 0,
+    "XL": 0,
+    "XXL": 0,
+    "XXXL": 0
+  },
+  "total_overproduction": 0,
+  "total_fabric_units": 16720900,
+  "global_efficiency_percentage": 72.578893,
+  "spreads": [
+    {
+      "marker_hash": "d183a4b10032efceef16a62ba0195d46e317aebc5b20bff7ef4deca61c8c0c3a",
+      "composition": {
+        "S": 3,
+        "XXL": 5
+      },
+      "layers": 11,
+      "repeats": 1,
+      "production_by_size": {
+        "S": 33,
+        "XXL": 55
+      }
+    },
+    {
+      "marker_hash": "123438d26ed31a18f8c235356a542645e21c2cfb070c8041d3cb68cec765b946",
+      "composition": {
+        "L": 1,
+        "M": 2
+      },
+      "layers": 21,
+      "repeats": 1,
+      "production_by_size": {
+        "L": 21,
+        "M": 42
+      }
+    },
+    {
+      "marker_hash": "d748a4a3a21cc03fc8d6c34011ec83dfd787fa4b8ed90b77aa7ab489ffbebae0",
+      "composition": {
+        "XL": 3,
+        "XS": 3
+      },
+      "layers": 10,
+      "repeats": 1,
+      "production_by_size": {
+        "XL": 30,
+        "XS": 30
+      }
+    },
+    {
+      "marker_hash": "cceb19ddea83e6d7ddf655b1f1e4cfbdf35e4a53d58fa10f6e926b793b932c38",
+      "composition": {
+        "XL": 1
+      },
+      "layers": 5,
+      "repeats": 1,
+      "production_by_size": {
+        "XL": 5
+      }
+    }
+  ],
+  "independent_validation_status": "VALIDATED_PLAN",
+  "independent_validation_errors": []
+}

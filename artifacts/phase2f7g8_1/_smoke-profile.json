@@ -1,0 +1,77 @@
+{
+  "candidate_mode": "UNIFIED_LEGACY_PLUS_CANDIDATE_SPACE",
+  "orientation_policy": "TWO_WAY",
+  "rotations": [
+    0,
+    180
+  ],
+  "candidate_budget": 5000,
+  "total_ms": 27342.525,
+  "generation_ms": 26209.027,
+  "exact_ms": 1036.129,
+  "recovery_ms": 0.0,
+  "validator_elapsed_ms": 897.925,
+  "budget_expansions": 0,
+  "raw_candidates": 24445,
+  "recovery_candidates": 130,
+  "evaluated": 5000,
+  "evaluated_by_orientation": {
+    "0": 2500,
+    "180": 2500
+  },
+  "orientation_generated": {
+    "0": 12075,
+    "180": 12401
+  },
+  "accepted": 6,
+  "candidate_hash": "3a07396f70ce25f5d6f2a47123b4260030a44c0af6ad36fb7880b35974312ed7",
+  "chosen_position": [
+    2000,
+    152802
+  ],
+  "chosen_orientation": 180,
+  "chosen_source": [
+    "FEASIBLE_BOUNDARY"
+  ],
+  "chosen_marker_length": 235064,
+  "nfp_cache_hits": 10,
+  "nfp_cache_misses": 12,
+  "nfp_cache_hit_rate_pct": 45.455,
+  "timings_ms": {
+    "transform_geometry_ms": 0.0,
+    "ifp_ms": 0.0,
+    "nfp_cache_lookup_ms": 0.0,
+    "nfp_cache_miss_compute_ms": 0.0,
+    "legacy_candidate_generation_ms": 0.0,
+    "candidate_space_generation_ms": 26209.027,
+    "candidate_merge_ms": 0.0,
+    "candidate_dedup_ms": 0.0,
+    "bbox_precheck_ms": 0.0,
+    "exact_overlap_ms": 0.0,
+    "exact_clearance_ms": 897.925,
+    "containment_ms": 0.0,
+    "full_validator_ms": 0.0,
+    "scoring_ms": 0.0,
+    "total_ms": 27342.525
+  },
+  "counters": {
+    "legacy_candidates_raw": 0,
+    "candidate_space_candidates_raw": 24445,
+    "orientation_0_raw": 12075,
+    "orientation_180_raw": 12401,
+    "candidates_before_dedup": 24476,
+    "candidates_after_dedup": 24445,
+    "bbox_rejected": 40574,
+    "exact_overlap_rejected": 0,
+    "clearance_rejected": 4994,
+    "containment_rejected": 0,
+    "exact_precheck_accepted": 6,
+    "full_validator_calls": 0,
+    "full_validator_accepted": 0,
+    "scored_candidates": 6,
+    "nfp_cache_hits": 10,
+    "nfp_cache_misses": 12,
+    "ifp_cache_hits": 0,
+    "ifp_cache_misses": 2
+  }
+}

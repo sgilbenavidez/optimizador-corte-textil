@@ -1,0 +1,40 @@
+{
+  "candidate_mode": "UNIFIED_LEGACY_PLUS_CANDIDATE_SPACE",
+  "orientation_policy": "TWO_WAY",
+  "rotations": [
+    0,
+    180
+  ],
+  "candidate_budget": 5000,
+  "total_ms": 162997.843,
+  "generation_ms": 157804.713,
+  "exact_ms": 5052.28,
+  "recovery_ms": 0.0,
+  "validator_elapsed_ms": 1990.323,
+  "budget_expansions": 0,
+  "raw_candidates": 24445,
+  "recovery_candidates": 130,
+  "evaluated": 5000,
+  "evaluated_by_orientation": {
+    "0": 5000
+  },
+  "orientation_generated": {
+    "0": 12075,
+    "180": 12401
+  },
+  "accepted": 140,
+  "candidate_hash": "043975c6dc85a0259149b79071b8010c36fd6acf4a5dc1f9a2656790928f7df0",
+  "chosen_position": [
+    197852,
+    74148
+  ],
+  "chosen_orientation": 0,
+  "chosen_source": [
+    "FEASIBLE_BOUNDARY",
+    "NFP_VERTEX"
+  ],
+  "chosen_marker_length": 238852,
+  "nfp_cache_hits": 10,
+  "nfp_cache_misses": 12,
+  "nfp_cache_hit_rate_pct": 45.455
+}

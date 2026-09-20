@@ -1,4 +1,5 @@
 from costura_optima.application import services
+from costura_optima.infrastructure.db_models import OptimizationRunORM, OptimizationSolutionORM
 
 
 def order_payload(ids, demand):
@@ -73,3 +74,25 @@ def test_order_and_run_hashes_include_demand(client, catalog_ids, monkeypatch):
         headers={"Idempotency-Key": "demand-m"}, json={},
     ).json()
     assert run_s["input_hash"] != run_m["input_hash"]
+
+
+def test_use_current_plan_requests_successful_early_stop(client, catalog_ids, database, monkeypatch):
+    monkeypatch.setattr(services, "enqueue_optimization_run", lambda run_id, timeout: run_id)
+    order = client.post("/api/v1/production-orders", json=order_payload(catalog_ids, {"M": 3})).json()
+    run = client.post(
+        f"/api/v1/production-orders/{order['id']}/optimization-runs",
+        headers={"Idempotency-Key": "anytime"}, json={"planner_refinement_engine": "heuristic"},
+    ).json()
+    with database() as session:
+        row = session.get(OptimizationRunORM, run["id"]); row.status = "RUNNING"
+        session.add(OptimizationSolutionORM(
+            id="incumbent", optimization_run_id=row.id, solution_hash="solution", fingerprint="fingerprint",
+            rank=999, planning_status="FEASIBLE", planning_optimality="HEURISTIC_FEASIBLE",
+            solution_origin="OPERATIONAL_HEURISTIC", metrics={}, validation_certificate={"status": "VALIDATED_PLAN"},
+            explanation="BEST_VALIDATED_SO_FAR",
+        ))
+        session.commit()
+    response = client.post(f"/api/v1/optimization-runs/{run['id']}/use-current-plan")
+    assert response.status_code == 200
+    assert response.json()["best_solution_available"] is True
+    assert response.json()["use_current_plan_requested"] is True

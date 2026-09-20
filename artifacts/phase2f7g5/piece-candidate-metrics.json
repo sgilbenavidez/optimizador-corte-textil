@@ -1,0 +1,30 @@
+[
+  {
+    "piece": "M_SLEEVE_004",
+    "piece_index": 12,
+    "raw_candidates": 1800,
+    "validated_candidates": 0,
+    "scored_candidates": 0,
+    "interior_recovery_candidates": 65,
+    "repair_attempts": 0,
+    "piece_candidate_budget": 1800,
+    "piece_recovery_budget": 65,
+    "piece_time_budget_ms": 60000,
+    "candidate_generation_ms": 23599.111,
+    "exact_precheck_ms": 562.145,
+    "interior_recovery_ms": 14.221,
+    "validator_ms": 0.0,
+    "scoring_ms": 0.0,
+    "total_piece_ms": 29107.297,
+    "candidate_set_hash": "d19f802f55b647a8eecef442275582f0f0ad9ffac35a6e4f370f0b8455186e39",
+    "pipeline_stage": "blocked",
+    "run_timeout": false,
+    "chosen_source": null,
+    "marker_length_after_placement": null,
+    "blocker": {
+      "exact_precheck_accepted": 0,
+      "validator_accepted": 0,
+      "candidate_budget_exhausted": false
+    }
+  }
+]

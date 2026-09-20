@@ -1,0 +1,275 @@
+{
+  "marker_hash": "d748a4a3a21cc03fc8d6c34011ec83dfd787fa4b8ed90b77aa7ab489ffbebae0",
+  "placements": [
+    {
+      "piece_instance_id": "XL_BACK_001",
+      "translation": [
+        2000,
+        2000
+      ],
+      "rotation": 0,
+      "geometry_hash": "34f54f4bc5ec57a0b373729d71e1387936357ebc74e52275e7464b121d42d442"
+    },
+    {
+      "piece_instance_id": "XL_BACK_002",
+      "translation": [
+        2000,
+        78000
+      ],
+      "rotation": 0,
+      "geometry_hash": "34f54f4bc5ec57a0b373729d71e1387936357ebc74e52275e7464b121d42d442"
+    },
+    {
+      "piece_instance_id": "XL_BACK_003",
+      "translation": [
+        69500,
+        2000
+      ],
+      "rotation": 0,
+      "geometry_hash": "34f54f4bc5ec57a0b373729d71e1387936357ebc74e52275e7464b121d42d442"
+    },
+    {
+      "piece_instance_id": "XL_FRONT_001",
+      "translation": [
+        69500,
+        78000
+      ],
+      "rotation": 0,
+      "geometry_hash": "abf15df61a9bcd40df724ca2e5254a6abfd75fa76116b0de23815879c7d39fa3"
+    },
+    {
+      "piece_instance_id": "XL_FRONT_002",
+      "translation": [
+        137000,
+        2000
+      ],
+      "rotation": 0,
+      "geometry_hash": "abf15df61a9bcd40df724ca2e5254a6abfd75fa76116b0de23815879c7d39fa3"
+    },
+    {
+      "piece_instance_id": "XL_FRONT_003",
+      "translation": [
+        137000,
+        78000
+      ],
+      "rotation": 0,
+      "geometry_hash": "abf15df61a9bcd40df724ca2e5254a6abfd75fa76116b0de23815879c7d39fa3"
+    },
+    {
+      "piece_instance_id": "XL_SLEEVE_001",
+      "translation": [
+        199177,
+        138000
+      ],
+      "rotation": 0,
+      "geometry_hash": "f1303519241e7e99b73ec25f60bd43992baffe9053d27e874f11906cb19c315c"
+    },
+    {
+      "piece_instance_id": "XS_BACK_002",
+      "translation": [
+        203000,
+        70000
+      ],
+      "rotation": 0,
+      "geometry_hash": "9e0bdaf972c19a02a4e8f54869ece96d8de6dc40ebd2ff73493746fed0baeebd"
+    },
+    {
+      "piece_instance_id": "XS_BACK_001",
+      "translation": [
+        204500,
+        2000
+      ],
+      "rotation": 0,
+      "geometry_hash": "9e0bdaf972c19a02a4e8f54869ece96d8de6dc40ebd2ff73493746fed0baeebd"
+    },
+    {
+      "piece_instance_id": "XS_NECKBAND_003",
+      "translation": [
+        244177,
+        144495
+      ],
+      "rotation": 0,
+      "geometry_hash": "6697bacfe557a12fba0713c73463a53ff3ea82ef42686087eeb5b8f4f66ecdf8"
+    },
+    {
+      "piece_instance_id": "XS_NECKBAND_002",
+      "translation": [
+        244677,
+        138995
+      ],
+      "rotation": 0,
+      "geometry_hash": "6697bacfe557a12fba0713c73463a53ff3ea82ef42686087eeb5b8f4f66ecdf8"
+    },
+    {
+      "piece_instance_id": "XS_FRONT_001",
+      "translation": [
+        254500,
+        70000
+      ],
+      "rotation": 0,
+      "geometry_hash": "1afd511048319b73b0cc430f68d27470978babe2f2530e40e5a3d5a7631d69cc"
+    },
+    {
+      "piece_instance_id": "XS_BACK_003",
+      "translation": [
+        256000,
+        2000
+      ],
+      "rotation": 0,
+      "geometry_hash": "9e0bdaf972c19a02a4e8f54869ece96d8de6dc40ebd2ff73493746fed0baeebd"
+    },
+    {
+      "piece_instance_id": "XS_FRONT_003",
+      "translation": [
+        306000,
+        70000
+      ],
+      "rotation": 0,
+      "geometry_hash": "1afd511048319b73b0cc430f68d27470978babe2f2530e40e5a3d5a7631d69cc"
+    },
+    {
+      "piece_instance_id": "XS_FRONT_002",
+      "translation": [
+        307500,
+        2000
+      ],
+      "rotation": 0,
+      "geometry_hash": "1afd511048319b73b0cc430f68d27470978babe2f2530e40e5a3d5a7631d69cc"
+    },
+    {
+      "piece_instance_id": "XS_SLEEVE_001",
+      "translation": [
+        342847,
+        136995
+      ],
+      "rotation": 0,
+      "geometry_hash": "67067df85243c8e1853af61122531ffed64d5c89794d1b2be61419f323ab7d56"
+    },
+    {
+      "piece_instance_id": "XL_SLEEVE_005",
+      "translation": [
+        356000,
+        82997
+      ],
+      "rotation": 0,
+      "geometry_hash": "f1303519241e7e99b73ec25f60bd43992baffe9053d27e874f11906cb19c315c"
+    },
+    {
+      "piece_instance_id": "XL_SLEEVE_006",
+      "translation": [
+        356000,
+        109996
+      ],
+      "rotation": 0,
+      "geometry_hash": "f1303519241e7e99b73ec25f60bd43992baffe9053d27e874f11906cb19c315c"
+    },
+    {
+      "piece_instance_id": "XL_SLEEVE_004",
+      "translation": [
+        356068,
+        55998
+      ],
+      "rotation": 0,
+      "geometry_hash": "f1303519241e7e99b73ec25f60bd43992baffe9053d27e874f11906cb19c315c"
+    },
+    {
+      "piece_instance_id": "XL_SLEEVE_003",
+      "translation": [
+        357500,
+        28999
+      ],
+      "rotation": 0,
+      "geometry_hash": "f1303519241e7e99b73ec25f60bd43992baffe9053d27e874f11906cb19c315c"
+    },
+    {
+      "piece_instance_id": "XL_SLEEVE_002",
+      "translation": [
+        359000,
+        2000
+      ],
+      "rotation": 0,
+      "geometry_hash": "f1303519241e7e99b73ec25f60bd43992baffe9053d27e874f11906cb19c315c"
+    },
+    {
+      "piece_instance_id": "XS_NECKBAND_001",
+      "translation": [
+        385976,
+        133495
+      ],
+      "rotation": 0,
+      "geometry_hash": "6697bacfe557a12fba0713c73463a53ff3ea82ef42686087eeb5b8f4f66ecdf8"
+    },
+    {
+      "piece_instance_id": "XL_NECKBAND_003",
+      "translation": [
+        391432,
+        127995
+      ],
+      "rotation": 0,
+      "geometry_hash": "bdc691d4249a7e4cc497af125662527617aac38d727c8f8de280ecf6e62c37f9"
+    },
+    {
+      "piece_instance_id": "XL_NECKBAND_002",
+      "translation": [
+        398145,
+        122495
+      ],
+      "rotation": 0,
+      "geometry_hash": "bdc691d4249a7e4cc497af125662527617aac38d727c8f8de280ecf6e62c37f9"
+    },
+    {
+      "piece_instance_id": "XS_SLEEVE_005",
+      "translation": [
+        398689,
+        70997
+      ],
+      "rotation": 0,
+      "geometry_hash": "67067df85243c8e1853af61122531ffed64d5c89794d1b2be61419f323ab7d56"
+    },
+    {
+      "piece_instance_id": "XS_SLEEVE_006",
+      "translation": [
+        399351,
+        93996
+      ],
+      "rotation": 0,
+      "geometry_hash": "67067df85243c8e1853af61122531ffed64d5c89794d1b2be61419f323ab7d56"
+    },
+    {
+      "piece_instance_id": "XL_NECKBAND_001",
+      "translation": [
+        401000,
+        116995
+      ],
+      "rotation": 0,
+      "geometry_hash": "bdc691d4249a7e4cc497af125662527617aac38d727c8f8de280ecf6e62c37f9"
+    },
+    {
+      "piece_instance_id": "XS_SLEEVE_004",
+      "translation": [
+        401050,
+        47998
+      ],
+      "rotation": 0,
+      "geometry_hash": "67067df85243c8e1853af61122531ffed64d5c89794d1b2be61419f323ab7d56"
+    },
+    {
+      "piece_instance_id": "XS_SLEEVE_003",
+      "translation": [
+        402006,
+        24999
+      ],
+      "rotation": 0,
+      "geometry_hash": "67067df85243c8e1853af61122531ffed64d5c89794d1b2be61419f323ab7d56"
+    },
+    {
+      "piece_instance_id": "XS_SLEEVE_002",
+      "translation": [
+        404500,
+        2000
+      ],
+      "rotation": 0,
+      "geometry_hash": "67067df85243c8e1853af61122531ffed64d5c89794d1b2be61419f323ab7d56"
+    }
+  ]
+}

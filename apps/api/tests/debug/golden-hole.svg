@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="350" viewBox="-20 -30 650 350">
+<style>text{font:10px sans-serif}.p{stroke:#111}</style>
+<rect x="0" y="0" width="500" height="500" fill="white" stroke="black"/>
+<rect x="215.0" y="300.0" width="100.0" height="100.0" fill="#8dd3ff" stroke="#222"/><text x="215.0" y="297.0">A1</text>
+<rect x="100.0" y="185.0" width="100.0" height="100.0" fill="#8dd3ff" stroke="#222"/><text x="100.0" y="182.0">A2</text>
+<rect x="0.0" y="100.0" width="400.0" height="400.0" fill="none" stroke="#222"/><text x="0.0" y="97.0">IFP</text>
+<rect x="110.0" y="295.0" width="210.0" height="210.0" fill="#ffd0d0" stroke="#222"/><text x="110.0" y="292.0">NFP1</text>
+<rect x="-5.0" y="180.0" width="210.0" height="210.0" fill="#ffd0d0" stroke="#222"/><text x="-5.0" y="177.0">NFP2</text>
+<rect x="110.0" y="290.0" width="100.0" height="100.0" fill="none" stroke="#222"/><text x="110.0" y="287.0">B winner</text>
+<circle cx="0.0" cy="500.0" r="2" fill="#999"/>
+<circle cx="0.0" cy="400.0" r="2" fill="#999"/>
+<circle cx="0.0" cy="390.0" r="2" fill="#999"/>
+<circle cx="0.0" cy="295.0" r="2" fill="#999"/>
+<circle cx="0.0" cy="285.0" r="2" fill="#999"/>
+<circle cx="0.0" cy="180.0" r="2" fill="#999"/>
+<circle cx="0.0" cy="100.0" r="2" fill="#999"/>
+<circle cx="100.0" cy="500.0" r="2" fill="#999"/>
+<circle cx="100.0" cy="390.0" r="2" fill="#999"/>
+<circle cx="100.0" cy="285.0" r="2" fill="#999"/>
+<circle cx="100.0" cy="180.0" r="2" fill="#999"/>
+<circle cx="110.0" cy="500.0" r="2" fill="#999"/>
+<circle cx="110.0" cy="400.0" r="2" fill="#999"/>
+<circle cx="110.0" cy="295.0" r="2" fill="#999"/>
+<circle cx="205.0" cy="500.0" r="2" fill="#999"/>
+<circle cx="205.0" cy="390.0" r="2" fill="#999"/>
+<circle cx="205.0" cy="285.0" r="2" fill="#999"/>
+<circle cx="205.0" cy="180.0" r="2" fill="#999"/>
+<circle cx="215.0" cy="500.0" r="2" fill="#999"/>
+<circle cx="215.0" cy="400.0" r="2" fill="#999"/>
+<circle cx="215.0" cy="295.0" r="2" fill="#999"/>
+<circle cx="320.0" cy="500.0" r="2" fill="#999"/>
+<circle cx="320.0" cy="400.0" r="2" fill="#999"/>
+<circle cx="320.0" cy="295.0" r="2" fill="#999"/>
+<circle class="p" cx="110.0" cy="390.0" r="4" fill="#00a56a"/><text x="114.0" y="386.0">NFP-NFP / 2 contacts</text>
+<circle class="p" cx="205.0" cy="295.0" r="4" fill="#00a56a"/><text x="209.0" y="291.0">NFP-NFP / 2 contacts</text>
+</svg>

@@ -1,0 +1,37 @@
+{
+  "legacy_candidates_chosen": 1,
+  "nonlegacy_candidates_chosen": 3,
+  "nfp_nfp_candidates_chosen": 2,
+  "feasible_boundary_candidates_chosen": 4,
+  "feasible_interior_recovery_candidates_chosen": 0,
+  "per_piece": [
+    {
+      "piece": "M_SLEEVE_004",
+      "chosen_source": [
+        "FEASIBLE_BOUNDARY"
+      ]
+    },
+    {
+      "piece": "L_NECKBAND_001",
+      "chosen_source": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_NFP_INTERSECTION"
+      ]
+    },
+    {
+      "piece": "M_NECKBAND_001",
+      "chosen_source": [
+        "FEASIBLE_BOUNDARY",
+        "LEGACY_FALLBACK",
+        "NFP_NFP_INTERSECTION"
+      ]
+    },
+    {
+      "piece": "M_NECKBAND_002",
+      "chosen_source": [
+        "FEASIBLE_BOUNDARY",
+        "NFP_VERTEX"
+      ]
+    }
+  ]
+}

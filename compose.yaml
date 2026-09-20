@@ -33,6 +33,11 @@ services:
       DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://costura:costura@db:5432/costura_optima}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173}
       REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      APP_ENV: ${APP_ENV:-development}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      OPTIMIZATION_QUEUE_NAME: ${WORKER_QUEUE:-optimization}
+      DEFAULT_OPTIMIZATION_TIMEOUT: ${DEFAULT_OPTIMIZATION_TIMEOUT:-120}
+      PLANNER_REFINEMENT_ENGINE: ${PLANNER_REFINEMENT_ENGINE:-hybrid}
     command: >-
       sh -c "alembic upgrade head && python -m costura_optima.infrastructure.seed && python -m costura_optima.patterns.generate && uvicorn costura_optima.main:app --host 0.0.0.0 --port 8000"
     depends_on:
@@ -40,8 +45,16 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    ports:
-      - "8000:8000"
+    # Keep local service discovery operational even when Docker Desktop's
+    # embedded DNS has no external forwarder on this offline/internal network.
+    links:
+      - db
+      - redis
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health/ready', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
 
   worker:
     build:
@@ -49,13 +62,24 @@ services:
     environment:
       DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://costura:costura@db:5432/costura_optima}
       REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      OPTIMIZATION_QUEUE_NAME: ${WORKER_QUEUE:-optimization}
+      PLANNER_REFINEMENT_ENGINE: ${PLANNER_REFINEMENT_ENGINE:-hybrid}
     command: >-
-      sh -c "python -m costura_optima.worker.recovery && rq worker optimization --url redis://redis:6379/0 --with-scheduler"
+      sh -c "python -m costura_optima.worker.recovery && rq worker $${OPTIMIZATION_QUEUE_NAME} --url $${REDIS_URL} --with-scheduler"
     depends_on:
       api:
-        condition: service_started
+        condition: service_healthy
       redis:
         condition: service_healthy
+    links:
+      - db
+      - redis
+    healthcheck:
+      test: ["CMD", "python", "-m", "costura_optima.worker.health"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
 
   web:
     build:
@@ -63,10 +87,44 @@ services:
     environment:
       VITE_API_URL: ${VITE_API_URL:-http://localhost:8000}
     depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:5173"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  gateway:
+    build:
+      context: ./apps/api
+    command: python -m costura_optima.infrastructure.local_gateway
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    depends_on:
+      api:
+        condition: service_healthy
+      web:
+        condition: service_healthy
+    links:
       - api
+      - web
+    networks:
+      - default
+      - browser_ingress
     ports:
+      - "8000:8000"
       - "5173:5173"
 
 volumes:
   postgres_data:
   redis_data:
+
+networks:
+  default:
+    internal: true
+  browser_ingress:
+    driver: bridge

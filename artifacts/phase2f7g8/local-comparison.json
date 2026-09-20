@@ -1,0 +1,90 @@
+[
+  {
+    "piece": "M_SLEEVE_004",
+    "legacy_candidate_count": 0,
+    "nonlegacy_candidate_count": 6,
+    "improvement": false,
+    "tie": false,
+    "near_tie": false,
+    "best_legacy_position": null,
+    "best_legacy_orientation": null,
+    "best_legacy_length": null,
+    "best_nonlegacy_position": [
+      2000,
+      152802
+    ],
+    "best_nonlegacy_orientation": 180,
+    "best_nonlegacy_length": 235064,
+    "best_nonlegacy_source": [
+      "FEASIBLE_BOUNDARY"
+    ],
+    "best_nonlegacy_contact_count": 1
+  },
+  {
+    "piece": "L_NECKBAND_001",
+    "legacy_candidate_count": 0,
+    "nonlegacy_candidate_count": 292,
+    "improvement": false,
+    "tie": false,
+    "near_tie": false,
+    "best_legacy_position": null,
+    "best_legacy_orientation": null,
+    "best_legacy_length": null,
+    "best_nonlegacy_position": [
+      105367,
+      40167
+    ],
+    "best_nonlegacy_orientation": 0,
+    "best_nonlegacy_length": 235064,
+    "best_nonlegacy_source": [
+      "FEASIBLE_BOUNDARY",
+      "NFP_NFP_INTERSECTION"
+    ],
+    "best_nonlegacy_contact_count": 2
+  },
+  {
+    "piece": "M_NECKBAND_001",
+    "legacy_candidate_count": 0,
+    "nonlegacy_candidate_count": 318,
+    "improvement": false,
+    "tie": false,
+    "near_tie": false,
+    "best_legacy_position": null,
+    "best_legacy_orientation": null,
+    "best_legacy_length": null,
+    "best_nonlegacy_position": [
+      106589,
+      34667
+    ],
+    "best_nonlegacy_orientation": 0,
+    "best_nonlegacy_length": 235064,
+    "best_nonlegacy_source": [
+      "FEASIBLE_BOUNDARY",
+      "LEGACY_FALLBACK",
+      "NFP_NFP_INTERSECTION"
+    ],
+    "best_nonlegacy_contact_count": 2
+  },
+  {
+    "piece": "M_NECKBAND_002",
+    "legacy_candidate_count": 0,
+    "nonlegacy_candidate_count": 280,
+    "improvement": false,
+    "tie": false,
+    "near_tie": false,
+    "best_legacy_position": null,
+    "best_legacy_orientation": null,
+    "best_legacy_length": null,
+    "best_nonlegacy_position": [
+      66157,
+      172035
+    ],
+    "best_nonlegacy_orientation": 0,
+    "best_nonlegacy_length": 235064,
+    "best_nonlegacy_source": [
+      "FEASIBLE_BOUNDARY",
+      "NFP_VERTEX"
+    ],
+    "best_nonlegacy_contact_count": 1
+  }
+]

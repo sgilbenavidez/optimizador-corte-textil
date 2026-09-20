@@ -1,0 +1,28 @@
+         12773249 function calls (12708808 primitive calls) in 30.013 seconds
+
+   Ordered by: cumulative time
+   List reduced from 1984 to 20 due to restriction <20>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001   30.076   30.076 E:\optimizacion corte\apps\api\scripts\run_phase2f7g8p_profile.py:75(run_once)
+        1    0.006    0.006   29.622   29.622 E:\optimizacion corte\apps\api\src\costura_optima\domain\completion_runner.py:203(_evaluate_piece)
+        1    0.069    0.069   27.490   27.490 E:\optimizacion corte\apps\api\src\costura_optima\domain\completion_runner.py:155(_build_pool)
+        2    0.009    0.005   26.418   13.209 E:\optimizacion corte\apps\api\src\costura_optima\domain\candidate_space.py:218(build)
+      132   14.152    0.107   14.378    0.109 E:\optimizacion corte\apps\api\src\costura_optima\domain\integer_kernel.py:63(boundary_intersections)
+       22   11.930    0.542   11.939    0.543 E:\optimizacion corte\apps\api\src\costura_optima\domain\integer_kernel.py:174(nfp)
+        1    0.024    0.024    1.436    1.436 E:\optimizacion corte\apps\api\src\costura_optima\domain\completion_runner.py:227(evaluate)
+     5000    0.006    0.000    1.409    0.000 E:\optimizacion corte\apps\api\src\costura_optima\domain\completion_runner.py:132(_validate)
+     5000    0.035    0.000    1.159    0.000 E:\optimizacion corte\apps\api\src\costura_optima\domain\marker_validator.py:49(validate)
+     6846    0.007    0.000    0.972    0.000 E:\optimizacion corte\apps\api\.venv-audit\Lib\site-packages\shapely\geometry\polygon.py:227(__new__)
+    10113    0.012    0.000    0.919    0.000 E:\optimizacion corte\apps\api\src\costura_optima\domain\candidate_space.py:295(is_valid_reference_position)
+     6846    0.185    0.000    0.911    0.000 E:\optimizacion corte\apps\api\.venv-audit\Lib\site-packages\shapely\geometry\polygon.py:61(__new__)
+    70031    0.901    0.000    0.901    0.000 E:\optimizacion corte\apps\api\src\costura_optima\domain\candidate_space.py:304(<genexpr>)
+      140    0.001    0.000    0.678    0.005 E:\optimizacion corte\apps\api\src\costura_optima\domain\candidate_space.py:283(real_contact_count)
+3306/1766    0.034    0.000    0.658    0.000 {built-in method builtins.sum}
+     1680    0.006    0.000    0.628    0.000 E:\optimizacion corte\apps\api\src\costura_optima\domain\candidate_space.py:289(<genexpr>)
+  1493535    0.380    0.000    0.461    0.000 E:\optimizacion corte\apps\api\.venv-audit\Lib\site-packages\shapely\geometry\polygon.py:87(_coords)
+        1    0.001    0.001    0.452    0.452 E:\optimizacion corte\apps\api\scripts\run_phase2f7g8p_profile.py:39(_request)
+    31830    0.040    0.000    0.393    0.000 E:\optimizacion corte\apps\api\.venv-audit\Lib\site-packages\shapely\decorators.py:73(wrapped)
+     1702    0.006    0.000    0.358    0.000 E:\optimizacion corte\apps\api\src\costura_optima\domain\integer_kernel.py:106(transform_piece)
+
+

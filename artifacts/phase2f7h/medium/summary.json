@@ -1,0 +1,25 @@
+{
+  "run_tag": "medium",
+  "seed": 2,
+  "iterations": 40,
+  "max_iterations": 40,
+  "runtime_s": 1153.706,
+  "candidate_budget": 5000,
+  "top_k": 1,
+  "beam_width": 1,
+  "initial_length_cm": 235.064,
+  "best_length_cm": 227.483,
+  "best_efficiency_pct": 71.159748,
+  "protected_best_length_cm": 227.483,
+  "protected_best_efficiency_pct": 71.159748,
+  "accepted_states": 38,
+  "unique_valid_layouts_visited": 23,
+  "incumbent_improvements": 2,
+  "first_baseline_beat_iteration": 33,
+  "best_layout_hash": "9af1ed22fcbd6c14b237be00148101311e0f6cd549763dc9db210ccd848afcdb",
+  "final_validation_status": "VALIDATED",
+  "orientation_counts": {
+    "0": 11,
+    "180": 4
+  }
+}

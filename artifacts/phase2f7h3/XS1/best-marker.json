@@ -1,0 +1,50 @@
+{
+  "marker_hash": "363d457cede5997104e5ff8311af9a1fbcba6a44765177b9dd47207540cf7038",
+  "placements": [
+    {
+      "piece_instance_id": "XS_BACK_001",
+      "translation": [
+        2000,
+        2000
+      ],
+      "rotation": 0,
+      "geometry_hash": "9e0bdaf972c19a02a4e8f54869ece96d8de6dc40ebd2ff73493746fed0baeebd"
+    },
+    {
+      "piece_instance_id": "XS_SLEEVE_001",
+      "translation": [
+        2000,
+        70000
+      ],
+      "rotation": 0,
+      "geometry_hash": "67067df85243c8e1853af61122531ffed64d5c89794d1b2be61419f323ab7d56"
+    },
+    {
+      "piece_instance_id": "XS_FRONT_001",
+      "translation": [
+        2000,
+        92999
+      ],
+      "rotation": 0,
+      "geometry_hash": "1afd511048319b73b0cc430f68d27470978babe2f2530e40e5a3d5a7631d69cc"
+    },
+    {
+      "piece_instance_id": "XS_SLEEVE_002",
+      "translation": [
+        39500,
+        70000
+      ],
+      "rotation": 0,
+      "geometry_hash": "67067df85243c8e1853af61122531ffed64d5c89794d1b2be61419f323ab7d56"
+    },
+    {
+      "piece_instance_id": "XS_NECKBAND_001",
+      "translation": [
+        2000,
+        160999
+      ],
+      "rotation": 0,
+      "geometry_hash": "6697bacfe557a12fba0713c73463a53ff3ea82ef42686087eeb5b8f4f66ecdf8"
+    }
+  ]
+}

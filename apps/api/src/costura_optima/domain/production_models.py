@@ -9,10 +9,11 @@ Composition = tuple[tuple[str, int], ...]
 
 @dataclass(frozen=True)
 class CandidateGenerationConfig:
-    max_garments_per_marker: int = 3
-    max_distinct_sizes_per_marker: int = 3
-    max_candidate_compositions: int = 24
+    max_garments_per_marker: int = 15
+    max_distinct_sizes_per_marker: int = 5
+    max_candidate_compositions: int = 48
     max_rounds: int = 2
+    expected_marker_efficiency: float = 0.72
 
 
 @dataclass(frozen=True)
@@ -30,6 +31,10 @@ class CandidateComposition:
     origin: str
     area_lower_bound_units: int
     candidate_hash: str
+    candidate_layers: tuple[int, ...] = ()
+    potential_useful_coverage: int = 0
+    potential_coverage_percentage: float = 0.0
+    estimated_length_units: int = 0
 
 
 @dataclass(frozen=True)
@@ -37,6 +42,7 @@ class CandidateGenerationResult:
     candidates: tuple[CandidateComposition, ...]
     pruned: tuple[dict[str, Any], ...]
     elapsed_ms: float
+    distribution: dict[str, int] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -56,6 +62,8 @@ class ValidatedMarkerCandidate:
     marker_search_status: str
     input_hash: str
     lower_bound_length_units: int
+    origin: str = "CATALOG"
+    candidate_layers: tuple[int, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -70,6 +78,10 @@ class PlannedSpread:
     marker_efficiency_percentage: float
     marker_search_status: str
     spread_hash: str
+    useful_garments: int = 0
+    order_coverage_percentage: float = 0.0
+    remaining_demand_after: dict[str, int] = field(default_factory=dict)
+    is_primary: bool = False
 
 
 @dataclass(frozen=True)
@@ -88,6 +100,12 @@ class PlanningSolution:
     total_waste_units2: int
     spread_count: int
     global_efficiency_percentage: float
+    marker_design_count: int
+    marker_change_count: int
+    max_pieces_per_marker: int
+    average_pieces_per_marker: float
+    primary_spread_covered_garments: int
+    primary_spread_coverage_percentage: float
     objective_stages: tuple[dict[str, Any], ...]
     variable_count: int
     constraint_count: int

@@ -1,0 +1,32 @@
+{
+  "catalog_marker_hashes": [
+    "123438d26ed31a18f8c235356a542645e21c2cfb070c8041d3cb68cec765b946",
+    "4519c98e8e3fa2c9c5a5554fcea5a13565c1efd57d9b7d8b6527b4548dc55c9b",
+    "56c7d60dcf150eacc3b10844a9dbd2181458910c7fecf2945f4d37a21f77cc8f",
+    "ab2248e4c0fd9f9ef7732ba2dc3f63521eaf2dcc7a448bfea46e6fad8a64fbea",
+    "b49978705e58a6404a095c3dfee84498a8daeb4258ae4ede862724438920aec4",
+    "d183a4b10032efceef16a62ba0195d46e317aebc5b20bff7ef4deca61c8c0c3a"
+  ],
+  "catalog_size": 6,
+  "exact_solution_found": false,
+  "planning_status": "INFEASIBLE",
+  "spread_count": null,
+  "marker_design_count": null,
+  "produced_by_size": null,
+  "overproduction_by_size": null,
+  "total_overproduction": null,
+  "total_fabric_units": null,
+  "global_efficiency_percentage": null,
+  "shortage": {
+    "XS": 30,
+    "S": 33,
+    "M": 42,
+    "L": 21,
+    "XL": 35,
+    "XXL": 55,
+    "XXXL": 0
+  },
+  "independent_validation_status": "NOT_RUN",
+  "independent_validation_checks": null,
+  "independent_validation_errors": null
+}
